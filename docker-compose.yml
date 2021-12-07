@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  codecharacter.core:
+    image: ${DOCKER_REGISTRY-}codecharactercore
+    build:
+      context: .
+      dockerfile: src/CodeCharacter.Core/Dockerfile
