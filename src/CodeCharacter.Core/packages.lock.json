@@ -8,11 +8,23 @@
         "resolved": "1.14.0",
         "contentHash": "yORzATlNmCp4kEwkxznLZ3maTaUJc5yTcu3aPufY8Tq4141/bRRWsa91u8I24MR3BTCCJlZO98xuQWB4arlKCw=="
       },
-      "StyleCop.Analyzers.Unstable": {
+      "Roslynator.Analyzers": {
         "type": "Direct",
-        "requested": "[1.2.0.354, )",
-        "resolved": "1.2.0.354",
-        "contentHash": "/3RlM31XbJ02gaWh7dVumWOyMvGHswb/zygGJXd9oEJMRyyYc/HFJlAC5gBPxvi9cB4CMvIyyUTmZz5VLKwTvg=="
+        "requested": "[3.3.0, )",
+        "resolved": "3.3.0",
+        "contentHash": "yrX3i1javiCEulgi87ZvvV9nEieyv3tOe79Y978TS2Omwj/FX4pLap58U8A1gyPtQEkMcSzsNIoqLOBf+HfuaA=="
+      },
+      "Roslynator.CodeAnalysis.Analyzers": {
+        "type": "Direct",
+        "requested": "[3.3.0, )",
+        "resolved": "3.3.0",
+        "contentHash": "hNjfHMzsi18lj3e+XcZPkDC9nQLITQ02Bfs9V2lZ77Q0izK/szUm+v/QWrxcN/kXxugTRXrrk4WS4mXZR5Vd0w=="
+      },
+      "Roslynator.Formatting.Analyzers": {
+        "type": "Direct",
+        "requested": "[3.3.0, )",
+        "resolved": "3.3.0",
+        "contentHash": "H53SecRoBo0EGQsc+IAt+Bu9WJXwgFSZPNKEZxcM8P5MlN2NXi8E6aEabetws71MWbri4PELnkcQlNLnsOq5Jg=="
       },
       "Swashbuckle.AspNetCore": {
         "type": "Direct",
