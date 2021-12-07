@@ -11,8 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCharacter.Core", "src\C
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCharacter.Tests", "tests\CodeCharacter.Tests\CodeCharacter.Tests.csproj", "{CD21E984-F05E-4DBE-8747-1795DB4AAE9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1B076FA-F9E1-463D-AAAD-073633A2F984} = {A1B076FA-F9E1-463D-AAAD-073633A2F984}
+	EndProjectSection
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{813A6122-1FEF-486F-ADC9-D940B0F341D2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0D910B7-CED6-4CAE-BE0C-6ED3FA773A38}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

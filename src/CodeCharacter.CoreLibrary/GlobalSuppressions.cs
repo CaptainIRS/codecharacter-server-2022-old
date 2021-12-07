@@ -5,11 +5,10 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Performance", "CA1834:Consider using 'StringBuilder.Append(char)' when applicable", Justification = "Not needed")]
-[assembly: SuppressMessage("Style", "IDE0070:Use 'System.HashCode'", Justification = "Not needed")]
-[assembly: SuppressMessage("Style", "IDE0057:Use range operator", Justification = "Not needed")]
-[assembly: SuppressMessage("Performance", "CA1829:Use Length/Count property instead of Count() when available", Justification = "Not needed")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not needed")]
-[assembly: SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Not needed")]
-[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "Not needed")]
-[assembly: SuppressMessage("Style", "IDE0019:Use pattern matching", Justification = "Not needed")]
+[assembly: SuppressMessage("Performance", "CA1822", Justification = "Not needed")]
+[assembly: SuppressMessage("Performance", "CA1829", Justification = "Not needed")]
+[assembly: SuppressMessage("Performance", "CA1834", Justification = "Not needed")]
+[assembly: SuppressMessage("Style", "IDE0019", Justification = "Not needed")]
+[assembly: SuppressMessage("Style", "IDE0057", Justification = "Not needed")]
+[assembly: SuppressMessage("Style", "IDE0060", Justification = "Not needed")]
+[assembly: SuppressMessage("Style", "IDE0070", Justification = "Not needed")]
