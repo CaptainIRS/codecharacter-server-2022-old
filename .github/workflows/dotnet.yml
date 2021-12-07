@@ -17,7 +17,15 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 6.0.x
+    - uses: actions/cache@v2
+      id: cache-nuget
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
     - name: Restore dependencies
+      if: steps.cache-nuget.outputs.cache-hit != 'true'
       run: dotnet restore CodeCharacter.sln
     - name: Build
       run: dotnet build --no-restore CodeCharacter.sln
