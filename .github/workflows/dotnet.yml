@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CodeCharacter.sln
     - name: Build
-      run: dotnet build --no-restore ./src/CodeCharacter.Core
+      run: dotnet build --no-restore CodeCharacter.sln
     - name: Test
-      run: dotnet test ./tests/CodeCharacter.Tests
+      run: dotnet test --no-build CodeCharacter.sln
