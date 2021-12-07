@@ -12,61 +12,97 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// User stats model
+    ///     User stats model
     /// </summary>
     [DataContract]
     public class UserStatsDto : IEquatable<UserStatsDto>
     {
         /// <summary>
-        /// Gets or Sets CurrrentLevel
+        ///     Gets or Sets CurrrentLevel
         /// </summary>
         [Required]
         [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
         public int CurrrentLevel { get; set; }
 
         /// <summary>
-        /// Gets or Sets Rating
+        ///     Gets or Sets Rating
         /// </summary>
         [Required]
         [DataMember(Name = "rating", EmitDefaultValue = false)]
         public decimal Rating { get; set; }
 
         /// <summary>
-        /// Gets or Sets Wins
+        ///     Gets or Sets Wins
         /// </summary>
         [Required]
         [DataMember(Name = "wins", EmitDefaultValue = false)]
-        public int Wins { get; set; } = 0;
+        public int Wins { get; set; }
 
         /// <summary>
-        /// Gets or Sets Losses
+        ///     Gets or Sets Losses
         /// </summary>
         [Required]
         [DataMember(Name = "losses", EmitDefaultValue = false)]
         public int Losses { get; set; }
 
         /// <summary>
-        /// Gets or Sets Ties
+        ///     Gets or Sets Ties
         /// </summary>
         [Required]
         [DataMember(Name = "ties", EmitDefaultValue = false)]
         public int Ties { get; set; }
 
         /// <summary>
-        /// Gets or Sets Rank
+        ///     Gets or Sets Rank
         /// </summary>
         [Required]
         [DataMember(Name = "rank", EmitDefaultValue = false)]
         public int Rank { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
+        ///     Returns true if UserStatsDto instances are equal
+        /// </summary>
+        /// <param name="other">Instance of UserStatsDto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(UserStatsDto other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return
+                (
+                    CurrrentLevel == other.CurrrentLevel ||
+                    CurrrentLevel.Equals(other.CurrrentLevel)
+                ) &&
+                (
+                    Rating == other.Rating ||
+                    Rating.Equals(other.Rating)
+                ) &&
+                (
+                    Wins == other.Wins ||
+                    Wins.Equals(other.Wins)
+                ) &&
+                (
+                    Losses == other.Losses ||
+                    Losses.Equals(other.Losses)
+                ) &&
+                (
+                    Ties == other.Ties ||
+                    Ties.Equals(other.Ties)
+                ) &&
+                (
+                    Rank == other.Rank ||
+                    Rank.Equals(other.Rank)
+                );
+        }
+
+        /// <summary>
+        ///     Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -84,16 +120,16 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Returns the JSON string presentation of the object
+        ///     Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
-        /// Returns true if objects are equal
+        ///     Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -101,54 +137,11 @@ namespace CodeCharacter.CoreLibrary.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((UserStatsDto)obj);
+            return obj.GetType() == GetType() && Equals((UserStatsDto) obj);
         }
 
         /// <summary>
-        /// Returns true if UserStatsDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of UserStatsDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(UserStatsDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    CurrrentLevel == other.CurrrentLevel ||
-
-                    CurrrentLevel.Equals(other.CurrrentLevel)
-                ) &&
-                (
-                    Rating == other.Rating ||
-
-                    Rating.Equals(other.Rating)
-                ) &&
-                (
-                    Wins == other.Wins ||
-
-                    Wins.Equals(other.Wins)
-                ) &&
-                (
-                    Losses == other.Losses ||
-
-                    Losses.Equals(other.Losses)
-                ) &&
-                (
-                    Ties == other.Ties ||
-
-                    Ties.Equals(other.Ties)
-                ) &&
-                (
-                    Rank == other.Rank ||
-
-                    Rank.Equals(other.Rank)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -174,6 +167,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(UserStatsDto left, UserStatsDto right)
@@ -187,6 +181,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

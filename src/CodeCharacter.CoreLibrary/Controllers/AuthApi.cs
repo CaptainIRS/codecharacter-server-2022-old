@@ -9,22 +9,19 @@
  */
 
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class AuthApiController : ControllerBase
     {
         /// <summary>
-        /// Forgot password
+        ///     Forgot password
         /// </summary>
         /// <remarks>Request password reset email to be sent when user forgot their password</remarks>
         /// <param name="forgotPasswordRequestDto"></param>
@@ -35,10 +32,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Route("/auth/password/forgot")]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto forgotPasswordRequestDto);
+        public abstract Task<IActionResult>
+            ForgotPassword([FromBody] ForgotPasswordRequestDto forgotPasswordRequestDto);
 
         /// <summary>
-        /// Login
+        ///     Login
         /// </summary>
         /// <remarks>Login with email and password and get bearer token for authentication</remarks>
         /// <param name="loginRequestDto"></param>
@@ -53,7 +51,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto);
 
         /// <summary>
-        /// Reset password
+        ///     Reset password
         /// </summary>
         /// <remarks>Reset password using the token from password reset email</remarks>
         /// <param name="resetPasswordRequestDto"></param>

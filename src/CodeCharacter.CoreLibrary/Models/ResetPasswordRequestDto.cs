@@ -12,26 +12,25 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Reset password request
+    ///     Reset password request
     /// </summary>
     [DataContract]
     public class ResetPasswordRequestDto : IEquatable<ResetPasswordRequestDto>
     {
         /// <summary>
-        /// Gets or Sets Token
+        ///     Gets or Sets Token
         /// </summary>
         [Required]
         [DataMember(Name = "token", EmitDefaultValue = false)]
         public string Token { get; set; }
 
         /// <summary>
-        /// Gets or Sets Password
+        ///     Gets or Sets Password
         /// </summary>
         [Required]
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$")]
@@ -40,7 +39,7 @@ namespace CodeCharacter.CoreLibrary.Models
         public string Password { get; set; }
 
         /// <summary>
-        /// Gets or Sets PasswordConfirmation
+        ///     Gets or Sets PasswordConfirmation
         /// </summary>
         [Required]
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$")]
@@ -49,43 +48,7 @@ namespace CodeCharacter.CoreLibrary.Models
         public string PasswordConfirmation { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ResetPasswordRequestDto {\n");
-            sb.Append("  Token: ").Append(Token).Append("\n");
-            sb.Append("  Password: ").Append(Password).Append("\n");
-            sb.Append("  PasswordConfirmation: ").Append(PasswordConfirmation).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ResetPasswordRequestDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if ResetPasswordRequestDto instances are equal
+        ///     Returns true if ResetPasswordRequestDto instances are equal
         /// </summary>
         /// <param name="other">Instance of ResetPasswordRequestDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -113,7 +76,43 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class ResetPasswordRequestDto {\n");
+            sb.Append("  Token: ").Append(Token).Append("\n");
+            sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  PasswordConfirmation: ").Append(PasswordConfirmation).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((ResetPasswordRequestDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -133,6 +132,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(ResetPasswordRequestDto left, ResetPasswordRequestDto right)
@@ -146,6 +146,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

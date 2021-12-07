@@ -5,12 +5,12 @@ using System.Text;
 namespace CodeCharacter.CoreLibrary.OpenApi
 {
     /// <summary>
-    /// Replacement utilities from Swashbuckle.AspNetCore.SwaggerGen which are not in 5.x
+    ///     Replacement utilities from Swashbuckle.AspNetCore.SwaggerGen which are not in 5.x
     /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
-        /// Produce a friendly name for the type which is unique.
+        ///     Produce a friendly name for the type which is unique.
         /// </summary>
         /// <param name="type"></param>
         /// <param name="fullyQualified"></param>
@@ -36,7 +36,7 @@ namespace CodeCharacter.CoreLibrary.OpenApi
         }
 
         /// <summary>
-        /// Determine the fully qualified type name without type parameters.
+        ///     Determine the fully qualified type name without type parameters.
         /// </summary>
         /// <param name="type"></param>
         public static string FullNameSansTypeParameters(this Type type)
@@ -45,7 +45,7 @@ namespace CodeCharacter.CoreLibrary.OpenApi
             if (string.IsNullOrEmpty(fullName))
                 fullName = type.Name;
             var chopIndex = fullName.IndexOf("[[", StringComparison.Ordinal);
-            return (chopIndex == -1) ? fullName : fullName.Substring(0, chopIndex);
+            return chopIndex == -1 ? fullName : fullName.Substring(0, chopIndex);
         }
     }
 }

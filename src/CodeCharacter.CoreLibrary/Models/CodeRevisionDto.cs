@@ -12,76 +12,39 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Code revision model
+    ///     Code revision model
     /// </summary>
     [DataContract]
     public class CodeRevisionDto : IEquatable<CodeRevisionDto>
     {
         /// <summary>
-        /// Gets or Sets Id
+        ///     Gets or Sets Id
         /// </summary>
         [Required]
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Code
+        ///     Gets or Sets Code
         /// </summary>
         [Required]
         [DataMember(Name = "code", EmitDefaultValue = false)]
         public string Code { get; set; }
 
         /// <summary>
-        /// Gets or Sets ParentRevision
+        ///     Gets or Sets ParentRevision
         /// </summary>
         [Required]
         [DataMember(Name = "parentRevision", EmitDefaultValue = true)]
         public int? ParentRevision { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CodeRevisionDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Code: ").Append(Code).Append("\n");
-            sb.Append("  ParentRevision: ").Append(ParentRevision).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CodeRevisionDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if CodeRevisionDto instances are equal
+        ///     Returns true if CodeRevisionDto instances are equal
         /// </summary>
         /// <param name="other">Instance of CodeRevisionDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -93,7 +56,6 @@ namespace CodeCharacter.CoreLibrary.Models
             return
                 (
                     Id == other.Id ||
-
                     Id.Equals(other.Id)
                 ) &&
                 (
@@ -109,7 +71,43 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class CodeRevisionDto {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Code: ").Append(Code).Append("\n");
+            sb.Append("  ParentRevision: ").Append(ParentRevision).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((CodeRevisionDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -129,6 +127,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(CodeRevisionDto left, CodeRevisionDto right)
@@ -142,6 +141,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

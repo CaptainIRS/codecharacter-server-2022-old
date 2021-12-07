@@ -1,18 +1,17 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Converters
 {
     /// <summary>
-    /// Custom string to enum converter
+    ///     Custom string to enum converter
     /// </summary>
     public class CustomEnumConverter<T> : TypeConverter
     {
         /// <summary>
-        /// Determine if we can convert a type to an enum
+        ///     Determine if we can convert a type to an enum
         /// </summary>
         /// <param name="context"></param>
         /// <param name="sourceType"></param>
@@ -23,7 +22,7 @@ namespace CodeCharacter.CoreLibrary.Converters
         }
 
         /// <summary>
-        /// Convert from a type value to an enum
+        ///     Convert from a type value to an enum
         /// </summary>
         /// <param name="context"></param>
         /// <param name="culture"></param>
@@ -32,12 +31,9 @@ namespace CodeCharacter.CoreLibrary.Converters
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             var s = value as string;
-            if (string.IsNullOrEmpty(s))
-            {
-                return null;
-            }
+            if (string.IsNullOrEmpty(s)) return null;
 
-            return JsonConvert.DeserializeObject<T>(@"""" + value.ToString() + @"""");
+            return JsonConvert.DeserializeObject<T>(@"""" + value + @"""");
         }
     }
 }

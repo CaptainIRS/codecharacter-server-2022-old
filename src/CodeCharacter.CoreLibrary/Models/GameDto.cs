@@ -13,163 +13,113 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using CodeCharacter.CoreLibrary.Converters;
-
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Game model
+    ///     Game model
     /// </summary>
     [DataContract]
     public class GameDto : IEquatable<GameDto>
     {
         /// <summary>
-        /// Gets or Sets Id
+        ///     Gets or Sets Status
+        /// </summary>
+        [TypeConverter(typeof(CustomEnumConverter<StatusEnum>))]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum StatusEnum
+        {
+            /// <summary>
+            ///     Enum IDLEEnum for IDLE
+            /// </summary>
+            [EnumMember(Value = "IDLE")] IDLEEnum = 1,
+
+            /// <summary>
+            ///     Enum EXECUTINGEnum for EXECUTING
+            /// </summary>
+            [EnumMember(Value = "EXECUTING")] EXECUTINGEnum = 2,
+
+            /// <summary>
+            ///     Enum EXECUTEDEnum for EXECUTED
+            /// </summary>
+            [EnumMember(Value = "EXECUTED")] EXECUTEDEnum = 3,
+
+            /// <summary>
+            ///     Enum EXECUTEERROREnum for EXECUTE_ERROR
+            /// </summary>
+            [EnumMember(Value = "EXECUTE_ERROR")] EXECUTEERROREnum = 4
+        }
+
+
+        /// <summary>
+        ///     Gets or Sets Verdict
+        /// </summary>
+        [TypeConverter(typeof(CustomEnumConverter<VerdictEnum>))]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum VerdictEnum
+        {
+            /// <summary>
+            ///     Enum PLAYER1Enum for PLAYER1
+            /// </summary>
+            [EnumMember(Value = "PLAYER1")] PLAYER1Enum = 1,
+
+            /// <summary>
+            ///     Enum PLAYER2Enum for PLAYER2
+            /// </summary>
+            [EnumMember(Value = "PLAYER2")] PLAYER2Enum = 2,
+
+            /// <summary>
+            ///     Enum TIEEnum for TIE
+            /// </summary>
+            [EnumMember(Value = "TIE")] TIEEnum = 3
+        }
+
+        /// <summary>
+        ///     Gets or Sets Id
         /// </summary>
         [Required]
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Map
+        ///     Gets or Sets Map
         /// </summary>
         [DataMember(Name = "map", EmitDefaultValue = false)]
         public string Map { get; set; }
 
         /// <summary>
-        /// Gets or Sets Points1
+        ///     Gets or Sets Points1
         /// </summary>
         [Required]
         [DataMember(Name = "points1", EmitDefaultValue = false)]
         public int Points1 { get; set; }
 
         /// <summary>
-        /// Gets or Sets Points2
+        ///     Gets or Sets Points2
         /// </summary>
         [Required]
         [DataMember(Name = "points2", EmitDefaultValue = false)]
         public int Points2 { get; set; }
 
-
         /// <summary>
-        /// Gets or Sets Status
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<StatusEnum>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum StatusEnum
-        {
-
-            /// <summary>
-            /// Enum IDLEEnum for IDLE
-            /// </summary>
-            [EnumMember(Value = "IDLE")]
-            IDLEEnum = 1,
-
-            /// <summary>
-            /// Enum EXECUTINGEnum for EXECUTING
-            /// </summary>
-            [EnumMember(Value = "EXECUTING")]
-            EXECUTINGEnum = 2,
-
-            /// <summary>
-            /// Enum EXECUTEDEnum for EXECUTED
-            /// </summary>
-            [EnumMember(Value = "EXECUTED")]
-            EXECUTEDEnum = 3,
-
-            /// <summary>
-            /// Enum EXECUTEERROREnum for EXECUTE_ERROR
-            /// </summary>
-            [EnumMember(Value = "EXECUTE_ERROR")]
-            EXECUTEERROREnum = 4
-        }
-
-        /// <summary>
-        /// Gets or Sets Status
+        ///     Gets or Sets Status
         /// </summary>
         [Required]
         [DataMember(Name = "status", EmitDefaultValue = false)]
         public StatusEnum Status { get; set; }
 
-
         /// <summary>
-        /// Gets or Sets Verdict
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<VerdictEnum>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum VerdictEnum
-        {
-
-            /// <summary>
-            /// Enum PLAYER1Enum for PLAYER1
-            /// </summary>
-            [EnumMember(Value = "PLAYER1")]
-            PLAYER1Enum = 1,
-
-            /// <summary>
-            /// Enum PLAYER2Enum for PLAYER2
-            /// </summary>
-            [EnumMember(Value = "PLAYER2")]
-            PLAYER2Enum = 2,
-
-            /// <summary>
-            /// Enum TIEEnum for TIE
-            /// </summary>
-            [EnumMember(Value = "TIE")]
-            TIEEnum = 3
-        }
-
-        /// <summary>
-        /// Gets or Sets Verdict
+        ///     Gets or Sets Verdict
         /// </summary>
         [Required]
         [DataMember(Name = "verdict", EmitDefaultValue = false)]
         public VerdictEnum Verdict { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GameDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Map: ").Append(Map).Append("\n");
-            sb.Append("  Points1: ").Append(Points1).Append("\n");
-            sb.Append("  Points2: ").Append(Points2).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  Verdict: ").Append(Verdict).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((GameDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if GameDto instances are equal
+        ///     Returns true if GameDto instances are equal
         /// </summary>
         /// <param name="other">Instance of GameDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -191,28 +141,63 @@ namespace CodeCharacter.CoreLibrary.Models
                 ) &&
                 (
                     Points1 == other.Points1 ||
-
                     Points1.Equals(other.Points1)
                 ) &&
                 (
                     Points2 == other.Points2 ||
-
                     Points2.Equals(other.Points2)
                 ) &&
                 (
                     Status == other.Status ||
-
                     Status.Equals(other.Status)
                 ) &&
                 (
                     Verdict == other.Verdict ||
-
                     Verdict.Equals(other.Verdict)
                 );
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class GameDto {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Map: ").Append(Map).Append("\n");
+            sb.Append("  Points1: ").Append(Points1).Append("\n");
+            sb.Append("  Points2: ").Append(Points2).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Verdict: ").Append(Verdict).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((GameDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -238,6 +223,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(GameDto left, GameDto right)
@@ -251,6 +237,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

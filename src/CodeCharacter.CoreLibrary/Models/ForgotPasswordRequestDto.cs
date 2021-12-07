@@ -12,19 +12,18 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Forgot password request
+    ///     Forgot password request
     /// </summary>
     [DataContract]
     public class ForgotPasswordRequestDto : IEquatable<ForgotPasswordRequestDto>
     {
         /// <summary>
-        /// Gets or Sets Email
+        ///     Gets or Sets Email
         /// </summary>
         [Required]
         [RegularExpression("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")]
@@ -32,7 +31,23 @@ namespace CodeCharacter.CoreLibrary.Models
         public string Email { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
+        ///     Returns true if ForgotPasswordRequestDto instances are equal
+        /// </summary>
+        /// <param name="other">Instance of ForgotPasswordRequestDto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(ForgotPasswordRequestDto other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return
+                Email == other.Email ||
+                Email != null &&
+                Email.Equals(other.Email);
+        }
+
+        /// <summary>
+        ///     Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -45,16 +60,16 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Returns the JSON string presentation of the object
+        ///     Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
-        /// Returns true if objects are equal
+        ///     Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -62,29 +77,11 @@ namespace CodeCharacter.CoreLibrary.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ForgotPasswordRequestDto)obj);
+            return obj.GetType() == GetType() && Equals((ForgotPasswordRequestDto) obj);
         }
 
         /// <summary>
-        /// Returns true if ForgotPasswordRequestDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of ForgotPasswordRequestDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(ForgotPasswordRequestDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Email == other.Email ||
-                    Email != null &&
-                    Email.Equals(other.Email)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -100,6 +97,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(ForgotPasswordRequestDto left, ForgotPasswordRequestDto right)
@@ -113,6 +111,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

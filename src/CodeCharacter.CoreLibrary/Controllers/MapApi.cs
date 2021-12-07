@@ -11,23 +11,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class MapApiController : ControllerBase
     {
         /// <summary>
-        /// Create map revision
+        ///     Create map revision
         /// </summary>
         /// <remarks>Create map revision</remarks>
         /// <param name="createMapRevisionRequestDto"></param>
@@ -39,10 +36,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> CreateMapRevision([FromBody] CreateMapRevisionRequestDto createMapRevisionRequestDto);
+        public abstract Task<IActionResult> CreateMapRevision(
+            [FromBody] CreateMapRevisionRequestDto createMapRevisionRequestDto);
 
         /// <summary>
-        /// Get latest map
+        ///     Get latest map
         /// </summary>
         /// <remarks>Get latest map</remarks>
         /// <response code="200">OK</response>
@@ -55,7 +53,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetLatestMap();
 
         /// <summary>
-        /// Get map revision by ID
+        ///     Get map revision by ID
         /// </summary>
         /// <remarks>Get map revision by ID</remarks>
         /// <param name="revisionId">ID of the code revision</param>
@@ -67,10 +65,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(MapRevisionDto))]
-        public abstract Task<IActionResult> GetMapRevisionById([FromRoute(Name = "revisionId")][Required] int revisionId);
+        public abstract Task<IActionResult> GetMapRevisionById(
+            [FromRoute(Name = "revisionId")] [Required] int revisionId);
 
         /// <summary>
-        /// Get map revisions
+        ///     Get map revisions
         /// </summary>
         /// <remarks>Get list of all map revision IDs</remarks>
         /// <response code="200">OK</response>
@@ -83,7 +82,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetMapRevisions();
 
         /// <summary>
-        /// Update latest map
+        ///     Update latest map
         /// </summary>
         /// <remarks>Update latest map</remarks>
         /// <param name="updateLatestMapRequestDto"></param>
@@ -95,6 +94,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> UpdateLatestMap([FromBody] UpdateLatestMapRequestDto updateLatestMapRequestDto);
+        public abstract Task<IActionResult> UpdateLatestMap(
+            [FromBody] UpdateLatestMapRequestDto updateLatestMapRequestDto);
     }
 }

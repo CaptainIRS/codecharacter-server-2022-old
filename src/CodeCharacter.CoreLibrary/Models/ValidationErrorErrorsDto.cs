@@ -11,23 +11,39 @@
 using System;
 using System.Runtime.Serialization;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// 
     /// </summary>
     [DataContract]
     public class ValidationErrorErrorsDto : IEquatable<ValidationErrorErrorsDto>
     {
         /// <summary>
-        /// Gets or Sets Field
+        ///     Gets or Sets Field
         /// </summary>
         [DataMember(Name = "field", EmitDefaultValue = false)]
         public string Field { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
+        ///     Returns true if ValidationErrorErrorsDto instances are equal
+        /// </summary>
+        /// <param name="other">Instance of ValidationErrorErrorsDto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(ValidationErrorErrorsDto other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return
+                Field == other.Field ||
+                Field != null &&
+                Field.Equals(other.Field);
+        }
+
+        /// <summary>
+        ///     Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -40,16 +56,16 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Returns the JSON string presentation of the object
+        ///     Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
-        /// Returns true if objects are equal
+        ///     Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -57,29 +73,11 @@ namespace CodeCharacter.CoreLibrary.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ValidationErrorErrorsDto)obj);
+            return obj.GetType() == GetType() && Equals((ValidationErrorErrorsDto) obj);
         }
 
         /// <summary>
-        /// Returns true if ValidationErrorErrorsDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of ValidationErrorErrorsDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(ValidationErrorErrorsDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Field == other.Field ||
-                    Field != null &&
-                    Field.Equals(other.Field)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -95,6 +93,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(ValidationErrorErrorsDto left, ValidationErrorErrorsDto right)
@@ -108,6 +107,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

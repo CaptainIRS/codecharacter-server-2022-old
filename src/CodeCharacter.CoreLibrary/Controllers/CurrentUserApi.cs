@@ -9,23 +9,20 @@
  */
 
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class CurrentUserApiController : ControllerBase
     {
         /// <summary>
-        /// Get current user profile
+        ///     Get current user profile
         /// </summary>
         /// <remarks>Get current user profile</remarks>
         /// <response code="200">OK</response>
@@ -38,7 +35,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetCurrentUser();
 
         /// <summary>
-        /// Update current user
+        ///     Update current user
         /// </summary>
         /// <remarks>Update current user</remarks>
         /// <param name="updateCurrentUserProfileDto"></param>
@@ -49,10 +46,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> UpdateCurrentUser([FromBody] UpdateCurrentUserProfileDto updateCurrentUserProfileDto);
+        public abstract Task<IActionResult> UpdateCurrentUser(
+            [FromBody] UpdateCurrentUserProfileDto updateCurrentUserProfileDto);
 
         /// <summary>
-        /// Update password
+        ///     Update password
         /// </summary>
         /// <remarks>Update password</remarks>
         /// <param name="updatePasswordRequestDto"></param>
@@ -65,6 +63,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequestDto updatePasswordRequestDto);
+        public abstract Task<IActionResult>
+            UpdatePassword([FromBody] UpdatePasswordRequestDto updatePasswordRequestDto);
     }
 }

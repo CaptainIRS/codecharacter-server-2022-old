@@ -12,100 +12,60 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Public user model
+    ///     Public user model
     /// </summary>
     [DataContract]
     public class PublicUserDto : IEquatable<PublicUserDto>
     {
         /// <summary>
-        /// Gets or Sets UserId
+        ///     Gets or Sets UserId
         /// </summary>
         [Required]
         [DataMember(Name = "userId", EmitDefaultValue = false)]
         public int UserId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Username
+        ///     Gets or Sets Username
         /// </summary>
         [Required]
         [DataMember(Name = "username", EmitDefaultValue = false)]
         public string Username { get; set; }
 
         /// <summary>
-        /// Gets or Sets Name
+        ///     Gets or Sets Name
         /// </summary>
         [Required]
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or Sets Country
+        ///     Gets or Sets Country
         /// </summary>
         [Required]
         [DataMember(Name = "country", EmitDefaultValue = false)]
         public string Country { get; set; }
 
         /// <summary>
-        /// Gets or Sets College
+        ///     Gets or Sets College
         /// </summary>
         [Required]
         [DataMember(Name = "college", EmitDefaultValue = false)]
         public string College { get; set; }
 
         /// <summary>
-        /// Gets or Sets AvatarId
+        ///     Gets or Sets AvatarId
         /// </summary>
         [Required]
         [DataMember(Name = "avatarId", EmitDefaultValue = false)]
         public int AvatarId { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class PublicUserDto {\n");
-            sb.Append("  UserId: ").Append(UserId).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Country: ").Append(Country).Append("\n");
-            sb.Append("  College: ").Append(College).Append("\n");
-            sb.Append("  AvatarId: ").Append(AvatarId).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((PublicUserDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if PublicUserDto instances are equal
+        ///     Returns true if PublicUserDto instances are equal
         /// </summary>
         /// <param name="other">Instance of PublicUserDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -117,7 +77,6 @@ namespace CodeCharacter.CoreLibrary.Models
             return
                 (
                     UserId == other.UserId ||
-
                     UserId.Equals(other.UserId)
                 ) &&
                 (
@@ -142,13 +101,51 @@ namespace CodeCharacter.CoreLibrary.Models
                 ) &&
                 (
                     AvatarId == other.AvatarId ||
-
                     AvatarId.Equals(other.AvatarId)
                 );
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class PublicUserDto {\n");
+            sb.Append("  UserId: ").Append(UserId).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Country: ").Append(Country).Append("\n");
+            sb.Append("  College: ").Append(College).Append("\n");
+            sb.Append("  AvatarId: ").Append(AvatarId).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((PublicUserDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -174,6 +171,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(PublicUserDto left, PublicUserDto right)
@@ -187,6 +185,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

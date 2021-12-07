@@ -11,23 +11,20 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class GameApiController : ControllerBase
     {
         /// <summary>
-        /// Get game logs by game ID
+        ///     Get game logs by game ID
         /// </summary>
         /// <remarks>Get game logs by game ID</remarks>
         /// <param name="gameId">UUID of the game</param>
@@ -37,6 +34,6 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(GameLogDto))]
-        public abstract Task<IActionResult> GetGameLogsByGameId([FromRoute(Name = "gameId")][Required] Guid gameId);
+        public abstract Task<IActionResult> GetGameLogsByGameId([FromRoute(Name = "gameId")] [Required] Guid gameId);
     }
 }

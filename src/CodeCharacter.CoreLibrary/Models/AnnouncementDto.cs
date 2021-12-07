@@ -12,19 +12,18 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Announcement model
+    ///     Announcement model
     /// </summary>
     [DataContract]
     public class AnnouncementDto : IEquatable<AnnouncementDto>
     {
         /// <summary>
-        /// ID of the announcement
+        ///     ID of the announcement
         /// </summary>
         /// <value>ID of the announcement</value>
         [Required]
@@ -32,7 +31,7 @@ namespace CodeCharacter.CoreLibrary.Models
         public int Id { get; set; }
 
         /// <summary>
-        /// Timestamp of the announcement
+        ///     Timestamp of the announcement
         /// </summary>
         /// <value>Timestamp of the announcement</value>
         [Required]
@@ -40,7 +39,7 @@ namespace CodeCharacter.CoreLibrary.Models
         public DateTime Timestamp { get; set; }
 
         /// <summary>
-        /// Announcement message
+        ///     Announcement message
         /// </summary>
         /// <value>Announcement message</value>
         [Required]
@@ -48,43 +47,7 @@ namespace CodeCharacter.CoreLibrary.Models
         public string Message { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class AnnouncementDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Timestamp: ").Append(Timestamp).Append("\n");
-            sb.Append("  Message: ").Append(Message).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((AnnouncementDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if AnnouncementDto instances are equal
+        ///     Returns true if AnnouncementDto instances are equal
         /// </summary>
         /// <param name="other">Instance of AnnouncementDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -96,7 +59,6 @@ namespace CodeCharacter.CoreLibrary.Models
             return
                 (
                     Id == other.Id ||
-
                     Id.Equals(other.Id)
                 ) &&
                 (
@@ -112,7 +74,43 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class AnnouncementDto {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Timestamp: ").Append(Timestamp).Append("\n");
+            sb.Append("  Message: ").Append(Message).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((AnnouncementDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -132,6 +130,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(AnnouncementDto left, AnnouncementDto right)
@@ -145,6 +144,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

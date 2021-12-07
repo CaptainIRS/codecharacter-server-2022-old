@@ -1,29 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <Description>Core API library for CodeCharacter</Description>
-    <Copyright>No Copyright</Copyright>
-    <Authors>CodeCharacter Authors</Authors>
-    <TargetFramework>net6.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <PreserveCompilationContext>true</PreserveCompilationContext>
-    <Version>2022.0.1</Version>
-    <Nullable>annotations</Nullable>
-    <OutputType>Library</OutputType>
-    <AssemblyName>CodeCharacter.CoreLibrary</AssemblyName>
-    <PackageId>CodeCharacter.CoreLibrary</PackageId>
-    <UserSecretsId>3ee5bff7-bebd-4d9d-93d3-e75e985e1b2e</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <NoWarn>1701;1702;8073;1591</NoWarn>
-  </PropertyGroup>
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
-    <PackageReference Include="JsonSubTypes" Version="1.8.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />-->
-  </ItemGroup>
+    <PropertyGroup>
+        <Description>Core API library for CodeCharacter</Description>
+        <Copyright>No Copyright</Copyright>
+        <Authors>CodeCharacter Authors</Authors>
+        <TargetFramework>net6.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <PreserveCompilationContext>true</PreserveCompilationContext>
+        <Version>2022.0.1</Version>
+        <Nullable>annotations</Nullable>
+        <OutputType>Library</OutputType>
+        <AssemblyName>CodeCharacter.CoreLibrary</AssemblyName>
+        <PackageId>CodeCharacter.CoreLibrary</PackageId>
+        <UserSecretsId>3ee5bff7-bebd-4d9d-93d3-e75e985e1b2e</UserSecretsId>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <DockerfileContext>..\..</DockerfileContext>
+        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+        <NoWarn>1701;1702;8073;1591</NoWarn>
+    </PropertyGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0"/>
+        <PackageReference Include="JsonSubTypes" Version="1.8.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />-->
+    </ItemGroup>
 </Project>

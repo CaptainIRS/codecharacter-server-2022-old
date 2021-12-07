@@ -12,40 +12,39 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Current user profile model
+    ///     Current user profile model
     /// </summary>
     [DataContract]
     public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
     {
         /// <summary>
-        /// Gets or Sets Id
+        ///     Gets or Sets Id
         /// </summary>
         [Required]
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public int Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Username
+        ///     Gets or Sets Username
         /// </summary>
         [Required]
         [DataMember(Name = "username", EmitDefaultValue = false)]
         public string Username { get; set; }
 
         /// <summary>
-        /// Gets or Sets Name
+        ///     Gets or Sets Name
         /// </summary>
         [Required]
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or Sets Email
+        ///     Gets or Sets Email
         /// </summary>
         [Required]
         [RegularExpression("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")]
@@ -53,76 +52,35 @@ namespace CodeCharacter.CoreLibrary.Models
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets or Sets Country
+        ///     Gets or Sets Country
         /// </summary>
         [Required]
         [DataMember(Name = "country", EmitDefaultValue = false)]
         public string Country { get; set; }
 
         /// <summary>
-        /// Gets or Sets College
+        ///     Gets or Sets College
         /// </summary>
         [Required]
         [DataMember(Name = "college", EmitDefaultValue = false)]
         public string College { get; set; }
 
         /// <summary>
-        /// Gets or Sets CurrrentLevel
+        ///     Gets or Sets CurrrentLevel
         /// </summary>
         [Required]
         [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
         public int CurrrentLevel { get; set; }
 
         /// <summary>
-        /// Gets or Sets IsAdmin
+        ///     Gets or Sets IsAdmin
         /// </summary>
         [Required]
         [DataMember(Name = "isAdmin", EmitDefaultValue = false)]
-        public bool IsAdmin { get; set; } = false;
+        public bool IsAdmin { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CurrentUserProfileDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Email: ").Append(Email).Append("\n");
-            sb.Append("  Country: ").Append(Country).Append("\n");
-            sb.Append("  College: ").Append(College).Append("\n");
-            sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
-            sb.Append("  IsAdmin: ").Append(IsAdmin).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CurrentUserProfileDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if CurrentUserProfileDto instances are equal
+        ///     Returns true if CurrentUserProfileDto instances are equal
         /// </summary>
         /// <param name="other">Instance of CurrentUserProfileDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -134,7 +92,6 @@ namespace CodeCharacter.CoreLibrary.Models
             return
                 (
                     Id == other.Id ||
-
                     Id.Equals(other.Id)
                 ) &&
                 (
@@ -164,18 +121,57 @@ namespace CodeCharacter.CoreLibrary.Models
                 ) &&
                 (
                     CurrrentLevel == other.CurrrentLevel ||
-
                     CurrrentLevel.Equals(other.CurrrentLevel)
                 ) &&
                 (
                     IsAdmin == other.IsAdmin ||
-
                     IsAdmin.Equals(other.IsAdmin)
                 );
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class CurrentUserProfileDto {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Username: ").Append(Username).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Email: ").Append(Email).Append("\n");
+            sb.Append("  Country: ").Append(Country).Append("\n");
+            sb.Append("  College: ").Append(College).Append("\n");
+            sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
+            sb.Append("  IsAdmin: ").Append(IsAdmin).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((CurrentUserProfileDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -205,6 +201,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(CurrentUserProfileDto left, CurrentUserProfileDto right)
@@ -218,6 +215,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

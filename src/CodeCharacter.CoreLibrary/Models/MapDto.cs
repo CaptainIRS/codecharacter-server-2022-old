@@ -12,68 +12,32 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Map model
+    ///     Map model
     /// </summary>
     [DataContract]
     public class MapDto : IEquatable<MapDto>
     {
         /// <summary>
-        /// Gets or Sets Map
+        ///     Gets or Sets Map
         /// </summary>
         [Required]
         [DataMember(Name = "map", EmitDefaultValue = false)]
         public string Map { get; set; }
 
         /// <summary>
-        /// Gets or Sets LastSavedAt
+        ///     Gets or Sets LastSavedAt
         /// </summary>
         [Required]
         [DataMember(Name = "lastSavedAt", EmitDefaultValue = false)]
         public DateTime LastSavedAt { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MapDto {\n");
-            sb.Append("  Map: ").Append(Map).Append("\n");
-            sb.Append("  LastSavedAt: ").Append(LastSavedAt).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((MapDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if MapDto instances are equal
+        ///     Returns true if MapDto instances are equal
         /// </summary>
         /// <param name="other">Instance of MapDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -96,7 +60,42 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class MapDto {\n");
+            sb.Append("  Map: ").Append(Map).Append("\n");
+            sb.Append("  LastSavedAt: ").Append(LastSavedAt).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((MapDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -114,6 +113,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(MapDto left, MapDto right)
@@ -127,6 +127,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

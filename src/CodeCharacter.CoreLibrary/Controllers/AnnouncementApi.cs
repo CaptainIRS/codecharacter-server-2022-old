@@ -11,23 +11,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class AnnouncementApiController : ControllerBase
     {
         /// <summary>
-        /// Create announcement
+        ///     Create announcement
         /// </summary>
         /// <remarks>Create announcement</remarks>
         /// <param name="createAnnouncementRequestDto"></param>
@@ -39,10 +36,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> CreateAnnouncement([FromBody] CreateAnnouncementRequestDto createAnnouncementRequestDto);
+        public abstract Task<IActionResult> CreateAnnouncement(
+            [FromBody] CreateAnnouncementRequestDto createAnnouncementRequestDto);
 
         /// <summary>
-        /// Delete announcement by ID
+        ///     Delete announcement by ID
         /// </summary>
         /// <remarks>Delete announcement by ID</remarks>
         /// <param name="announcementId">ID of the announcement</param>
@@ -54,10 +52,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Route("/announcements/{announcementId}")]
         [Authorize]
         [ValidateModelState]
-        public abstract Task<IActionResult> DeleteAnnouncementById([FromRoute(Name = "announcementId")][Required] int announcementId);
+        public abstract Task<IActionResult> DeleteAnnouncementById(
+            [FromRoute(Name = "announcementId")] [Required] int announcementId);
 
         /// <summary>
-        /// Get all announcements
+        ///     Get all announcements
         /// </summary>
         /// <remarks>Get all announcements</remarks>
         /// <response code="200">OK</response>
@@ -70,7 +69,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetAllAnnouncements();
 
         /// <summary>
-        /// Get announcement by ID
+        ///     Get announcement by ID
         /// </summary>
         /// <remarks>Get announcement by ID</remarks>
         /// <param name="announcementId">ID of the announcement</param>
@@ -82,10 +81,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(AnnouncementDto))]
-        public abstract Task<IActionResult> GetAnnouncementById([FromRoute(Name = "announcementId")][Required] int announcementId);
+        public abstract Task<IActionResult> GetAnnouncementById(
+            [FromRoute(Name = "announcementId")] [Required] int announcementId);
 
         /// <summary>
-        /// Update announcement by ID
+        ///     Update announcement by ID
         /// </summary>
         /// <remarks>Update announcement by ID</remarks>
         /// <param name="announcementId">ID of the announcement</param>
@@ -99,6 +99,8 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> UpdateAnnouncementById([FromRoute(Name = "announcementId")][Required] int announcementId, [FromBody] UpdateAnnouncementRequestDto updateAnnouncementRequestDto);
+        public abstract Task<IActionResult> UpdateAnnouncementById(
+            [FromRoute(Name = "announcementId")] [Required] int announcementId,
+            [FromBody] UpdateAnnouncementRequestDto updateAnnouncementRequestDto);
     }
 }

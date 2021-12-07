@@ -11,23 +11,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class UserApiController : ControllerBase
     {
         /// <summary>
-        /// Activate user
+        ///     Activate user
         /// </summary>
         /// <remarks>Activate user by using the token sent via email</remarks>
         /// <param name="userId">Username of the user</param>
@@ -40,10 +37,12 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Route("/users/{userId}/activate")]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> ActivateUser([FromRoute(Name = "userId")][Required][StringLength(32, MinimumLength = 5)] string userId, [FromBody] ActivateUserRequestDto activateUserRequestDto);
+        public abstract Task<IActionResult> ActivateUser(
+            [FromRoute(Name = "userId")] [Required] [StringLength(32, MinimumLength = 5)] string userId,
+            [FromBody] ActivateUserRequestDto activateUserRequestDto);
 
         /// <summary>
-        /// Get user rating history
+        ///     Get user rating history
         /// </summary>
         /// <remarks>Get user rating history</remarks>
         /// <param name="userId">Username of the user</param>
@@ -56,10 +55,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(List<RatingHistoryDto>))]
-        public abstract Task<IActionResult> GetRatingHistory([FromRoute(Name = "userId")][Required][StringLength(32, MinimumLength = 5)] string userId);
+        public abstract Task<IActionResult> GetRatingHistory(
+            [FromRoute(Name = "userId")] [Required] [StringLength(32, MinimumLength = 5)] string userId);
 
         /// <summary>
-        /// Register user
+        ///     Register user
         /// </summary>
         /// <remarks>Register user</remarks>
         /// <param name="registerUserRequestDto"></param>

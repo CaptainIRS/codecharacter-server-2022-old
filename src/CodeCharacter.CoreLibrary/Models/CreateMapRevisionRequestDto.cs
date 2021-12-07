@@ -12,26 +12,41 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Create map revision request
+    ///     Create map revision request
     /// </summary>
     [DataContract]
     public class CreateMapRevisionRequestDto : IEquatable<CreateMapRevisionRequestDto>
     {
         /// <summary>
-        /// Gets or Sets Map
+        ///     Gets or Sets Map
         /// </summary>
         [Required]
         [DataMember(Name = "map", EmitDefaultValue = false)]
         public string Map { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
+        ///     Returns true if CreateMapRevisionRequestDto instances are equal
+        /// </summary>
+        /// <param name="other">Instance of CreateMapRevisionRequestDto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(CreateMapRevisionRequestDto other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return
+                Map == other.Map ||
+                Map != null &&
+                Map.Equals(other.Map);
+        }
+
+        /// <summary>
+        ///     Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -44,16 +59,16 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Returns the JSON string presentation of the object
+        ///     Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
-        /// Returns true if objects are equal
+        ///     Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -61,29 +76,11 @@ namespace CodeCharacter.CoreLibrary.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto)obj);
+            return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto) obj);
         }
 
         /// <summary>
-        /// Returns true if CreateMapRevisionRequestDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of CreateMapRevisionRequestDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(CreateMapRevisionRequestDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Map == other.Map ||
-                    Map != null &&
-                    Map.Equals(other.Map)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -99,6 +96,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(CreateMapRevisionRequestDto left, CreateMapRevisionRequestDto right)
@@ -112,6 +110,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

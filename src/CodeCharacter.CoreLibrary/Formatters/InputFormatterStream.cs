@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace CodeCharacter.CoreLibrary.Formatters
@@ -17,10 +16,7 @@ namespace CodeCharacter.CoreLibrary.Formatters
 
         protected override bool CanReadType(Type type)
         {
-            if (type == typeof(Stream))
-            {
-                return true;
-            }
+            if (type == typeof(Stream)) return true;
 
             return false;
         }

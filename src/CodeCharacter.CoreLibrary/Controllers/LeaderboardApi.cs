@@ -10,23 +10,20 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class LeaderboardApiController : ControllerBase
     {
         /// <summary>
-        /// Get leaderboard
+        ///     Get leaderboard
         /// </summary>
         /// <remarks>Get leaderboard</remarks>
         /// <param name="page">Index of the page</param>
@@ -38,6 +35,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(List<LeaderboardEntryDto>))]
-        public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] string? page, [FromQuery(Name = "size")] string? size);
+        public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] string? page,
+            [FromQuery(Name = "size")] string? size);
     }
 }

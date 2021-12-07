@@ -12,40 +12,65 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using System.Text;
-
 using Newtonsoft.Json;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Rating history model
+    ///     Rating history model
     /// </summary>
     [DataContract]
     public class RatingHistoryDto : IEquatable<RatingHistoryDto>
     {
         /// <summary>
-        /// Gets or Sets Rating
+        ///     Gets or Sets Rating
         /// </summary>
         [Required]
         [DataMember(Name = "rating", EmitDefaultValue = false)]
         public decimal Rating { get; set; }
 
         /// <summary>
-        /// Gets or Sets RatingDeviation
+        ///     Gets or Sets RatingDeviation
         /// </summary>
         [Required]
         [DataMember(Name = "ratingDeviation", EmitDefaultValue = false)]
         public decimal RatingDeviation { get; set; }
 
         /// <summary>
-        /// Gets or Sets ValidFrom
+        ///     Gets or Sets ValidFrom
         /// </summary>
         [Required]
         [DataMember(Name = "validFrom", EmitDefaultValue = false)]
         public DateTime ValidFrom { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
+        ///     Returns true if RatingHistoryDto instances are equal
+        /// </summary>
+        /// <param name="other">Instance of RatingHistoryDto to be compared</param>
+        /// <returns>Boolean</returns>
+        public bool Equals(RatingHistoryDto other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return
+                (
+                    Rating == other.Rating ||
+                    Rating.Equals(other.Rating)
+                ) &&
+                (
+                    RatingDeviation == other.RatingDeviation ||
+                    RatingDeviation.Equals(other.RatingDeviation)
+                ) &&
+                (
+                    ValidFrom == other.ValidFrom ||
+                    ValidFrom != null &&
+                    ValidFrom.Equals(other.ValidFrom)
+                );
+        }
+
+        /// <summary>
+        ///     Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
         public override string ToString()
@@ -60,16 +85,16 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Returns the JSON string presentation of the object
+        ///     Returns the JSON string presentation of the object
         /// </summary>
         /// <returns>JSON string presentation of the object</returns>
         public string ToJson()
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
         /// <summary>
-        /// Returns true if objects are equal
+        ///     Returns true if objects are equal
         /// </summary>
         /// <param name="obj">Object to be compared</param>
         /// <returns>Boolean</returns>
@@ -77,39 +102,11 @@ namespace CodeCharacter.CoreLibrary.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((RatingHistoryDto)obj);
+            return obj.GetType() == GetType() && Equals((RatingHistoryDto) obj);
         }
 
         /// <summary>
-        /// Returns true if RatingHistoryDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of RatingHistoryDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(RatingHistoryDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Rating == other.Rating ||
-
-                    Rating.Equals(other.Rating)
-                ) &&
-                (
-                    RatingDeviation == other.RatingDeviation ||
-
-                    RatingDeviation.Equals(other.RatingDeviation)
-                ) &&
-                (
-                    ValidFrom == other.ValidFrom ||
-                    ValidFrom != null &&
-                    ValidFrom.Equals(other.ValidFrom)
-                );
-        }
-
-        /// <summary>
-        /// Gets the hash code
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -129,6 +126,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(RatingHistoryDto left, RatingHistoryDto right)
@@ -142,6 +140,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }

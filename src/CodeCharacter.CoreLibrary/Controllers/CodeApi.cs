@@ -11,23 +11,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class CodeApiController : ControllerBase
     {
         /// <summary>
-        /// Create code revision
+        ///     Create code revision
         /// </summary>
         /// <remarks>Create code revision</remarks>
         /// <param name="createCodeRevisionRequestDto"></param>
@@ -39,10 +36,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> CreateCodeRevision([FromBody] CreateCodeRevisionRequestDto createCodeRevisionRequestDto);
+        public abstract Task<IActionResult> CreateCodeRevision(
+            [FromBody] CreateCodeRevisionRequestDto createCodeRevisionRequestDto);
 
         /// <summary>
-        /// Get code revision by ID
+        ///     Get code revision by ID
         /// </summary>
         /// <remarks>Get code revision by ID</remarks>
         /// <param name="revisionId">ID of the code revision</param>
@@ -54,10 +52,11 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [ValidateModelState]
         [ProducesResponseType(statusCode: 200, type: typeof(CodeRevisionDto))]
-        public abstract Task<IActionResult> GetCodeRevisionById([FromRoute(Name = "revisionId")][Required] int revisionId);
+        public abstract Task<IActionResult> GetCodeRevisionById(
+            [FromRoute(Name = "revisionId")] [Required] int revisionId);
 
         /// <summary>
-        /// Get code revisions
+        ///     Get code revisions
         /// </summary>
         /// <remarks>Get list of all code revision IDs</remarks>
         /// <response code="200">OK</response>
@@ -70,7 +69,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetCodeRevisions();
 
         /// <summary>
-        /// Get latest code
+        ///     Get latest code
         /// </summary>
         /// <remarks>Get latest code</remarks>
         /// <response code="200">OK</response>
@@ -83,7 +82,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetLatestCode();
 
         /// <summary>
-        /// Update latest code
+        ///     Update latest code
         /// </summary>
         /// <remarks>Update latest code</remarks>
         /// <param name="updateLatestCodeRequestDto"></param>
@@ -95,6 +94,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> UpdateLatestCode([FromBody] UpdateLatestCodeRequestDto updateLatestCodeRequestDto);
+        public abstract Task<IActionResult> UpdateLatestCode(
+            [FromBody] UpdateLatestCodeRequestDto updateLatestCodeRequestDto);
     }
 }

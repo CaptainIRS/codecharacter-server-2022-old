@@ -10,23 +10,20 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class MatchApiController : ControllerBase
     {
         /// <summary>
-        /// Get top matches
+        ///     Get top matches
         /// </summary>
         /// <remarks>Get top matches</remarks>
         /// <response code="200">OK</response>
@@ -39,7 +36,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetTopMatches();
 
         /// <summary>
-        /// Get user matches
+        ///     Get user matches
         /// </summary>
         /// <remarks>Get matches played by authenticated user</remarks>
         /// <response code="200">OK</response>

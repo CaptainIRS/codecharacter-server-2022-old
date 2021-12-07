@@ -11,23 +11,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-
 using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
-
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.CoreLibrary.Controllers
 {
     /// <summary>
-    /// 
     /// </summary>
     [ApiController]
     public abstract class NotificationApiController : ControllerBase
     {
         /// <summary>
-        /// Get all notifications
+        ///     Get all notifications
         /// </summary>
         /// <remarks>Get all notifications</remarks>
         /// <response code="200">OK</response>
@@ -39,7 +36,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         public abstract Task<IActionResult> GetAllNotifications();
 
         /// <summary>
-        /// Save notification read status
+        ///     Save notification read status
         /// </summary>
         /// <remarks>Save notification read status</remarks>
         /// <param name="notificationId">ID of the notification</param>
@@ -52,6 +49,7 @@ namespace CodeCharacter.CoreLibrary.Controllers
         [Authorize]
         [Consumes("application/json")]
         [ValidateModelState]
-        public abstract Task<IActionResult> SaveNotificationReadStatus([FromRoute(Name = "notificationId")][Required] int notificationId, [FromBody] bool body);
+        public abstract Task<IActionResult> SaveNotificationReadStatus(
+            [FromRoute(Name = "notificationId")] [Required] int notificationId, [FromBody] bool body);
     }
 }

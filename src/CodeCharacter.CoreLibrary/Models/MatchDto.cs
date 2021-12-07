@@ -15,110 +15,98 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-
 using CodeCharacter.CoreLibrary.Converters;
-
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CodeCharacter.CoreLibrary.Models
 {
     /// <summary>
-    /// Match model
+    ///     Match model
     /// </summary>
     [DataContract]
     public class MatchDto : IEquatable<MatchDto>
     {
         /// <summary>
-        /// Gets or Sets Id
+        ///     Gets or Sets MatchMode
+        /// </summary>
+        [TypeConverter(typeof(CustomEnumConverter<MatchModeEnum>))]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum MatchModeEnum
+        {
+            /// <summary>
+            ///     Enum SELFEnum for SELF
+            /// </summary>
+            [EnumMember(Value = "SELF")] SELFEnum = 1,
+
+            /// <summary>
+            ///     Enum AIEnum for AI
+            /// </summary>
+            [EnumMember(Value = "AI")] AIEnum = 2,
+
+            /// <summary>
+            ///     Enum PREVCOMMITEnum for PREV_COMMIT
+            /// </summary>
+            [EnumMember(Value = "PREV_COMMIT")] PREVCOMMITEnum = 3,
+
+            /// <summary>
+            ///     Enum MANUALEnum for MANUAL
+            /// </summary>
+            [EnumMember(Value = "MANUAL")] MANUALEnum = 4,
+
+            /// <summary>
+            ///     Enum AUTOEnum for AUTO
+            /// </summary>
+            [EnumMember(Value = "AUTO")] AUTOEnum = 5
+        }
+
+
+        /// <summary>
+        ///     Gets or Sets Verdict
+        /// </summary>
+        [TypeConverter(typeof(CustomEnumConverter<VerdictEnum>))]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum VerdictEnum
+        {
+            /// <summary>
+            ///     Enum PLAYER1Enum for PLAYER1
+            /// </summary>
+            [EnumMember(Value = "PLAYER1")] PLAYER1Enum = 1,
+
+            /// <summary>
+            ///     Enum PLAYER2Enum for PLAYER2
+            /// </summary>
+            [EnumMember(Value = "PLAYER2")] PLAYER2Enum = 2,
+
+            /// <summary>
+            ///     Enum TIEEnum for TIE
+            /// </summary>
+            [EnumMember(Value = "TIE")] TIEEnum = 3
+        }
+
+        /// <summary>
+        ///     Gets or Sets Id
         /// </summary>
         [Required]
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets Games
+        ///     Gets or Sets Games
         /// </summary>
         [Required]
         [DataMember(Name = "games", EmitDefaultValue = false)]
         public List<GameDto> Games { get; set; }
 
-
         /// <summary>
-        /// Gets or Sets MatchMode
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<MatchModeEnum>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum MatchModeEnum
-        {
-
-            /// <summary>
-            /// Enum SELFEnum for SELF
-            /// </summary>
-            [EnumMember(Value = "SELF")]
-            SELFEnum = 1,
-
-            /// <summary>
-            /// Enum AIEnum for AI
-            /// </summary>
-            [EnumMember(Value = "AI")]
-            AIEnum = 2,
-
-            /// <summary>
-            /// Enum PREVCOMMITEnum for PREV_COMMIT
-            /// </summary>
-            [EnumMember(Value = "PREV_COMMIT")]
-            PREVCOMMITEnum = 3,
-
-            /// <summary>
-            /// Enum MANUALEnum for MANUAL
-            /// </summary>
-            [EnumMember(Value = "MANUAL")]
-            MANUALEnum = 4,
-
-            /// <summary>
-            /// Enum AUTOEnum for AUTO
-            /// </summary>
-            [EnumMember(Value = "AUTO")]
-            AUTOEnum = 5
-        }
-
-        /// <summary>
-        /// Gets or Sets MatchMode
+        ///     Gets or Sets MatchMode
         /// </summary>
         [Required]
         [DataMember(Name = "matchMode", EmitDefaultValue = false)]
         public MatchModeEnum MatchMode { get; set; }
 
-
         /// <summary>
-        /// Gets or Sets Verdict
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<VerdictEnum>))]
-        [JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public enum VerdictEnum
-        {
-
-            /// <summary>
-            /// Enum PLAYER1Enum for PLAYER1
-            /// </summary>
-            [EnumMember(Value = "PLAYER1")]
-            PLAYER1Enum = 1,
-
-            /// <summary>
-            /// Enum PLAYER2Enum for PLAYER2
-            /// </summary>
-            [EnumMember(Value = "PLAYER2")]
-            PLAYER2Enum = 2,
-
-            /// <summary>
-            /// Enum TIEEnum for TIE
-            /// </summary>
-            [EnumMember(Value = "TIE")]
-            TIEEnum = 3
-        }
-
-        /// <summary>
-        /// Gets or Sets Verdict
+        ///     Gets or Sets Verdict
         /// </summary>
         [Required]
         [MinLength(1)]
@@ -126,68 +114,28 @@ namespace CodeCharacter.CoreLibrary.Models
         public VerdictEnum Verdict { get; set; }
 
         /// <summary>
-        /// Gets or Sets CreatedAt
+        ///     Gets or Sets CreatedAt
         /// </summary>
         [Required]
         [DataMember(Name = "createdAt", EmitDefaultValue = false)]
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
-        /// Gets or Sets User1
+        ///     Gets or Sets User1
         /// </summary>
         [Required]
         [DataMember(Name = "user1", EmitDefaultValue = false)]
         public PublicUserDto User1 { get; set; }
 
         /// <summary>
-        /// Gets or Sets User2
+        ///     Gets or Sets User2
         /// </summary>
         [Required]
         [DataMember(Name = "user2", EmitDefaultValue = false)]
         public PublicUserDto User2 { get; set; }
 
         /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class MatchDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Games: ").Append(Games).Append("\n");
-            sb.Append("  MatchMode: ").Append(MatchMode).Append("\n");
-            sb.Append("  Verdict: ").Append(Verdict).Append("\n");
-            sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
-            sb.Append("  User1: ").Append(User1).Append("\n");
-            sb.Append("  User2: ").Append(User2).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        /// Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(this, Newtonsoft.Json.Formatting.Indented);
-        }
-
-        /// <summary>
-        /// Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((MatchDto)obj);
-        }
-
-        /// <summary>
-        /// Returns true if MatchDto instances are equal
+        ///     Returns true if MatchDto instances are equal
         /// </summary>
         /// <param name="other">Instance of MatchDto to be compared</param>
         /// <returns>Boolean</returns>
@@ -210,12 +158,10 @@ namespace CodeCharacter.CoreLibrary.Models
                 ) &&
                 (
                     MatchMode == other.MatchMode ||
-
                     MatchMode.Equals(other.MatchMode)
                 ) &&
                 (
                     Verdict == other.Verdict ||
-
                     Verdict.Equals(other.Verdict)
                 ) &&
                 (
@@ -236,7 +182,47 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         /// <summary>
-        /// Gets the hash code
+        ///     Returns the string presentation of the object
+        /// </summary>
+        /// <returns>String presentation of the object</returns>
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            sb.Append("class MatchDto {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  Games: ").Append(Games).Append("\n");
+            sb.Append("  MatchMode: ").Append(MatchMode).Append("\n");
+            sb.Append("  Verdict: ").Append(Verdict).Append("\n");
+            sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
+            sb.Append("  User1: ").Append(User1).Append("\n");
+            sb.Append("  User2: ").Append(User2).Append("\n");
+            sb.Append("}\n");
+            return sb.ToString();
+        }
+
+        /// <summary>
+        ///     Returns the JSON string presentation of the object
+        /// </summary>
+        /// <returns>JSON string presentation of the object</returns>
+        public string ToJson()
+        {
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
+        }
+
+        /// <summary>
+        ///     Returns true if objects are equal
+        /// </summary>
+        /// <param name="obj">Object to be compared</param>
+        /// <returns>Boolean</returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == GetType() && Equals((MatchDto) obj);
+        }
+
+        /// <summary>
+        ///     Gets the hash code
         /// </summary>
         /// <returns>Hash code</returns>
         public override int GetHashCode()
@@ -264,6 +250,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
         #region Operators
+
 #pragma warning disable 1591
 
         public static bool operator ==(MatchDto left, MatchDto right)
@@ -277,6 +264,7 @@ namespace CodeCharacter.CoreLibrary.Models
         }
 
 #pragma warning restore 1591
+
         #endregion Operators
     }
 }
