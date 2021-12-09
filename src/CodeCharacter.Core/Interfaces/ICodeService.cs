@@ -11,33 +11,39 @@ public interface ICodeService
     /// <summary>
     ///     Create code revision for user
     /// </summary>
-    /// <param name="codeRevision"></param>
+    /// <param name="user"></param>
+    /// <param name="code"></param>
+    /// <param name="parentRevision"></param>
     /// <returns></returns>
-    Task<IActionResult> CreateCodeRevision(CodeRevisionEntity codeRevision);
+    Task CreateCodeRevision(UserEntity user, string code, Guid? parentRevision);
 
     /// <summary>
     ///     Get code revision by ID for user
     /// </summary>
+    /// <param name="user"></param>
     /// <param name="revisionId"></param>
     /// <returns></returns>
-    Task<IActionResult> GetCodeRevision(Guid revisionId);
+    Task<CodeRevisionEntity> GetCodeRevision(UserEntity user, Guid revisionId);
 
     /// <summary>
     ///     Get all code revisions for user
     /// </summary>
+    /// <param name="user"></param>
     /// <returns></returns>
-    Task<IActionResult> GetAllCodeRevisions();
+    Task<List<CodeRevisionEntity>> GetAllCodeRevisions(UserEntity user);
 
     /// <summary>
     ///     Get latest code for user
     /// </summary>
+    /// <param name="user"></param>
     /// <returns></returns>
-    Task<IActionResult> GetLatestCode();
+    Task<CodeEntity> GetLatestCode(UserEntity user);
 
     /// <summary>
     ///     Update latest code for user
     /// </summary>
-    /// <param name="codeRevision"></param>
+    /// <param name="user"></param>
+    /// <param name="code"></param>
     /// <returns></returns>
-    Task<IActionResult> UpdateLatestCode(CodeRevisionEntity codeRevision);
+    Task UpdateLatestCode(UserEntity user, string code);
 }

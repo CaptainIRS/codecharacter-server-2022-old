@@ -3,6 +3,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Controllers;
@@ -12,15 +13,18 @@ public class CodeController : CodeApiController
 {
     private readonly ICodeService _codeService;
     private readonly IMapper _mapper;
+    private readonly UserManager<UserEntity> _userManager;
 
     /// <summary>
     ///     Constructor
     /// </summary>
     /// <param name="codeService"></param>
+    /// <param name="userManager"></param>
     /// <param name="mapper"></param>
-    public CodeController(ICodeService codeService, IMapper mapper)
+    public CodeController(ICodeService codeService, UserManager<UserEntity> userManager, IMapper mapper)
     {
         _codeService = codeService;
+        _userManager = userManager;
         _mapper = mapper;
     }
 
@@ -28,33 +32,53 @@ public class CodeController : CodeApiController
     public override async Task<IActionResult> CreateCodeRevision(
         CreateCodeRevisionRequestDto createCodeRevisionRequestDto)
     {
-        var codeRevision = _mapper.Map<CodeRevisionEntity>(createCodeRevisionRequestDto);
-        return await _codeService.CreateCodeRevision(codeRevision);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _codeService.CreateCodeRevision(
+            user,
+            createCodeRevisionRequestDto.Code,
+            null);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisionById(Guid revisionId)
     {
-        return await _codeService.GetCodeRevision(revisionId);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _codeService.GetCodeRevision(user, revisionId);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisions()
     {
-        return await _codeService.GetAllCodeRevisions();
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _codeService.GetAllCodeRevisions(user);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetLatestCode()
     {
-        return await _codeService.GetLatestCode();
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _codeService.GetLatestCode(user);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> UpdateLatestCode(
         UpdateLatestCodeRequestDto updateLatestCodeRequestDto)
     {
-        var codeRevision = _mapper.Map<CodeRevisionEntity>(updateLatestCodeRequestDto);
-        return await _codeService.UpdateLatestCode(codeRevision);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+
+        await _codeService.UpdateLatestCode(
+            user,
+            updateLatestCodeRequestDto.Code);
+
+        return Ok();
     }
 }

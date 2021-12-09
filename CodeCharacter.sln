@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dotfiles", "Dotfiles", "{F0
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		.openapi-generator-ignore = .openapi-generator-ignore
+		CodeCoverage.runsettings = CodeCoverage.runsettings
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specification", "Specification", "{D9DCE349-5EFF-45B8-A1A4-3A730DA43E3D}"
