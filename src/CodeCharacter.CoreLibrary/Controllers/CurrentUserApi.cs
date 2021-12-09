@@ -14,56 +14,54 @@ using CodeCharacter.CoreLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeCharacter.CoreLibrary.Controllers
+namespace CodeCharacter.CoreLibrary.Controllers;
+
+/// <summary>
+/// </summary>
+[ApiController]
+public abstract class CurrentUserApiController : ControllerBase
 {
     /// <summary>
+    ///     Get current user profile
     /// </summary>
-    [ApiController]
-    public abstract class CurrentUserApiController : ControllerBase
-    {
-        /// <summary>
-        ///     Get current user profile
-        /// </summary>
-        /// <remarks>Get current user profile</remarks>
-        /// <response code="200">OK</response>
-        /// <response code="401">Unauthorized</response>
-        [HttpGet]
-        [Route("/user")]
-        [Authorize]
-        [ValidateModelState]
-        [ProducesResponseType(statusCode: 200, type: typeof(CurrentUserProfileDto))]
-        public abstract Task<IActionResult> GetCurrentUser();
+    /// <remarks>Get current user profile</remarks>
+    /// <response code="200">OK</response>
+    /// <response code="401">Unauthorized</response>
+    [HttpGet]
+    [Route("/user")]
+    [Authorize]
+    [ValidateModelState]
+    [ProducesResponseType(statusCode: 200, type: typeof(CurrentUserProfileDto))]
+    public abstract Task<IActionResult> GetCurrentUser();
 
-        /// <summary>
-        ///     Update current user
-        /// </summary>
-        /// <remarks>Update current user</remarks>
-        /// <param name="updateCurrentUserProfileDto"></param>
-        /// <response code="204">No Content</response>
-        /// <response code="422">Unprocessable Entity</response>
-        [HttpPatch]
-        [Route("/user")]
-        [Authorize]
-        [Consumes("application/json")]
-        [ValidateModelState]
-        public abstract Task<IActionResult> UpdateCurrentUser(
-            [FromBody] UpdateCurrentUserProfileDto updateCurrentUserProfileDto);
+    /// <summary>
+    ///     Update current user
+    /// </summary>
+    /// <remarks>Update current user</remarks>
+    /// <param name="updateCurrentUserProfileDto"></param>
+    /// <response code="204">No Content</response>
+    /// <response code="422">Unprocessable Entity</response>
+    [HttpPatch]
+    [Route("/user")]
+    [Authorize]
+    [Consumes("application/json")]
+    [ValidateModelState]
+    public abstract Task<IActionResult> UpdateCurrentUser(
+        [FromBody] UpdateCurrentUserProfileDto updateCurrentUserProfileDto);
 
-        /// <summary>
-        ///     Update password
-        /// </summary>
-        /// <remarks>Update password</remarks>
-        /// <param name="updatePasswordRequestDto"></param>
-        /// <response code="204">No Content</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="403">Forbidden</response>
-        /// <response code="422">Unprocessable Entity</response>
-        [HttpPost]
-        [Route("/user/password")]
-        [Authorize]
-        [Consumes("application/json")]
-        [ValidateModelState]
-        public abstract Task<IActionResult>
-            UpdatePassword([FromBody] UpdatePasswordRequestDto updatePasswordRequestDto);
-    }
+    /// <summary>
+    ///     Update password
+    /// </summary>
+    /// <remarks>Update password</remarks>
+    /// <param name="updatePasswordRequestDto"></param>
+    /// <response code="204">No Content</response>
+    /// <response code="401">Unauthorized</response>
+    /// <response code="403">Forbidden</response>
+    /// <response code="422">Unprocessable Entity</response>
+    [HttpPost]
+    [Route("/user/password")]
+    [Authorize]
+    [Consumes("application/json")]
+    [ValidateModelState]
+    public abstract Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequestDto updatePasswordRequestDto);
 }

@@ -17,11 +17,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeCharacter.Tests", "test
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{813A6122-1FEF-486F-ADC9-D940B0F341D2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F0D910B7-CED6-4CAE-BE0C-6ED3FA773A38}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dotfiles", "Dotfiles", "{F0D910B7-CED6-4CAE-BE0C-6ED3FA773A38}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		.openapi-generator-ignore = .openapi-generator-ignore
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specification", "Specification", "{D9DCE349-5EFF-45B8-A1A4-3A730DA43E3D}"
+ProjectSection(SolutionItems) = preProject
+	spec\CodeCharacter-API.yaml = spec\CodeCharacter-API.yaml
+	spec\generator-config.yml = spec\generator-config.yml
+	spec\README.md = spec\README.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

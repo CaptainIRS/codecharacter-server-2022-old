@@ -14,208 +14,207 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Current user profile model
+/// </summary>
+[DataContract]
+public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
 {
     /// <summary>
-    ///     Current user profile model
+    ///     Gets or Sets Id
     /// </summary>
-    [DataContract]
-    public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
+    [Required]
+    [DataMember(Name = "id", EmitDefaultValue = false)]
+    public int Id { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Username
+    /// </summary>
+    [Required]
+    [DataMember(Name = "username", EmitDefaultValue = false)]
+    public string Username { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Name
+    /// </summary>
+    [Required]
+    [DataMember(Name = "name", EmitDefaultValue = false)]
+    public string Name { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Email
+    /// </summary>
+    [Required]
+    [RegularExpression("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")]
+    [DataMember(Name = "email", EmitDefaultValue = false)]
+    public string Email { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Country
+    /// </summary>
+    [Required]
+    [DataMember(Name = "country", EmitDefaultValue = false)]
+    public string Country { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets College
+    /// </summary>
+    [Required]
+    [DataMember(Name = "college", EmitDefaultValue = false)]
+    public string College { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets CurrrentLevel
+    /// </summary>
+    [Required]
+    [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
+    public int CurrrentLevel { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets IsAdmin
+    /// </summary>
+    [Required]
+    [DataMember(Name = "isAdmin", EmitDefaultValue = false)]
+    public bool IsAdmin { get; set; }
+
+    /// <summary>
+    ///     Returns true if CurrentUserProfileDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of CurrentUserProfileDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(CurrentUserProfileDto other)
     {
-        /// <summary>
-        ///     Gets or Sets Id
-        /// </summary>
-        [Required]
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public int Id { get; set; }
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        ///     Gets or Sets Username
-        /// </summary>
-        [Required]
-        [DataMember(Name = "username", EmitDefaultValue = false)]
-        public string Username { get; set; }
+        return
+            (
+                Id == other.Id ||
+                Id.Equals(other.Id)
+            ) &&
+            (
+                Username == other.Username ||
+                Username != null &&
+                Username.Equals(other.Username)
+            ) &&
+            (
+                Name == other.Name ||
+                Name != null &&
+                Name.Equals(other.Name)
+            ) &&
+            (
+                Email == other.Email ||
+                Email != null &&
+                Email.Equals(other.Email)
+            ) &&
+            (
+                Country == other.Country ||
+                Country != null &&
+                Country.Equals(other.Country)
+            ) &&
+            (
+                College == other.College ||
+                College != null &&
+                College.Equals(other.College)
+            ) &&
+            (
+                CurrrentLevel == other.CurrrentLevel ||
+                CurrrentLevel.Equals(other.CurrrentLevel)
+            ) &&
+            (
+                IsAdmin == other.IsAdmin ||
+                IsAdmin.Equals(other.IsAdmin)
+            );
+    }
 
-        /// <summary>
-        ///     Gets or Sets Name
-        /// </summary>
-        [Required]
-        [DataMember(Name = "name", EmitDefaultValue = false)]
-        public string Name { get; set; }
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class CurrentUserProfileDto {\n");
+        sb.Append("  Id: ").Append(Id).Append("\n");
+        sb.Append("  Username: ").Append(Username).Append("\n");
+        sb.Append("  Name: ").Append(Name).Append("\n");
+        sb.Append("  Email: ").Append(Email).Append("\n");
+        sb.Append("  Country: ").Append(Country).Append("\n");
+        sb.Append("  College: ").Append(College).Append("\n");
+        sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
+        sb.Append("  IsAdmin: ").Append(IsAdmin).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
 
-        /// <summary>
-        ///     Gets or Sets Email
-        /// </summary>
-        [Required]
-        [RegularExpression("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}")]
-        [DataMember(Name = "email", EmitDefaultValue = false)]
-        public string Email { get; set; }
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
 
-        /// <summary>
-        ///     Gets or Sets Country
-        /// </summary>
-        [Required]
-        [DataMember(Name = "country", EmitDefaultValue = false)]
-        public string Country { get; set; }
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((CurrentUserProfileDto) obj);
+    }
 
-        /// <summary>
-        ///     Gets or Sets College
-        /// </summary>
-        [Required]
-        [DataMember(Name = "college", EmitDefaultValue = false)]
-        public string College { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets CurrrentLevel
-        /// </summary>
-        [Required]
-        [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
-        public int CurrrentLevel { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets IsAdmin
-        /// </summary>
-        [Required]
-        [DataMember(Name = "isAdmin", EmitDefaultValue = false)]
-        public bool IsAdmin { get; set; }
-
-        /// <summary>
-        ///     Returns true if CurrentUserProfileDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of CurrentUserProfileDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(CurrentUserProfileDto other)
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
 
-            return
-                (
-                    Id == other.Id ||
-                    Id.Equals(other.Id)
-                ) &&
-                (
-                    Username == other.Username ||
-                    Username != null &&
-                    Username.Equals(other.Username)
-                ) &&
-                (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
-                ) &&
-                (
-                    Email == other.Email ||
-                    Email != null &&
-                    Email.Equals(other.Email)
-                ) &&
-                (
-                    Country == other.Country ||
-                    Country != null &&
-                    Country.Equals(other.Country)
-                ) &&
-                (
-                    College == other.College ||
-                    College != null &&
-                    College.Equals(other.College)
-                ) &&
-                (
-                    CurrrentLevel == other.CurrrentLevel ||
-                    CurrrentLevel.Equals(other.CurrrentLevel)
-                ) &&
-                (
-                    IsAdmin == other.IsAdmin ||
-                    IsAdmin.Equals(other.IsAdmin)
-                );
+            hashCode = hashCode * 59 + Id.GetHashCode();
+            if (Username != null)
+                hashCode = hashCode * 59 + Username.GetHashCode();
+            if (Name != null)
+                hashCode = hashCode * 59 + Name.GetHashCode();
+            if (Email != null)
+                hashCode = hashCode * 59 + Email.GetHashCode();
+            if (Country != null)
+                hashCode = hashCode * 59 + Country.GetHashCode();
+            if (College != null)
+                hashCode = hashCode * 59 + College.GetHashCode();
+
+            hashCode = hashCode * 59 + CurrrentLevel.GetHashCode();
+
+            hashCode = hashCode * 59 + IsAdmin.GetHashCode();
+            return hashCode;
         }
+    }
 
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CurrentUserProfileDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Username: ").Append(Username).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Email: ").Append(Email).Append("\n");
-            sb.Append("  Country: ").Append(Country).Append("\n");
-            sb.Append("  College: ").Append(College).Append("\n");
-            sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
-            sb.Append("  IsAdmin: ").Append(IsAdmin).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CurrentUserProfileDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-
-                hashCode = hashCode * 59 + Id.GetHashCode();
-                if (Username != null)
-                    hashCode = hashCode * 59 + Username.GetHashCode();
-                if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
-                if (Email != null)
-                    hashCode = hashCode * 59 + Email.GetHashCode();
-                if (Country != null)
-                    hashCode = hashCode * 59 + Country.GetHashCode();
-                if (College != null)
-                    hashCode = hashCode * 59 + College.GetHashCode();
-
-                hashCode = hashCode * 59 + CurrrentLevel.GetHashCode();
-
-                hashCode = hashCode * 59 + IsAdmin.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(CurrentUserProfileDto left, CurrentUserProfileDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(CurrentUserProfileDto left, CurrentUserProfileDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(CurrentUserProfileDto left, CurrentUserProfileDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(CurrentUserProfileDto left, CurrentUserProfileDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

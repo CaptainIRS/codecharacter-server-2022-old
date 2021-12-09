@@ -14,133 +14,132 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Rating history model
+/// </summary>
+[DataContract]
+public class RatingHistoryDto : IEquatable<RatingHistoryDto>
 {
     /// <summary>
-    ///     Rating history model
+    ///     Gets or Sets Rating
     /// </summary>
-    [DataContract]
-    public class RatingHistoryDto : IEquatable<RatingHistoryDto>
+    [Required]
+    [DataMember(Name = "rating", EmitDefaultValue = false)]
+    public decimal Rating { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets RatingDeviation
+    /// </summary>
+    [Required]
+    [DataMember(Name = "ratingDeviation", EmitDefaultValue = false)]
+    public decimal RatingDeviation { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets ValidFrom
+    /// </summary>
+    [Required]
+    [DataMember(Name = "validFrom", EmitDefaultValue = false)]
+    public DateTime ValidFrom { get; set; }
+
+    /// <summary>
+    ///     Returns true if RatingHistoryDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of RatingHistoryDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(RatingHistoryDto other)
     {
-        /// <summary>
-        ///     Gets or Sets Rating
-        /// </summary>
-        [Required]
-        [DataMember(Name = "rating", EmitDefaultValue = false)]
-        public decimal Rating { get; set; }
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        ///     Gets or Sets RatingDeviation
-        /// </summary>
-        [Required]
-        [DataMember(Name = "ratingDeviation", EmitDefaultValue = false)]
-        public decimal RatingDeviation { get; set; }
+        return
+            (
+                Rating == other.Rating ||
+                Rating.Equals(other.Rating)
+            ) &&
+            (
+                RatingDeviation == other.RatingDeviation ||
+                RatingDeviation.Equals(other.RatingDeviation)
+            ) &&
+            (
+                ValidFrom == other.ValidFrom ||
+                ValidFrom != null &&
+                ValidFrom.Equals(other.ValidFrom)
+            );
+    }
 
-        /// <summary>
-        ///     Gets or Sets ValidFrom
-        /// </summary>
-        [Required]
-        [DataMember(Name = "validFrom", EmitDefaultValue = false)]
-        public DateTime ValidFrom { get; set; }
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class RatingHistoryDto {\n");
+        sb.Append("  Rating: ").Append(Rating).Append("\n");
+        sb.Append("  RatingDeviation: ").Append(RatingDeviation).Append("\n");
+        sb.Append("  ValidFrom: ").Append(ValidFrom).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
 
-        /// <summary>
-        ///     Returns true if RatingHistoryDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of RatingHistoryDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(RatingHistoryDto other)
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((RatingHistoryDto) obj);
+    }
+
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
 
-            return
-                (
-                    Rating == other.Rating ||
-                    Rating.Equals(other.Rating)
-                ) &&
-                (
-                    RatingDeviation == other.RatingDeviation ||
-                    RatingDeviation.Equals(other.RatingDeviation)
-                ) &&
-                (
-                    ValidFrom == other.ValidFrom ||
-                    ValidFrom != null &&
-                    ValidFrom.Equals(other.ValidFrom)
-                );
+            hashCode = hashCode * 59 + Rating.GetHashCode();
+
+            hashCode = hashCode * 59 + RatingDeviation.GetHashCode();
+            if (ValidFrom != null)
+                hashCode = hashCode * 59 + ValidFrom.GetHashCode();
+            return hashCode;
         }
+    }
 
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class RatingHistoryDto {\n");
-            sb.Append("  Rating: ").Append(Rating).Append("\n");
-            sb.Append("  RatingDeviation: ").Append(RatingDeviation).Append("\n");
-            sb.Append("  ValidFrom: ").Append(ValidFrom).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((RatingHistoryDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-
-                hashCode = hashCode * 59 + Rating.GetHashCode();
-
-                hashCode = hashCode * 59 + RatingDeviation.GetHashCode();
-                if (ValidFrom != null)
-                    hashCode = hashCode * 59 + ValidFrom.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(RatingHistoryDto left, RatingHistoryDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(RatingHistoryDto left, RatingHistoryDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(RatingHistoryDto left, RatingHistoryDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(RatingHistoryDto left, RatingHistoryDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

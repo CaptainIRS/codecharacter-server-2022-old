@@ -15,27 +15,26 @@ using CodeCharacter.CoreLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeCharacter.CoreLibrary.Controllers
+namespace CodeCharacter.CoreLibrary.Controllers;
+
+/// <summary>
+/// </summary>
+[ApiController]
+public abstract class LeaderboardApiController : ControllerBase
 {
     /// <summary>
+    ///     Get leaderboard
     /// </summary>
-    [ApiController]
-    public abstract class LeaderboardApiController : ControllerBase
-    {
-        /// <summary>
-        ///     Get leaderboard
-        /// </summary>
-        /// <remarks>Get leaderboard</remarks>
-        /// <param name="page">Index of the page</param>
-        /// <param name="size">Size of the page</param>
-        /// <response code="200">OK</response>
-        /// <response code="401">Unauthorized</response>
-        [HttpGet]
-        [Route("/leaderboard")]
-        [Authorize]
-        [ValidateModelState]
-        [ProducesResponseType(statusCode: 200, type: typeof(List<LeaderboardEntryDto>))]
-        public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] string? page,
-            [FromQuery(Name = "size")] string? size);
-    }
+    /// <remarks>Get leaderboard</remarks>
+    /// <param name="page">Index of the page</param>
+    /// <param name="size">Size of the page</param>
+    /// <response code="200">OK</response>
+    /// <response code="401">Unauthorized</response>
+    [HttpGet]
+    [Route("/leaderboard")]
+    [Authorize]
+    [ValidateModelState]
+    [ProducesResponseType(statusCode: 200, type: typeof(List<LeaderboardEntryDto>))]
+    public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] string? page,
+        [FromQuery(Name = "size")] string? size);
 }

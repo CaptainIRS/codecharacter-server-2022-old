@@ -15,37 +15,36 @@ using CodeCharacter.CoreLibrary.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeCharacter.CoreLibrary.Controllers
+namespace CodeCharacter.CoreLibrary.Controllers;
+
+/// <summary>
+/// </summary>
+[ApiController]
+public abstract class MatchApiController : ControllerBase
 {
     /// <summary>
+    ///     Get top matches
     /// </summary>
-    [ApiController]
-    public abstract class MatchApiController : ControllerBase
-    {
-        /// <summary>
-        ///     Get top matches
-        /// </summary>
-        /// <remarks>Get top matches</remarks>
-        /// <response code="200">OK</response>
-        /// <response code="401">Unauthorized</response>
-        [HttpGet]
-        [Route("/top-matches")]
-        [Authorize]
-        [ValidateModelState]
-        [ProducesResponseType(statusCode: 200, type: typeof(List<MatchDto>))]
-        public abstract Task<IActionResult> GetTopMatches();
+    /// <remarks>Get top matches</remarks>
+    /// <response code="200">OK</response>
+    /// <response code="401">Unauthorized</response>
+    [HttpGet]
+    [Route("/top-matches")]
+    [Authorize]
+    [ValidateModelState]
+    [ProducesResponseType(statusCode: 200, type: typeof(List<MatchDto>))]
+    public abstract Task<IActionResult> GetTopMatches();
 
-        /// <summary>
-        ///     Get user matches
-        /// </summary>
-        /// <remarks>Get matches played by authenticated user</remarks>
-        /// <response code="200">OK</response>
-        /// <response code="401">Unauthorized</response>
-        [HttpGet]
-        [Route("/user/matches")]
-        [Authorize]
-        [ValidateModelState]
-        [ProducesResponseType(statusCode: 200, type: typeof(List<MatchDto>))]
-        public abstract Task<IActionResult> GetUserMatches();
-    }
+    /// <summary>
+    ///     Get user matches
+    /// </summary>
+    /// <remarks>Get matches played by authenticated user</remarks>
+    /// <response code="200">OK</response>
+    /// <response code="401">Unauthorized</response>
+    [HttpGet]
+    [Route("/user/matches")]
+    [Authorize]
+    [ValidateModelState]
+    [ProducesResponseType(statusCode: 200, type: typeof(List<MatchDto>))]
+    public abstract Task<IActionResult> GetUserMatches();
 }

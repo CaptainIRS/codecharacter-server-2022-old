@@ -3,51 +3,49 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 
-namespace CodeCharacter.CoreLibrary.Authentication
+namespace CodeCharacter.CoreLibrary.Authentication;
+
+/// <summary>
+///     A requirement that an ApiKey must be present.
+/// </summary>
+public class ApiKeyRequirement : IAuthorizationRequirement
 {
     /// <summary>
-    ///     A requirement that an ApiKey must be present.
+    ///     Create a new instance of the <see cref="ApiKeyRequirement" /> class.
     /// </summary>
-    public class ApiKeyRequirement : IAuthorizationRequirement
+    /// <param name="apiKeys"></param>
+    /// <param name="policyName"></param>
+    public ApiKeyRequirement(IEnumerable<string> apiKeys, string policyName)
     {
-        /// <summary>
-        ///     Create a new instance of the <see cref="ApiKeyRequirement" /> class.
-        /// </summary>
-        /// <param name="apiKeys"></param>
-        /// <param name="policyName"></param>
-        public ApiKeyRequirement(IEnumerable<string> apiKeys, string policyName)
-        {
-            ApiKeys = apiKeys?.ToList() ?? new List<string>();
-            PolicyName = policyName;
-        }
-
-        /// <summary>
-        ///     Get the list of api keys
-        /// </summary>
-        public IReadOnlyList<string> ApiKeys { get; }
-
-        /// <summary>
-        ///     Get the policy name,
-        /// </summary>
-        public string PolicyName { get; }
+        ApiKeys = apiKeys?.ToList() ?? new List<string>();
+        PolicyName = policyName;
     }
 
     /// <summary>
-    ///     Enforce that an api key is present.
+    ///     Get the list of api keys
     /// </summary>
-    public class ApiKeyRequirementHandler : AuthorizationHandler<ApiKeyRequirement>
-    {
-        /// <copydoc cref="AuthorizationHandler{T}.HandleRequirementAsync" />
-        protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
-            ApiKeyRequirement requirement)
-        {
-            SucceedRequirementIfApiKeyPresentAndValid(context, requirement);
-            return Task.CompletedTask;
-        }
+    public IReadOnlyList<string> ApiKeys { get; }
 
-        private void SucceedRequirementIfApiKeyPresentAndValid(AuthorizationHandlerContext context,
-            ApiKeyRequirement requirement)
-        {
-        }
+    /// <summary>
+    ///     Get the policy name,
+    /// </summary>
+    public string PolicyName { get; }
+}
+
+/// <summary>
+///     Enforce that an api key is present.
+/// </summary>
+public class ApiKeyRequirementHandler : AuthorizationHandler<ApiKeyRequirement>
+{
+    /// <copydoc cref="AuthorizationHandler{T}.HandleRequirementAsync" />
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ApiKeyRequirement requirement)
+    {
+        SucceedRequirementIfApiKeyPresentAndValid(context, requirement);
+        return Task.CompletedTask;
+    }
+
+    private void SucceedRequirementIfApiKeyPresentAndValid(AuthorizationHandlerContext context,
+        ApiKeyRequirement requirement)
+    {
     }
 }

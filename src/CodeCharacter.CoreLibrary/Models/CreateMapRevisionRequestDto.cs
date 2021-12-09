@@ -14,103 +14,102 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Create map revision request
+/// </summary>
+[DataContract]
+public class CreateMapRevisionRequestDto : IEquatable<CreateMapRevisionRequestDto>
 {
     /// <summary>
-    ///     Create map revision request
+    ///     Gets or Sets Map
     /// </summary>
-    [DataContract]
-    public class CreateMapRevisionRequestDto : IEquatable<CreateMapRevisionRequestDto>
+    [Required]
+    [DataMember(Name = "map", EmitDefaultValue = false)]
+    public string Map { get; set; }
+
+    /// <summary>
+    ///     Returns true if CreateMapRevisionRequestDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of CreateMapRevisionRequestDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(CreateMapRevisionRequestDto other)
     {
-        /// <summary>
-        ///     Gets or Sets Map
-        /// </summary>
-        [Required]
-        [DataMember(Name = "map", EmitDefaultValue = false)]
-        public string Map { get; set; }
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        ///     Returns true if CreateMapRevisionRequestDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of CreateMapRevisionRequestDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(CreateMapRevisionRequestDto other)
+        return
+            Map == other.Map ||
+            Map != null &&
+            Map.Equals(other.Map);
+    }
+
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class CreateMapRevisionRequestDto {\n");
+        sb.Append("  Map: ").Append(Map).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
+
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto) obj);
+    }
+
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                Map == other.Map ||
-                Map != null &&
-                Map.Equals(other.Map);
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
+            if (Map != null)
+                hashCode = hashCode * 59 + Map.GetHashCode();
+            return hashCode;
         }
+    }
 
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class CreateMapRevisionRequestDto {\n");
-            sb.Append("  Map: ").Append(Map).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                if (Map != null)
-                    hashCode = hashCode * 59 + Map.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(CreateMapRevisionRequestDto left, CreateMapRevisionRequestDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(CreateMapRevisionRequestDto left, CreateMapRevisionRequestDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(CreateMapRevisionRequestDto left, CreateMapRevisionRequestDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(CreateMapRevisionRequestDto left, CreateMapRevisionRequestDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

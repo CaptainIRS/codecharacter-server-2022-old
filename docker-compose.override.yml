@@ -1,13 +1,41 @@
-version: '3.4'
+version: '3.9'
 
 services:
+  codecharacter.db:
+    environment:
+      - POSTGRES_DB=codecharacter_2022
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=db
+      - TZ=UTC
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  codecharacter.pgadmin:
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_DISABLE_POSTFIX=True
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin:/root/.pgadmin
+
   codecharacter.core:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     ports:
       - "80"
       - "443"
     volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ./data/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ./data/ASP.NET/Https:/root/.aspnet/https:ro
+    depends_on:
+      - codecharacter.db
+
+volumes:
+  pgdata:
+  pgadmin:

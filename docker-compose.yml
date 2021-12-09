@@ -1,8 +1,20 @@
-version: '3.4'
+version: '3.9'
 
 services:
+  codecharacter.db:
+    container_name: db
+    image: postgres
+
+  codecharacter.pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    depends_on:
+      - codecharacter.db
+
   codecharacter.core:
-    image: ${DOCKER_REGISTRY-}codecharactercore
+    image: ${DOCKER_REGISTRY-}core
     build:
       context: .
       dockerfile: src/CodeCharacter.Core/Dockerfile
+    depends_on:
+      - codecharacter.db

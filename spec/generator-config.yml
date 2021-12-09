@@ -1,0 +1,17 @@
+aspnetCoreVersion: 5.0
+buildTarget: library
+classModifier: abstract
+generateBody: false
+enablePostProcessFile: true
+enumValueSuffix: ""
+isLibrary: true
+licenseName: MIT
+operationModifier: abstract
+swashbuckleVersion: 5.0.0
+nullableReferenceTypes: true
+operationIsAsync: true
+operationResultTask: true
+packageAuthors: CodeCharacter Authors
+packageDescription: Core API library for CodeCharacter
+packageName: CodeCharacter.CoreLibrary
+packageVersion: 2022.0.1

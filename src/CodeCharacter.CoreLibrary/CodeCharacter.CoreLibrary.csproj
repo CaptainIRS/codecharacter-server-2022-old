@@ -11,17 +11,17 @@
         <OutputType>Library</OutputType>
         <AssemblyName>CodeCharacter.CoreLibrary</AssemblyName>
         <PackageId>CodeCharacter.CoreLibrary</PackageId>
-        <UserSecretsId>3ee5bff7-bebd-4d9d-93d3-e75e985e1b2e</UserSecretsId>
+        <UserSecretsId>abe00bb5-0655-4a41-90bc-8fa980925e27</UserSecretsId>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildThisFileName).xml</DocumentationFile>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
         <DockerfileContext>..\..</DockerfileContext>
-        <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-        <NoWarn>1701;1702;8073;1591</NoWarn>
     </PropertyGroup>
     <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
         <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0"/>
         <PackageReference Include="JsonSubTypes" Version="1.8.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
     </ItemGroup>
     <ItemGroup>
         <!--<DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />-->

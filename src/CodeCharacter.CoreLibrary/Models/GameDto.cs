@@ -17,227 +17,226 @@ using CodeCharacter.CoreLibrary.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Game model
+/// </summary>
+[DataContract]
+public class GameDto : IEquatable<GameDto>
 {
     /// <summary>
-    ///     Game model
+    ///     Gets or Sets GameVerdict
     /// </summary>
-    [DataContract]
-    public class GameDto : IEquatable<GameDto>
+    [TypeConverter(typeof(CustomEnumConverter<GameVerdictEnum>))]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum GameVerdictEnum
     {
         /// <summary>
-        ///     Gets or Sets Status
+        ///     Enum PLAYER1 for PLAYER1
         /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<StatusEnum>))]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum StatusEnum
+        [EnumMember(Value = "PLAYER1")] PLAYER1 = 1,
+
+        /// <summary>
+        ///     Enum PLAYER2 for PLAYER2
+        /// </summary>
+        [EnumMember(Value = "PLAYER2")] PLAYER2 = 2,
+
+        /// <summary>
+        ///     Enum TIE for TIE
+        /// </summary>
+        [EnumMember(Value = "TIE")] TIE = 3
+    }
+
+
+    /// <summary>
+    ///     Gets or Sets Status
+    /// </summary>
+    [TypeConverter(typeof(CustomEnumConverter<StatusEnum>))]
+    [JsonConverter(typeof(StringEnumConverter))]
+    public enum StatusEnum
+    {
+        /// <summary>
+        ///     Enum IDLE for IDLE
+        /// </summary>
+        [EnumMember(Value = "IDLE")] IDLE = 1,
+
+        /// <summary>
+        ///     Enum EXECUTING for EXECUTING
+        /// </summary>
+        [EnumMember(Value = "EXECUTING")] EXECUTING = 2,
+
+        /// <summary>
+        ///     Enum EXECUTED for EXECUTED
+        /// </summary>
+        [EnumMember(Value = "EXECUTED")] EXECUTED = 3,
+
+        /// <summary>
+        ///     Enum EXECUTEERROR for EXECUTE_ERROR
+        /// </summary>
+        [EnumMember(Value = "EXECUTE_ERROR")] EXECUTEERROR = 4
+    }
+
+    /// <summary>
+    ///     Gets or Sets Id
+    /// </summary>
+    [Required]
+    [DataMember(Name = "id", EmitDefaultValue = false)]
+    public Guid Id { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Map
+    /// </summary>
+    [DataMember(Name = "map", EmitDefaultValue = false)]
+    public string Map { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Points1
+    /// </summary>
+    [Required]
+    [DataMember(Name = "points1", EmitDefaultValue = false)]
+    public int Points1 { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Points2
+    /// </summary>
+    [Required]
+    [DataMember(Name = "points2", EmitDefaultValue = false)]
+    public int Points2 { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Status
+    /// </summary>
+    [Required]
+    [DataMember(Name = "status", EmitDefaultValue = false)]
+    public StatusEnum Status { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets GameVerdict
+    /// </summary>
+    [Required]
+    [DataMember(Name = "gameVerdict", EmitDefaultValue = false)]
+    public GameVerdictEnum GameVerdict { get; set; }
+
+    /// <summary>
+    ///     Returns true if GameDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of GameDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(GameDto other)
+    {
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
+
+        return
+            (
+                Id == other.Id ||
+                Id != null &&
+                Id.Equals(other.Id)
+            ) &&
+            (
+                Map == other.Map ||
+                Map != null &&
+                Map.Equals(other.Map)
+            ) &&
+            (
+                Points1 == other.Points1 ||
+                Points1.Equals(other.Points1)
+            ) &&
+            (
+                Points2 == other.Points2 ||
+                Points2.Equals(other.Points2)
+            ) &&
+            (
+                Status == other.Status ||
+                Status.Equals(other.Status)
+            ) &&
+            (
+                GameVerdict == other.GameVerdict ||
+                GameVerdict.Equals(other.GameVerdict)
+            );
+    }
+
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class GameDto {\n");
+        sb.Append("  Id: ").Append(Id).Append("\n");
+        sb.Append("  Map: ").Append(Map).Append("\n");
+        sb.Append("  Points1: ").Append(Points1).Append("\n");
+        sb.Append("  Points2: ").Append(Points2).Append("\n");
+        sb.Append("  Status: ").Append(Status).Append("\n");
+        sb.Append("  GameVerdict: ").Append(GameVerdict).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
+
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((GameDto) obj);
+    }
+
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            /// <summary>
-            ///     Enum IDLEEnum for IDLE
-            /// </summary>
-            [EnumMember(Value = "IDLE")] IDLEEnum = 1,
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
+            if (Id != null)
+                hashCode = hashCode * 59 + Id.GetHashCode();
+            if (Map != null)
+                hashCode = hashCode * 59 + Map.GetHashCode();
 
-            /// <summary>
-            ///     Enum EXECUTINGEnum for EXECUTING
-            /// </summary>
-            [EnumMember(Value = "EXECUTING")] EXECUTINGEnum = 2,
+            hashCode = hashCode * 59 + Points1.GetHashCode();
 
-            /// <summary>
-            ///     Enum EXECUTEDEnum for EXECUTED
-            /// </summary>
-            [EnumMember(Value = "EXECUTED")] EXECUTEDEnum = 3,
+            hashCode = hashCode * 59 + Points2.GetHashCode();
 
-            /// <summary>
-            ///     Enum EXECUTEERROREnum for EXECUTE_ERROR
-            /// </summary>
-            [EnumMember(Value = "EXECUTE_ERROR")] EXECUTEERROREnum = 4
+            hashCode = hashCode * 59 + Status.GetHashCode();
+
+            hashCode = hashCode * 59 + GameVerdict.GetHashCode();
+            return hashCode;
         }
+    }
 
-
-        /// <summary>
-        ///     Gets or Sets Verdict
-        /// </summary>
-        [TypeConverter(typeof(CustomEnumConverter<VerdictEnum>))]
-        [JsonConverter(typeof(StringEnumConverter))]
-        public enum VerdictEnum
-        {
-            /// <summary>
-            ///     Enum PLAYER1Enum for PLAYER1
-            /// </summary>
-            [EnumMember(Value = "PLAYER1")] PLAYER1Enum = 1,
-
-            /// <summary>
-            ///     Enum PLAYER2Enum for PLAYER2
-            /// </summary>
-            [EnumMember(Value = "PLAYER2")] PLAYER2Enum = 2,
-
-            /// <summary>
-            ///     Enum TIEEnum for TIE
-            /// </summary>
-            [EnumMember(Value = "TIE")] TIEEnum = 3
-        }
-
-        /// <summary>
-        ///     Gets or Sets Id
-        /// </summary>
-        [Required]
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public Guid Id { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets Map
-        /// </summary>
-        [DataMember(Name = "map", EmitDefaultValue = false)]
-        public string Map { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets Points1
-        /// </summary>
-        [Required]
-        [DataMember(Name = "points1", EmitDefaultValue = false)]
-        public int Points1 { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets Points2
-        /// </summary>
-        [Required]
-        [DataMember(Name = "points2", EmitDefaultValue = false)]
-        public int Points2 { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets Status
-        /// </summary>
-        [Required]
-        [DataMember(Name = "status", EmitDefaultValue = false)]
-        public StatusEnum Status { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets Verdict
-        /// </summary>
-        [Required]
-        [DataMember(Name = "verdict", EmitDefaultValue = false)]
-        public VerdictEnum Verdict { get; set; }
-
-        /// <summary>
-        ///     Returns true if GameDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of GameDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(GameDto other)
-        {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Id == other.Id ||
-                    Id != null &&
-                    Id.Equals(other.Id)
-                ) &&
-                (
-                    Map == other.Map ||
-                    Map != null &&
-                    Map.Equals(other.Map)
-                ) &&
-                (
-                    Points1 == other.Points1 ||
-                    Points1.Equals(other.Points1)
-                ) &&
-                (
-                    Points2 == other.Points2 ||
-                    Points2.Equals(other.Points2)
-                ) &&
-                (
-                    Status == other.Status ||
-                    Status.Equals(other.Status)
-                ) &&
-                (
-                    Verdict == other.Verdict ||
-                    Verdict.Equals(other.Verdict)
-                );
-        }
-
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class GameDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Map: ").Append(Map).Append("\n");
-            sb.Append("  Points1: ").Append(Points1).Append("\n");
-            sb.Append("  Points2: ").Append(Points2).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  Verdict: ").Append(Verdict).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((GameDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                if (Id != null)
-                    hashCode = hashCode * 59 + Id.GetHashCode();
-                if (Map != null)
-                    hashCode = hashCode * 59 + Map.GetHashCode();
-
-                hashCode = hashCode * 59 + Points1.GetHashCode();
-
-                hashCode = hashCode * 59 + Points2.GetHashCode();
-
-                hashCode = hashCode * 59 + Status.GetHashCode();
-
-                hashCode = hashCode * 59 + Verdict.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(GameDto left, GameDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(GameDto left, GameDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(GameDto left, GameDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(GameDto left, GameDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

@@ -13,55 +13,53 @@ using CodeCharacter.CoreLibrary.Attributes;
 using CodeCharacter.CoreLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CodeCharacter.CoreLibrary.Controllers
+namespace CodeCharacter.CoreLibrary.Controllers;
+
+/// <summary>
+/// </summary>
+[ApiController]
+public abstract class AuthApiController : ControllerBase
 {
     /// <summary>
+    ///     Forgot password
     /// </summary>
-    [ApiController]
-    public abstract class AuthApiController : ControllerBase
-    {
-        /// <summary>
-        ///     Forgot password
-        /// </summary>
-        /// <remarks>Request password reset email to be sent when user forgot their password</remarks>
-        /// <param name="forgotPasswordRequestDto"></param>
-        /// <response code="202">Accepted</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="422">Unprocessable Entity</response>
-        [HttpPost]
-        [Route("/auth/password/forgot")]
-        [Consumes("application/json")]
-        [ValidateModelState]
-        public abstract Task<IActionResult>
-            ForgotPassword([FromBody] ForgotPasswordRequestDto forgotPasswordRequestDto);
+    /// <remarks>Request password reset email to be sent when user forgot their password</remarks>
+    /// <param name="forgotPasswordRequestDto"></param>
+    /// <response code="202">Accepted</response>
+    /// <response code="401">Unauthorized</response>
+    /// <response code="422">Unprocessable Entity</response>
+    [HttpPost]
+    [Route("/auth/password/forgot")]
+    [Consumes("application/json")]
+    [ValidateModelState]
+    public abstract Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordRequestDto forgotPasswordRequestDto);
 
-        /// <summary>
-        ///     Login
-        /// </summary>
-        /// <remarks>Login with email and password and get bearer token for authentication</remarks>
-        /// <param name="loginRequestDto"></param>
-        /// <response code="200">OK</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="422">Unprocessable Entity</response>
-        [HttpPost]
-        [Route("/auth/token")]
-        [Consumes("application/json")]
-        [ValidateModelState]
-        [ProducesResponseType(statusCode: 200, type: typeof(LoginResponseDto))]
-        public abstract Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto);
+    /// <summary>
+    ///     Login
+    /// </summary>
+    /// <remarks>Login with email and password and get bearer token for authentication</remarks>
+    /// <param name="loginRequestDto"></param>
+    /// <response code="200">OK</response>
+    /// <response code="401">Unauthorized</response>
+    /// <response code="422">Unprocessable Entity</response>
+    [HttpPost]
+    [Route("/auth/token")]
+    [Consumes("application/json")]
+    [ValidateModelState]
+    [ProducesResponseType(statusCode: 200, type: typeof(LoginResponseDto))]
+    public abstract Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto);
 
-        /// <summary>
-        ///     Reset password
-        /// </summary>
-        /// <remarks>Reset password using the token from password reset email</remarks>
-        /// <param name="resetPasswordRequestDto"></param>
-        /// <response code="204">No Content</response>
-        /// <response code="401">Unauthorized</response>
-        /// <response code="422">Unprocessable Entity</response>
-        [HttpPost]
-        [Route("/auth/password/reset")]
-        [Consumes("application/json")]
-        [ValidateModelState]
-        public abstract Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto resetPasswordRequestDto);
-    }
+    /// <summary>
+    ///     Reset password
+    /// </summary>
+    /// <remarks>Reset password using the token from password reset email</remarks>
+    /// <param name="resetPasswordRequestDto"></param>
+    /// <response code="204">No Content</response>
+    /// <response code="401">Unauthorized</response>
+    /// <response code="422">Unprocessable Entity</response>
+    [HttpPost]
+    [Route("/auth/password/reset")]
+    [Consumes("application/json")]
+    [ValidateModelState]
+    public abstract Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequestDto resetPasswordRequestDto);
 }

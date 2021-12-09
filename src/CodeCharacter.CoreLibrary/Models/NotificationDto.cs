@@ -14,163 +14,163 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Notification model
+/// </summary>
+[DataContract]
+public class NotificationDto : IEquatable<NotificationDto>
 {
     /// <summary>
-    ///     Notification model
+    ///     Gets or Sets Id
     /// </summary>
-    [DataContract]
-    public class NotificationDto : IEquatable<NotificationDto>
+    [Required]
+    [DataMember(Name = "id", EmitDefaultValue = false)]
+    public Guid Id { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Title
+    /// </summary>
+    [Required]
+    [DataMember(Name = "title", EmitDefaultValue = false)]
+    public string Title { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Content
+    /// </summary>
+    [Required]
+    [DataMember(Name = "content", EmitDefaultValue = false)]
+    public string Content { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets CreatedAt
+    /// </summary>
+    [Required]
+    [DataMember(Name = "createdAt", EmitDefaultValue = false)]
+    public DateTime CreatedAt { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets Read
+    /// </summary>
+    [Required]
+    [DataMember(Name = "read", EmitDefaultValue = false)]
+    public bool Read { get; set; }
+
+    /// <summary>
+    ///     Returns true if NotificationDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of NotificationDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(NotificationDto other)
     {
-        /// <summary>
-        ///     Gets or Sets Id
-        /// </summary>
-        [Required]
-        [DataMember(Name = "id", EmitDefaultValue = false)]
-        public int Id { get; set; }
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        ///     Gets or Sets Title
-        /// </summary>
-        [Required]
-        [DataMember(Name = "title", EmitDefaultValue = false)]
-        public string Title { get; set; }
+        return
+            (
+                Id == other.Id ||
+                Id != null &&
+                Id.Equals(other.Id)
+            ) &&
+            (
+                Title == other.Title ||
+                Title != null &&
+                Title.Equals(other.Title)
+            ) &&
+            (
+                Content == other.Content ||
+                Content != null &&
+                Content.Equals(other.Content)
+            ) &&
+            (
+                CreatedAt == other.CreatedAt ||
+                CreatedAt != null &&
+                CreatedAt.Equals(other.CreatedAt)
+            ) &&
+            (
+                Read == other.Read ||
+                Read.Equals(other.Read)
+            );
+    }
 
-        /// <summary>
-        ///     Gets or Sets Content
-        /// </summary>
-        [Required]
-        [DataMember(Name = "content", EmitDefaultValue = false)]
-        public string Content { get; set; }
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class NotificationDto {\n");
+        sb.Append("  Id: ").Append(Id).Append("\n");
+        sb.Append("  Title: ").Append(Title).Append("\n");
+        sb.Append("  Content: ").Append(Content).Append("\n");
+        sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
+        sb.Append("  Read: ").Append(Read).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
 
-        /// <summary>
-        ///     Gets or Sets CreatedAt
-        /// </summary>
-        [Required]
-        [DataMember(Name = "createdAt", EmitDefaultValue = false)]
-        public DateTime CreatedAt { get; set; }
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
 
-        /// <summary>
-        ///     Gets or Sets Read
-        /// </summary>
-        [Required]
-        [DataMember(Name = "read", EmitDefaultValue = false)]
-        public bool Read { get; set; }
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((NotificationDto) obj);
+    }
 
-        /// <summary>
-        ///     Returns true if NotificationDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of NotificationDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(NotificationDto other)
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                (
-                    Id == other.Id ||
-                    Id.Equals(other.Id)
-                ) &&
-                (
-                    Title == other.Title ||
-                    Title != null &&
-                    Title.Equals(other.Title)
-                ) &&
-                (
-                    Content == other.Content ||
-                    Content != null &&
-                    Content.Equals(other.Content)
-                ) &&
-                (
-                    CreatedAt == other.CreatedAt ||
-                    CreatedAt != null &&
-                    CreatedAt.Equals(other.CreatedAt)
-                ) &&
-                (
-                    Read == other.Read ||
-                    Read.Equals(other.Read)
-                );
-        }
-
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class NotificationDto {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Title: ").Append(Title).Append("\n");
-            sb.Append("  Content: ").Append(Content).Append("\n");
-            sb.Append("  CreatedAt: ").Append(CreatedAt).Append("\n");
-            sb.Append("  Read: ").Append(Read).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((NotificationDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
+            if (Id != null)
                 hashCode = hashCode * 59 + Id.GetHashCode();
-                if (Title != null)
-                    hashCode = hashCode * 59 + Title.GetHashCode();
-                if (Content != null)
-                    hashCode = hashCode * 59 + Content.GetHashCode();
-                if (CreatedAt != null)
-                    hashCode = hashCode * 59 + CreatedAt.GetHashCode();
+            if (Title != null)
+                hashCode = hashCode * 59 + Title.GetHashCode();
+            if (Content != null)
+                hashCode = hashCode * 59 + Content.GetHashCode();
+            if (CreatedAt != null)
+                hashCode = hashCode * 59 + CreatedAt.GetHashCode();
 
-                hashCode = hashCode * 59 + Read.GetHashCode();
-                return hashCode;
-            }
+            hashCode = hashCode * 59 + Read.GetHashCode();
+            return hashCode;
         }
+    }
 
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(NotificationDto left, NotificationDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(NotificationDto left, NotificationDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(NotificationDto left, NotificationDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(NotificationDto left, NotificationDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

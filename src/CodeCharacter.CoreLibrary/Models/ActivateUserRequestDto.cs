@@ -14,103 +14,102 @@ using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace CodeCharacter.CoreLibrary.Models
+namespace CodeCharacter.CoreLibrary.Models;
+
+/// <summary>
+///     Activate user request
+/// </summary>
+[DataContract]
+public class ActivateUserRequestDto : IEquatable<ActivateUserRequestDto>
 {
     /// <summary>
-    ///     Activate user request
+    ///     Gets or Sets Token
     /// </summary>
-    [DataContract]
-    public class ActivateUserRequestDto : IEquatable<ActivateUserRequestDto>
+    [Required]
+    [DataMember(Name = "token", EmitDefaultValue = false)]
+    public string Token { get; set; }
+
+    /// <summary>
+    ///     Returns true if ActivateUserRequestDto instances are equal
+    /// </summary>
+    /// <param name="other">Instance of ActivateUserRequestDto to be compared</param>
+    /// <returns>Boolean</returns>
+    public bool Equals(ActivateUserRequestDto other)
     {
-        /// <summary>
-        ///     Gets or Sets Token
-        /// </summary>
-        [Required]
-        [DataMember(Name = "token", EmitDefaultValue = false)]
-        public string Token { get; set; }
+        if (other is null) return false;
+        if (ReferenceEquals(this, other)) return true;
 
-        /// <summary>
-        ///     Returns true if ActivateUserRequestDto instances are equal
-        /// </summary>
-        /// <param name="other">Instance of ActivateUserRequestDto to be compared</param>
-        /// <returns>Boolean</returns>
-        public bool Equals(ActivateUserRequestDto other)
+        return
+            Token == other.Token ||
+            Token != null &&
+            Token.Equals(other.Token);
+    }
+
+    /// <summary>
+    ///     Returns the string presentation of the object
+    /// </summary>
+    /// <returns>String presentation of the object</returns>
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+        sb.Append("class ActivateUserRequestDto {\n");
+        sb.Append("  Token: ").Append(Token).Append("\n");
+        sb.Append("}\n");
+        return sb.ToString();
+    }
+
+    /// <summary>
+    ///     Returns the JSON string presentation of the object
+    /// </summary>
+    /// <returns>JSON string presentation of the object</returns>
+    public string ToJson()
+    {
+        return JsonConvert.SerializeObject(this, Formatting.Indented);
+    }
+
+    /// <summary>
+    ///     Returns true if objects are equal
+    /// </summary>
+    /// <param name="obj">Object to be compared</param>
+    /// <returns>Boolean</returns>
+    public override bool Equals(object obj)
+    {
+        if (obj is null) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        return obj.GetType() == GetType() && Equals((ActivateUserRequestDto) obj);
+    }
+
+    /// <summary>
+    ///     Gets the hash code
+    /// </summary>
+    /// <returns>Hash code</returns>
+    public override int GetHashCode()
+    {
+        unchecked // Overflow is fine, just wrap
         {
-            if (other is null) return false;
-            if (ReferenceEquals(this, other)) return true;
-
-            return
-                Token == other.Token ||
-                Token != null &&
-                Token.Equals(other.Token);
+            var hashCode = 41;
+            // Suitable nullity checks etc, of course :)
+            if (Token != null)
+                hashCode = hashCode * 59 + Token.GetHashCode();
+            return hashCode;
         }
+    }
 
-        /// <summary>
-        ///     Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-            sb.Append("class ActivateUserRequestDto {\n");
-            sb.Append("  Token: ").Append(Token).Append("\n");
-            sb.Append("}\n");
-            return sb.ToString();
-        }
-
-        /// <summary>
-        ///     Returns the JSON string presentation of the object
-        /// </summary>
-        /// <returns>JSON string presentation of the object</returns>
-        public string ToJson()
-        {
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        /// <summary>
-        ///     Returns true if objects are equal
-        /// </summary>
-        /// <param name="obj">Object to be compared</param>
-        /// <returns>Boolean</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((ActivateUserRequestDto) obj);
-        }
-
-        /// <summary>
-        ///     Gets the hash code
-        /// </summary>
-        /// <returns>Hash code</returns>
-        public override int GetHashCode()
-        {
-            unchecked // Overflow is fine, just wrap
-            {
-                var hashCode = 41;
-                // Suitable nullity checks etc, of course :)
-                if (Token != null)
-                    hashCode = hashCode * 59 + Token.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        #region Operators
+    #region Operators
 
 #pragma warning disable 1591
 
-        public static bool operator ==(ActivateUserRequestDto left, ActivateUserRequestDto right)
-        {
-            return Equals(left, right);
-        }
+    public static bool operator ==(ActivateUserRequestDto left, ActivateUserRequestDto right)
+    {
+        return Equals(left, right);
+    }
 
-        public static bool operator !=(ActivateUserRequestDto left, ActivateUserRequestDto right)
-        {
-            return !Equals(left, right);
-        }
+    public static bool operator !=(ActivateUserRequestDto left, ActivateUserRequestDto right)
+    {
+        return !Equals(left, right);
+    }
 
 #pragma warning restore 1591
 
-        #endregion Operators
-    }
+    #endregion Operators
 }

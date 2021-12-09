@@ -1,7 +1,6 @@
 src/CodeCharacter.CoreLibrary/.gitignore
 src/CodeCharacter.CoreLibrary/Attributes/ValidateModelStateAttribute.cs
 src/CodeCharacter.CoreLibrary/Authentication/ApiAuthentication.cs
-src/CodeCharacter.CoreLibrary/CodeCharacter.CoreLibrary.csproj
 src/CodeCharacter.CoreLibrary/CodeCharacter.CoreLibrary.nuspec
 src/CodeCharacter.CoreLibrary/Controllers/AnnouncementApi.cs
 src/CodeCharacter.CoreLibrary/Controllers/AuthApi.cs
@@ -25,7 +24,7 @@ src/CodeCharacter.CoreLibrary/Models/CreateMapRevisionRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/CurrentUserProfileDto.cs
 src/CodeCharacter.CoreLibrary/Models/ForgotPasswordRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/GameDto.cs
-src/CodeCharacter.CoreLibrary/Models/GameLogDto.cs
+src/CodeCharacter.CoreLibrary/Models/GenericErrorDto.cs
 src/CodeCharacter.CoreLibrary/Models/LeaderboardEntryDto.cs
 src/CodeCharacter.CoreLibrary/Models/LoginRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/LoginResponseDto.cs
@@ -43,6 +42,4 @@ src/CodeCharacter.CoreLibrary/Models/UpdateLatestCodeRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/UpdateLatestMapRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/UpdatePasswordRequestDto.cs
 src/CodeCharacter.CoreLibrary/Models/UserStatsDto.cs
-src/CodeCharacter.CoreLibrary/Models/ValidationErrorDto.cs
-src/CodeCharacter.CoreLibrary/Models/ValidationErrorErrorsDto.cs
 src/CodeCharacter.CoreLibrary/OpenApi/TypeExtensions.cs
