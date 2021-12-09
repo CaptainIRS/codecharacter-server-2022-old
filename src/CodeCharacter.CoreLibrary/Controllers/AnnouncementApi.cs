@@ -53,7 +53,8 @@ public abstract class AnnouncementApiController : ControllerBase
     [Authorize]
     [ValidateModelState]
     public abstract Task<IActionResult> DeleteAnnouncementById(
-        [FromRoute(Name = "announcementId")] [Required] int announcementId);
+        [FromRoute(Name = "announcementId")] [Required]
+        int announcementId);
 
     /// <summary>
     ///     Get all announcements
@@ -82,7 +83,8 @@ public abstract class AnnouncementApiController : ControllerBase
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(AnnouncementDto))]
     public abstract Task<IActionResult> GetAnnouncementById(
-        [FromRoute(Name = "announcementId")] [Required] int announcementId);
+        [FromRoute(Name = "announcementId")] [Required]
+        int announcementId);
 
     /// <summary>
     ///     Update announcement by ID
@@ -100,6 +102,7 @@ public abstract class AnnouncementApiController : ControllerBase
     [Consumes("application/json")]
     [ValidateModelState]
     public abstract Task<IActionResult> UpdateAnnouncementById(
-        [FromRoute(Name = "announcementId")] [Required] int announcementId,
+        [FromRoute(Name = "announcementId")] [Required]
+        int announcementId,
         [FromBody] UpdateAnnouncementRequestDto updateAnnouncementRequestDto);
 }

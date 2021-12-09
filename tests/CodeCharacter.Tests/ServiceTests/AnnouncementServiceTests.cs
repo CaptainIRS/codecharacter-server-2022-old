@@ -13,33 +13,36 @@ namespace CodeCharacter.Tests.ServiceTests;
 public class AnnouncementServiceTests : BaseServiceTests
 {
     private const string Message = "TestAnnouncement";
-    private Instant Timestamp = Instant.FromUtc(2020, 1, 1, 0, 0);
+    private readonly Instant Timestamp = Instant.FromUtc(2020, 1, 1, 0, 0);
+
     [Test]
     public async Task GetAnnouncements_ShouldReturnAnnouncements()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
         await context.SaveChangesAsync();
-        
+
         var announcementService = new AnnouncementService(context);
         var announcements = await announcementService.GetAllAnnouncements();
 
         Assert.IsNotNull(announcements);
         Assert.IsTrue(announcements.Count == 1);
     }
-    
+
     [Test]
     public async Task GetOneAnnouncement_ShouldReturnAnnouncement()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
@@ -51,14 +54,15 @@ public class AnnouncementServiceTests : BaseServiceTests
         Assert.IsTrue(announcement.Message == Message);
         Assert.IsTrue(announcement.Timestamp == Timestamp);
     }
-    
+
     [Test]
     public async Task GetOneAnnouncement_WithNonExistentId_ShouldThrowException()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
@@ -77,81 +81,86 @@ public class AnnouncementServiceTests : BaseServiceTests
 
         await context.Database.EnsureCreatedAsync();
         Assert.IsTrue(!context.Announcements.Any());
-        
+
         var announcementService = new AnnouncementService(context);
         await announcementService.CreateAnnouncement(Message);
-        
+
         Assert.IsTrue(context.Announcements.Any());
         Assert.IsTrue(context.Announcements.First().Message == Message);
     }
-    
+
     [Test]
     public async Task UpdateAnnouncement_ShouldUpdateSuccessfully()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
         await context.SaveChangesAsync();
-        
+
         var announcementService = new AnnouncementService(context);
         await announcementService.UpdateAnnouncement(1, Message);
-        
+
         Assert.IsTrue(context.Announcements.Any());
         Assert.IsTrue(context.Announcements.First().Message == Message);
     }
-    
+
     [Test]
     public async Task UpdateAnnouncement_WithNonExistentId_ShouldThrowException()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
         await context.SaveChangesAsync();
-        
+
         var announcementService = new AnnouncementService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () => await announcementService.UpdateAnnouncement(300, Message));
+        var exception =
+            Assert.ThrowsAsync<Exception>(async () => await announcementService.UpdateAnnouncement(300, Message));
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
     }
-    
+
     [Test]
     public async Task DeleteAnnouncement_ShouldDeleteSuccessfully()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
         await context.SaveChangesAsync();
-        
+
         var announcementService = new AnnouncementService(context);
         await announcementService.DeleteAnnouncement(1);
-        
+
         Assert.IsTrue(!context.Announcements.Any());
     }
-    
+
     [Test]
     public async Task DeleteAnnouncement_WithNonExistentId_ShouldThrowException()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        context.Announcements.Add(new AnnouncementEntity {
+        context.Announcements.Add(new AnnouncementEntity
+        {
             Message = Message,
             Timestamp = Timestamp
         });
         await context.SaveChangesAsync();
-        
+
         var announcementService = new AnnouncementService(context);
         var exception = Assert.ThrowsAsync<Exception>(async () => await announcementService.DeleteAnnouncement(300));
         Assert.That(exception, Is.Not.Null);

@@ -1,5 +1,4 @@
 using CodeCharacter.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Interfaces;
 

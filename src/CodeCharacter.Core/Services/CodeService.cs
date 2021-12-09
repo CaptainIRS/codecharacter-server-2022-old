@@ -1,7 +1,6 @@
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CodeCharacter.Core.Services;
@@ -12,13 +11,14 @@ public class CodeService : ICodeService
     private readonly CodeCharacterDbContext _context;
 
     /// <summary>
-    /// Constructor
+    ///     Constructor
     /// </summary>
     /// <param name="context"></param>
     public CodeService(CodeCharacterDbContext context)
     {
         _context = context;
     }
+
     /// <inheritdoc />
     public async Task CreateCodeRevision(UserEntity user, string code, Guid? parentRevision)
     {
@@ -26,11 +26,9 @@ public class CodeService : ICodeService
         if (parentRevision != null)
         {
             parentCodeRevision = await _context.CodeRevisions.FindAsync(parentRevision);
-            if (parentCodeRevision == null)
-            {
-                throw new Exception("Parent revision not found");
-            }
+            if (parentCodeRevision == null) throw new Exception("Parent revision not found");
         }
+
         await _context.CodeRevisions.AddAsync(new CodeRevisionEntity
         {
             Code = code,
@@ -44,10 +42,7 @@ public class CodeService : ICodeService
     public async Task<CodeRevisionEntity> GetCodeRevision(UserEntity user, Guid revisionId)
     {
         var codeRevision = await _context.CodeRevisions.FindAsync(revisionId);
-        if (codeRevision == null || codeRevision.User.Id != user.Id)
-        {
-            throw new Exception("Code revision not found");
-        }
+        if (codeRevision == null || codeRevision.User.Id != user.Id) throw new Exception("Code revision not found");
         return codeRevision;
     }
 

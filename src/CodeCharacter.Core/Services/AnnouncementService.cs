@@ -1,7 +1,6 @@
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NodaTime;
 
@@ -11,15 +10,16 @@ namespace CodeCharacter.Core.Services;
 public class AnnouncementService : IAnnouncementService
 {
     private readonly CodeCharacterDbContext _context;
-    
+
     /// <summary>
-    /// Constructor
+    ///     Constructor
     /// </summary>
     /// <param name="context"></param>
     public AnnouncementService(CodeCharacterDbContext context)
     {
         _context = context;
     }
+
     /// <inheritdoc />
     public async Task<List<AnnouncementEntity>> GetAllAnnouncements()
     {
@@ -30,10 +30,7 @@ public class AnnouncementService : IAnnouncementService
     public async Task<AnnouncementEntity> GetAnnouncement(int id)
     {
         var announcement = await _context.Announcements.FindAsync(id);
-        if (announcement == null)
-        {
-            throw new Exception("Announcement not found");
-        }
+        if (announcement == null) throw new Exception("Announcement not found");
 
         return announcement;
     }
@@ -53,10 +50,7 @@ public class AnnouncementService : IAnnouncementService
     public async Task UpdateAnnouncement(int announcementId, string announcement)
     {
         var announcementToUpdate = await _context.Announcements.FindAsync(announcementId);
-        if (announcementToUpdate == null)
-        {
-            throw new Exception("Announcement not found");
-        }
+        if (announcementToUpdate == null) throw new Exception("Announcement not found");
 
         announcementToUpdate.Message = announcement;
         announcementToUpdate.Timestamp = Instant.FromDateTimeUtc(DateTime.UtcNow);
@@ -68,10 +62,7 @@ public class AnnouncementService : IAnnouncementService
     public async Task DeleteAnnouncement(int id)
     {
         var announcement = await _context.Announcements.FindAsync(id);
-        if (announcement == null)
-        {
-            throw new Exception("Announcement not found");
-        }
+        if (announcement == null) throw new Exception("Announcement not found");
         _context.Announcements.Remove(announcement);
         await _context.SaveChangesAsync();
     }

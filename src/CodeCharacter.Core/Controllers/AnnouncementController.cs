@@ -1,5 +1,4 @@
 using AutoMapper;
-using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;

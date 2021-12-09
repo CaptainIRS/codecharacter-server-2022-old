@@ -10,13 +10,19 @@ namespace CodeCharacter.Tests;
 
 public class BaseServiceTests : IDisposable
 {
-    protected DbContextOptions<CodeCharacterDbContext> DbContextOptions = null!;
     private DbConnection _connection = null!;
-    
+    protected DbContextOptions<CodeCharacterDbContext> DbContextOptions = null!;
+
+    public void Dispose()
+    {
+        _connection.Dispose();
+    }
+
     [SetUp]
     public void Setup()
     {
-        DbContextOptions = new DbContextOptionsBuilder<CodeCharacterDbContext>().UseSqlite(CreateInMemoryDatabase(), x => x.UseNodaTime()).Options;
+        DbContextOptions = new DbContextOptionsBuilder<CodeCharacterDbContext>()
+            .UseSqlite(CreateInMemoryDatabase(), x => x.UseNodaTime()).Options;
         _connection = RelationalOptionsExtension.Extract(DbContextOptions).Connection!;
     }
 
@@ -26,6 +32,4 @@ public class BaseServiceTests : IDisposable
         connection.Open();
         return connection;
     }
-
-    public void Dispose() => _connection.Dispose();
 }

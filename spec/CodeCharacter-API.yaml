@@ -20,15 +20,15 @@ paths:
       tags:
         - auth
       description: Login with email and password and get bearer token for authentication
-      parameters: []
-      security: []
+      parameters: [ ]
+      security: [ ]
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/LoginRequest'
-            examples: {}
+            examples: { }
         description: ''
       responses:
         '200':
@@ -45,9 +45,9 @@ paths:
           description: Unauthorized
         '422':
           description: Unprocessable Entity
-    parameters: []
+    parameters: [ ]
   /auth/password/reset:
-    parameters: []
+    parameters: [ ]
     post:
       summary: Reset password
       operationId: resetPassword
@@ -60,7 +60,7 @@ paths:
           description: Unprocessable Entity
       tags:
         - auth
-      security: []
+      security: [ ]
       description: Reset password using the token from password reset email
       requestBody:
         required: true
@@ -81,7 +81,7 @@ paths:
           description: Unprocessable Entity
       tags:
         - auth
-      security: []
+      security: [ ]
       description: Request password reset email to be sent when user forgot their password
       requestBody:
         required: true
@@ -252,7 +252,7 @@ paths:
           name: size
           description: Size of the page
       description: Get leaderboard
-    parameters: []
+    parameters: [ ]
   /top-matches:
     get:
       summary: Get top matches
@@ -299,7 +299,7 @@ paths:
           description: Unauthorized
       operationId: getTopMatches
       description: Get top matches
-    parameters: []
+    parameters: [ ]
   '/games/{gameId}/logs':
     parameters:
       - $ref: '#/components/parameters/gameId'
@@ -320,7 +320,7 @@ paths:
       operationId: getGameLogsByGameId
       description: Get game logs by game ID
   /user:
-    parameters: []
+    parameters: [ ]
     get:
       summary: Get current user profile
       responses:
@@ -371,7 +371,7 @@ paths:
       tags:
         - current-user
   /user/password:
-    parameters: []
+    parameters: [ ]
     post:
       summary: Update password
       operationId: updatePassword
@@ -407,7 +407,7 @@ paths:
       responses:
         '200':
           description: OK
-          headers: {}
+          headers: { }
           content:
             application/json:
               schema:
@@ -445,7 +445,7 @@ paths:
           description: Unprocessable Entity
       tags:
         - code
-    parameters: []
+    parameters: [ ]
   /user/code/revisions:
     get:
       summary: Get code revisions
@@ -493,7 +493,7 @@ paths:
                   code: '#include<iostream>'
       tags:
         - code
-    parameters: []
+    parameters: [ ]
   '/user/code/revisions/{revisionId}':
     parameters:
       - $ref: '#/components/parameters/revisionId'
@@ -528,7 +528,7 @@ paths:
       responses:
         '200':
           description: OK
-          headers: {}
+          headers: { }
           content:
             application/json:
               schema:
@@ -566,7 +566,7 @@ paths:
           description: Unprocessable Entity
       tags:
         - map
-    parameters: []
+    parameters: [ ]
   /user/map/revisions:
     get:
       summary: Get map revisions
@@ -614,7 +614,7 @@ paths:
                   map: 0000\n0010\n0100\n1000\n
       tags:
         - map
-    parameters: []
+    parameters: [ ]
   '/user/map/revisions/{revisionId}':
     parameters:
       - $ref: '#/components/parameters/revisionId'
@@ -687,7 +687,7 @@ paths:
           description: Unauthorized
       operationId: getUserMatches
       description: Get matches played by authenticated user
-    parameters: []
+    parameters: [ ]
   /user/notifications:
     get:
       summary: Get all notifications
@@ -717,7 +717,7 @@ paths:
                       read: false
       operationId: getAllNotifications
       description: Get all notifications
-    parameters: []
+    parameters: [ ]
   '/user/notifications/{notificationId}/read':
     parameters:
       - $ref: '#/components/parameters/notificationId'
@@ -773,7 +773,7 @@ paths:
                   college: NITT
                   avatarId: 0
         description: ''
-      security: []
+      security: [ ]
   '/users/{userId}/activate':
     parameters:
       - $ref: '#/components/parameters/userId'
@@ -803,7 +803,7 @@ paths:
                   token: example-token
         description: ''
       description: Activate user by using the token sent via email
-      security: []
+      security: [ ]
   '/users/{userId}/ratingHistory':
     parameters:
       - $ref: '#/components/parameters/userId'
@@ -1486,8 +1486,8 @@ components:
         format: uuid
         example: 123e4567-e89b-12d3-a456-426614174000
       description: UUID of the game
-  responses: {}
-  examples: {}
+  responses: { }
+  examples: { }
 security:
   - oauth2-google:
       - 'https://www.googleapis.com/auth/userinfo.email'
@@ -1495,7 +1495,7 @@ security:
   - oauth2-github:
       - 'read:user'
       - 'user:email'
-  - http-bearer: []
+  - http-bearer: [ ]
 tags:
   - name: announcement
     description: Announcement API

@@ -11,8 +11,8 @@ namespace CodeCharacter.Core.Controllers;
 /// <inheritdoc />
 public class MapController : MapApiController
 {
-    private readonly IMapService _mapService;
     private readonly IMapper _mapper;
+    private readonly IMapService _mapService;
     private readonly UserManager<UserEntity> _userManager;
 
     /// <summary>
