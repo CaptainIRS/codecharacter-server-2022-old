@@ -25,9 +25,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-nuget-
     - name: Restore dependencies
-      if: steps.cache-nuget.outputs.cache-hit != 'true'
       run: dotnet restore CodeCharacter.sln
     - name: Build
       run: dotnet build --no-restore CodeCharacter.sln
     - name: Test
-      run: dotnet test --no-build CodeCharacter.sln
+      run: dotnet test --no-build --collect:"XPlat Code Coverage" --settings CodeCoverage.runsettings CodeCharacter.sln
+    - name: Upload coverage
+      uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
