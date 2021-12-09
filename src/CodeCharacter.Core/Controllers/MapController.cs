@@ -3,6 +3,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Controllers;
@@ -10,17 +11,20 @@ namespace CodeCharacter.Core.Controllers;
 /// <inheritdoc />
 public class MapController : MapApiController
 {
-    private readonly IMapper _mapper;
     private readonly IMapService _mapService;
+    private readonly IMapper _mapper;
+    private readonly UserManager<UserEntity> _userManager;
 
     /// <summary>
     ///     Constructor
     /// </summary>
     /// <param name="mapService"></param>
+    /// <param name="userManager"></param>
     /// <param name="mapper"></param>
-    public MapController(IMapService mapService, IMapper mapper)
+    public MapController(IMapService mapService, UserManager<UserEntity> userManager, IMapper mapper)
     {
         _mapService = mapService;
+        _userManager = userManager;
         _mapper = mapper;
     }
 
@@ -28,33 +32,53 @@ public class MapController : MapApiController
     public override async Task<IActionResult> CreateMapRevision(
         CreateMapRevisionRequestDto createMapRevisionRequestDto)
     {
-        var mapRevision = _mapper.Map<MapRevisionEntity>(createMapRevisionRequestDto);
-        return await _mapService.CreateMapRevision(mapRevision);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _mapService.CreateMapRevision(
+            user,
+            createMapRevisionRequestDto.Map,
+            null);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetMapRevisionById(Guid revisionId)
     {
-        return await _mapService.GetMapRevision(revisionId);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _mapService.GetMapRevision(user, revisionId);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetMapRevisions()
     {
-        return await _mapService.GetAllMapRevisions();
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _mapService.GetAllMapRevisions(user);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetLatestMap()
     {
-        return await _mapService.GetLatestMap();
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+        await _mapService.GetLatestMap(user);
+        return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> UpdateLatestMap(
         UpdateLatestMapRequestDto updateLatestMapRequestDto)
     {
-        var mapRevision = _mapper.Map<MapRevisionEntity>(updateLatestMapRequestDto);
-        return await _mapService.UpdateLatestMap(mapRevision);
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null) return Unauthorized();
+
+        await _mapService.UpdateLatestMap(
+            user,
+            updateLatestMapRequestDto.Map);
+
+        return Ok();
     }
 }
