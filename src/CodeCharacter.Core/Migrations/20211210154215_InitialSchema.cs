@@ -17,7 +17,7 @@ namespace CodeCharacter.Core.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Message = table.Column<string>(type: "text", nullable: true),
+                    Message = table.Column<string>(type: "text", nullable: false),
                     Timestamp = table.Column<Instant>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -31,7 +31,7 @@ namespace CodeCharacter.Core.Migrations
                 {
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Code = table.Column<string>(type: "text", nullable: true),
+                    Code = table.Column<string>(type: "text", nullable: false),
                     LastSavedAt = table.Column<Instant>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -44,7 +44,7 @@ namespace CodeCharacter.Core.Migrations
                 columns: table => new
                 {
                     GameId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GameLog = table.Column<string>(type: "text", nullable: true)
+                    GameLog = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,27 +57,12 @@ namespace CodeCharacter.Core.Migrations
                 {
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Map = table.Column<string>(type: "text", nullable: true),
+                    Map = table.Column<string>(type: "text", nullable: false),
                     LastSavedAt = table.Column<Instant>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Maps", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Notifications",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: true),
-                    Content = table.Column<string>(type: "text", nullable: true),
-                    CreatedAt = table.Column<Instant>(type: "timestamp with time zone", nullable: false),
-                    Read = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notifications", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,9 +72,9 @@ namespace CodeCharacter.Core.Migrations
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     AvatarId = table.Column<int>(type: "integer", nullable: false),
-                    College = table.Column<string>(type: "text", nullable: true),
-                    Country = table.Column<string>(type: "text", nullable: true),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    College = table.Column<string>(type: "text", nullable: false),
+                    Country = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,8 +180,8 @@ namespace CodeCharacter.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: true),
-                    Code = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
                     ParentRevisionId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -211,7 +196,8 @@ namespace CodeCharacter.Core.Migrations
                         name: "FK_CodeRevisions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -219,8 +205,8 @@ namespace CodeCharacter.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: true),
-                    Map = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Map = table.Column<string>(type: "text", nullable: false),
                     ParentRevisionId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
@@ -235,7 +221,8 @@ namespace CodeCharacter.Core.Migrations
                         name: "FK_MapRevisions_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -246,8 +233,8 @@ namespace CodeCharacter.Core.Migrations
                     MatchMode = table.Column<int>(type: "integer", nullable: false),
                     MatchVerdict = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<Instant>(type: "timestamp with time zone", nullable: false),
-                    User1Id = table.Column<int>(type: "integer", nullable: true),
-                    User2Id = table.Column<int>(type: "integer", nullable: true)
+                    User1Id = table.Column<int>(type: "integer", nullable: false),
+                    User2Id = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -256,12 +243,36 @@ namespace CodeCharacter.Core.Migrations
                         name: "FK_Matches_Users_User1Id",
                         column: x => x.User1Id,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Matches_Users_User2Id",
                         column: x => x.User2Id,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<Instant>(type: "timestamp with time zone", nullable: false),
+                    Read = table.Column<bool>(type: "boolean", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notifications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -354,7 +365,7 @@ namespace CodeCharacter.Core.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Map = table.Column<string>(type: "text", nullable: true),
+                    Map = table.Column<string>(type: "text", nullable: false),
                     Points1 = table.Column<int>(type: "integer", nullable: false),
                     Points2 = table.Column<int>(type: "integer", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
@@ -405,6 +416,11 @@ namespace CodeCharacter.Core.Migrations
                 name: "IX_Matches_User2Id",
                 table: "Matches",
                 column: "User2Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notifications_UserId",
+                table: "Notifications",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
