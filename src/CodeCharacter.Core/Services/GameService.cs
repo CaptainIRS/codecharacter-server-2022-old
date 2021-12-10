@@ -7,7 +7,7 @@ namespace CodeCharacter.Core.Services;
 public class GameService : IGameService
 {
     /// <inheritdoc />
-    public async Task<IActionResult> GetGameLogsByGameId(Guid gameId)
+    public Task<IActionResult> GetGameLogsByGameId(Guid gameId)
     {
         throw new NotImplementedException();
     }

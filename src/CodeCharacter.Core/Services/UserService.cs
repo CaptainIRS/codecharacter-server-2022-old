@@ -35,7 +35,7 @@ public class UserService : IUserService
         _signInManager = signInManager;
     }
 
-    public async Task ActivateUser(int userId, string token)
+    public Task ActivateUser(int userId, string token)
     {
         throw new NotImplementedException();
     }

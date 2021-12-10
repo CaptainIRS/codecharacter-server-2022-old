@@ -6,5 +6,5 @@ namespace CodeCharacter.Core.Entities;
 public class GameLogEntity
 {
     [Key] [ForeignKey("Game")] public int GameId { get; set; }
-    public string GameLog { get; set; }
+    public string? GameLog { get; set; }
 }

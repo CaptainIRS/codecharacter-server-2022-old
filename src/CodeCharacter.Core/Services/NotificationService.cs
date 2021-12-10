@@ -7,13 +7,13 @@ namespace CodeCharacter.Core.Services;
 public class NotificationService : INotificationService
 {
     /// <inheritdoc />
-    public async Task<IActionResult> GetAllNotifications()
+    public Task<IActionResult> GetAllNotifications()
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> SaveNotificationReadStatus(Guid notificationId, bool readStatus)
+    public Task<IActionResult> SaveNotificationReadStatus(Guid notificationId, bool readStatus)
     {
         throw new NotImplementedException();
     }

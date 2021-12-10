@@ -21,14 +21,14 @@ public class UserController : UserApiController
     }
 
     /// <inheritdoc />
-    public override async Task<IActionResult> ActivateUser(int userId,
+    public override Task<IActionResult> ActivateUser(int userId,
         ActivateUserRequestDto activateUserRequestDto)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public override async Task<IActionResult> GetRatingHistory(int userId)
+    public override Task<IActionResult> GetRatingHistory(int userId)
     {
         throw new NotImplementedException();
     }

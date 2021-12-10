@@ -33,5 +33,5 @@ public abstract class GameApiController : ControllerBase
     [Authorize]
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(string))]
-    public abstract Task<IActionResult> GetGameLogsByGameId([FromRoute(Name = "gameId")] [Required] Guid gameId);
+    public abstract Task<IActionResult> GetGameLogsByGameId([FromRoute(Name = "gameId")][Required] Guid gameId);
 }

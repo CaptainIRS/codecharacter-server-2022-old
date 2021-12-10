@@ -37,7 +37,7 @@ public abstract class UserApiController : ControllerBase
     [Route("/users/{userId}/activate")]
     [Consumes("application/json")]
     [ValidateModelState]
-    public abstract Task<IActionResult> ActivateUser([FromRoute(Name = "userId")] [Required] int userId,
+    public abstract Task<IActionResult> ActivateUser([FromRoute(Name = "userId")][Required] int userId,
         [FromBody] ActivateUserRequestDto activateUserRequestDto);
 
     /// <summary>
@@ -54,7 +54,7 @@ public abstract class UserApiController : ControllerBase
     [Authorize]
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(List<RatingHistoryDto>))]
-    public abstract Task<IActionResult> GetRatingHistory([FromRoute(Name = "userId")] [Required] int userId);
+    public abstract Task<IActionResult> GetRatingHistory([FromRoute(Name = "userId")][Required] int userId);
 
     /// <summary>
     ///     Register user

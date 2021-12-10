@@ -57,13 +57,13 @@ public class AuthService : IAuthService
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> ForgotPassword(string email)
+    public Task<IActionResult> ForgotPassword(string email)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> ResetPassword(string email, string password, string token)
+    public Task<IActionResult> ResetPassword(string email, string password, string token)
     {
         throw new NotImplementedException();
     }

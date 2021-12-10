@@ -5,7 +5,7 @@ namespace CodeCharacter.Core.Services;
 
 public class LeaderboardService : ILeaderboardService
 {
-    public async Task<IActionResult> GetLeaderboard()
+    public Task<IActionResult> GetLeaderboard()
     {
         throw new NotImplementedException();
     }

@@ -54,7 +54,7 @@ public abstract class CodeApiController : ControllerBase
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(CodeRevisionDto))]
     public abstract Task<IActionResult>
-        GetCodeRevisionById([FromRoute(Name = "revisionId")] [Required] Guid revisionId);
+        GetCodeRevisionById([FromRoute(Name = "revisionId")][Required] Guid revisionId);
 
     /// <summary>
     ///     Get code revisions

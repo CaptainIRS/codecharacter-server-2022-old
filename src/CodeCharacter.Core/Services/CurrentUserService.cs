@@ -27,13 +27,13 @@ public class CurrentUserService : ICurrentUserService
     }
 
     /// <inheritdoc />
-    public async Task UpdateCurrentUser(UserEntity user, PublicUserEntity newUser)
+    public Task UpdateCurrentUser(UserEntity user, PublicUserEntity newUser)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public async Task UpdatePassword(UserEntity user, string oldPassword, string newPassword)
+    public Task UpdatePassword(UserEntity user, string oldPassword, string newPassword)
     {
         throw new NotImplementedException();
     }

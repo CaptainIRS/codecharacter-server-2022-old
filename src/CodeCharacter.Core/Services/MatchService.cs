@@ -7,13 +7,13 @@ namespace CodeCharacter.Core.Services;
 public class MatchService : IMatchService
 {
     /// <inheritdoc />
-    public async Task<IActionResult> GetTopMatches()
+    public Task<IActionResult> GetTopMatches()
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> GetUserMatches()
+    public Task<IActionResult> GetUserMatches()
     {
         throw new NotImplementedException();
     }
