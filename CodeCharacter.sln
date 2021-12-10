@@ -26,12 +26,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dotfiles", "Dotfiles", "{F0
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Specification", "Specification", "{D9DCE349-5EFF-45B8-A1A4-3A730DA43E3D}"
-ProjectSection(SolutionItems) = preProject
-	spec\CodeCharacter-API.yaml = spec\CodeCharacter-API.yaml
-	spec\generator-config.yml = spec\generator-config.yml
-	spec\README.md = spec\README.md
-EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GithubActions", "GithubActions", "{38B12FF2-4C18-4163-9235-615E51A6824A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\workflows\lint.yml = .github\workflows\lint.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E2922377-8F04-41E9-A9F3-E61A36D562C1}"
+	ProjectSection(SolutionItems) = preProject
+		docs\spec\CodeCharacter-API.yaml = docs\spec\CodeCharacter-API.yaml
+		docs\spec\generator-config.yml = docs\spec\generator-config.yml
+		docs\spec\README.md = docs\spec\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
