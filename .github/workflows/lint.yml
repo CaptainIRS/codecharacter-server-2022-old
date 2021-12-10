@@ -7,10 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  lint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -26,5 +24,7 @@ jobs:
             ${{ runner.os }}-nuget-
       - name: Restore dependencies
         run: dotnet restore CodeCharacter.sln && dotnet tool restore
+      - name: Build
+        run: dotnet build --no-restore CodeCharacter.sln
       - name: Run lint
         run: dotnet regitlint --jb --exclude="**/*.xml;**/*.htm*;**CoreLibrary/**.*;**/*.json" --jb --verbosity=WARN --fail-on-diff --print-diff

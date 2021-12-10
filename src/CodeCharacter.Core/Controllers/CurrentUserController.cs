@@ -43,8 +43,13 @@ public class CurrentUserController : CurrentUserApiController
         UpdateCurrentUserProfileDto updateCurrentUserProfileDto)
     {
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        var newUser = _mapper.Map<PublicUserEntity>(updateCurrentUserProfileDto);
-        await _currentUserService.UpdateCurrentUser(user, newUser);
+        await _currentUserService.UpdateCurrentUser(
+            user,
+            updateCurrentUserProfileDto.Name,
+            updateCurrentUserProfileDto.College,
+            updateCurrentUserProfileDto.Country,
+            updateCurrentUserProfileDto.AvatarId
+        );
         return Ok();
     }
 
@@ -55,8 +60,11 @@ public class CurrentUserController : CurrentUserApiController
             return BadRequest("Passwords do not match");
 
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        await _currentUserService.UpdatePassword(user, updatePasswordRequestDto.OldPassword,
+        var result = await _userManager.ChangePasswordAsync(user, updatePasswordRequestDto.OldPassword,
             updatePasswordRequestDto.Password);
+
+        if (!result.Succeeded)
+            return BadRequest(result.Errors.Select(e => e.Description));
         return Ok();
     }
 }

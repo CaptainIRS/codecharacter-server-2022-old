@@ -17,16 +17,10 @@ public interface ICurrentUserService
     ///     Update current user
     /// </summary>
     /// <param name="user"></param>
-    /// <param name="newUser"></param>
+    /// <param name="name"></param>
+    /// <param name="college"></param>
+    /// <param name="country"></param>
+    /// <param name="avatarId"></param>
     /// <returns></returns>
-    Task UpdateCurrentUser(UserEntity user, PublicUserEntity newUser);
-
-    /// <summary>
-    ///     Update user password
-    /// </summary>
-    /// <param name="user"></param>
-    /// <param name="oldPassword"></param>
-    /// <param name="newPassword"></param>
-    /// <returns></returns>
-    Task UpdatePassword(UserEntity user, string oldPassword, string newPassword);
+    Task UpdateCurrentUser(UserEntity user, string? name, string? college, string? country, int? avatarId);
 }

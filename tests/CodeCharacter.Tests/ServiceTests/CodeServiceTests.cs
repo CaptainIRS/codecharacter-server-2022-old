@@ -6,6 +6,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Services;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using NUnit.Framework;
 
 namespace CodeCharacter.Tests.ServiceTests;
@@ -185,7 +186,8 @@ public class CodeServiceTests : BaseServiceTests
         await context.Codes.AddAsync(new CodeEntity
         {
             UserId = _user.Id,
-            Code = code
+            Code = code,
+            LastSavedAt = Instant.FromUtc(2020, 1, 1, 0, 0, 0)
         });
         await context.SaveChangesAsync();
 
@@ -222,5 +224,6 @@ public class CodeServiceTests : BaseServiceTests
         codeEntity = await context.Codes.FirstAsync();
         Assert.IsTrue(codeEntity.Code == code2);
         Assert.IsTrue(codeEntity.UserId == _user.Id);
+        Assert.IsTrue(codeEntity.LastSavedAt > Instant.FromUtc(2020, 1, 1, 0, 0, 0));
     }
 }

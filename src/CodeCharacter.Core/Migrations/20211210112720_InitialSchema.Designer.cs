@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CodeCharacter.Core.Migrations
 {
     [DbContext(typeof(CodeCharacterDbContext))]
-    [Migration("20211209184444_InitialSchema")]
+    [Migration("20211210112720_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,6 @@ namespace CodeCharacter.Core.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Message")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Instant>("Timestamp")
@@ -54,7 +53,6 @@ namespace CodeCharacter.Core.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Instant>("LastSavedAt")
@@ -72,13 +70,12 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ParentRevisionId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -100,7 +97,6 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Map")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("MatchEntityId")
@@ -124,14 +120,11 @@ namespace CodeCharacter.Core.Migrations
 
             modelBuilder.Entity("CodeCharacter.Core.Entities.GameLogEntity", b =>
                 {
-                    b.Property<int>("GameId")
+                    b.Property<Guid>("GameId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("GameId"));
+                        .HasColumnType("uuid");
 
                     b.Property<string>("GameLog")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("GameId");
@@ -151,7 +144,6 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Map")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("UserId");
@@ -166,13 +158,12 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Map")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("ParentRevisionId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -199,10 +190,10 @@ namespace CodeCharacter.Core.Migrations
                     b.Property<int>("MatchVerdict")
                         .HasColumnType("integer");
 
-                    b.Property<int>("User1Id")
+                    b.Property<int?>("User1Id")
                         .HasColumnType("integer");
 
-                    b.Property<int>("User2Id")
+                    b.Property<int?>("User2Id")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -221,7 +212,6 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Instant>("CreatedAt")
@@ -231,7 +221,6 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -251,15 +240,12 @@ namespace CodeCharacter.Core.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("College")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("UserId");
@@ -524,9 +510,7 @@ namespace CodeCharacter.Core.Migrations
 
                     b.HasOne("CodeCharacter.Core.Entities.UserEntity", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("ParentRevision");
 
@@ -548,9 +532,7 @@ namespace CodeCharacter.Core.Migrations
 
                     b.HasOne("CodeCharacter.Core.Entities.UserEntity", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId");
 
                     b.Navigation("ParentRevision");
 
@@ -561,15 +543,11 @@ namespace CodeCharacter.Core.Migrations
                 {
                     b.HasOne("CodeCharacter.Core.Entities.UserEntity", "User1")
                         .WithMany()
-                        .HasForeignKey("User1Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("User1Id");
 
                     b.HasOne("CodeCharacter.Core.Entities.UserEntity", "User2")
                         .WithMany()
-                        .HasForeignKey("User2Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("User2Id");
 
                     b.Navigation("User1");
 

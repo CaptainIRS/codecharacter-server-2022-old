@@ -5,9 +5,9 @@ namespace CodeCharacter.Core.Entities;
 public class GameEntity
 {
     public Guid Id { get; set; }
-    public string? Map { get; set; }
-    public int Points1 { get; set; }
-    public int Points2 { get; set; }
-    public GameDto.StatusEnum Status { get; set; }
-    public GameDto.GameVerdictEnum GameVerdict { get; set; }
+    public string Map { get; init; }
+    public int Points1 { get; init; }
+    public int Points2 { get; init; }
+    public GameDto.StatusEnum Status { get; init; }
+    public GameDto.GameVerdictEnum GameVerdict { get; init; }
 }

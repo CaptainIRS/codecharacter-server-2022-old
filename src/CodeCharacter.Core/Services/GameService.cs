@@ -1,14 +1,32 @@
+using CodeCharacter.Core.Data;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Services;
 
 /// <inheritdoc />
 public class GameService : IGameService
 {
-    /// <inheritdoc />
-    public Task<IActionResult> GetGameLogsByGameId(Guid gameId)
+    private readonly CodeCharacterDbContext _context;
+
+    /// <summary>
+    ///     Constructor
+    /// </summary>
+    /// <param name="context"></param>
+    public GameService(CodeCharacterDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+
+    /// <inheritdoc />
+    public async Task<string> GetGameLogsByGameId(Guid gameId)
+    {
+        var game = await _context.Games.FindAsync(gameId);
+        if (game == null) throw new GenericException("Game not found");
+
+        var gameLog = await _context.GameLogs.FindAsync(game.Id);
+        if (gameLog == null) throw new GenericException("Game log not found");
+
+        return gameLog.GameLog;
     }
 }

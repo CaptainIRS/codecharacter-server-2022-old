@@ -6,6 +6,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Services;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using NUnit.Framework;
 
 namespace CodeCharacter.Tests.ServiceTests;
@@ -208,7 +209,8 @@ public class MapServiceTests : BaseServiceTests
         await context.Maps.AddAsync(new MapEntity
         {
             UserId = _user.Id,
-            Map = map1
+            Map = map1,
+            LastSavedAt = Instant.FromUtc(2020, 1, 1, 0, 0, 0)
         });
         await context.SaveChangesAsync();
 
@@ -224,5 +226,6 @@ public class MapServiceTests : BaseServiceTests
         mapEntity = await context.Maps.FirstAsync();
         Assert.IsTrue(mapEntity.Map == map2);
         Assert.IsTrue(mapEntity.UserId == _user.Id);
+        Assert.IsTrue(mapEntity.LastSavedAt > Instant.FromUtc(2020, 1, 1, 0, 0, 0));
     }
 }

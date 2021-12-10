@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using CodeCharacter.Core.Entities;
 
 namespace CodeCharacter.Core.Interfaces;
 
@@ -11,11 +11,12 @@ public interface IMatchService
     ///     Get top matches
     /// </summary>
     /// <returns></returns>
-    Task<IActionResult> GetTopMatches();
+    Task<IEnumerable<MatchEntity>> GetTopMatches();
 
     /// <summary>
     ///     Get matches for user
     /// </summary>
+    /// <param name="user"></param>
     /// <returns></returns>
-    Task<IActionResult> GetUserMatches();
+    Task<IEnumerable<MatchEntity>> GetUserMatches(UserEntity user);
 }

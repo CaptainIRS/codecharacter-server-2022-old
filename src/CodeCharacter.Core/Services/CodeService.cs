@@ -3,6 +3,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 
 namespace CodeCharacter.Core.Services;
 
@@ -66,6 +67,7 @@ public class CodeService : ICodeService
     {
         var latestCode = await _context.Codes.FirstAsync(x => x.UserId == user.Id);
         latestCode.Code = code;
+        latestCode.LastSavedAt = Instant.FromDateTimeUtc(DateTime.UtcNow);
         await _context.SaveChangesAsync();
     }
 }

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace CodeCharacter.Core.Exceptions;
 
 /// <summary>
@@ -6,6 +8,7 @@ namespace CodeCharacter.Core.Exceptions;
 public class GenericException : Exception
 {
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     public GenericException()
     {
     }
@@ -16,6 +19,7 @@ public class GenericException : Exception
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage]
     public GenericException(string? message, Exception? innerException) : base(message, innerException)
     {
     }

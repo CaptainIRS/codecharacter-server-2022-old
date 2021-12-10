@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace CodeCharacter.Core.Interfaces;
 
 /// <summary>
@@ -12,5 +10,5 @@ public interface IGameService
     /// </summary>
     /// <param name="gameId"></param>
     /// <returns></returns>
-    Task<IActionResult> GetGameLogsByGameId(Guid gameId);
+    Task<string> GetGameLogsByGameId(Guid gameId);
 }

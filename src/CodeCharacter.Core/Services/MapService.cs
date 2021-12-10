@@ -3,6 +3,7 @@ using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 
 namespace CodeCharacter.Core.Services;
 
@@ -65,6 +66,7 @@ public class MapService : IMapService
     {
         var latestMap = await _context.Maps.FirstAsync(x => x.UserId == user.Id);
         latestMap.Map = map;
+        latestMap.LastSavedAt = Instant.FromDateTimeUtc(DateTime.UtcNow);
         await _context.SaveChangesAsync();
     }
 }

@@ -32,8 +32,7 @@ public class MapController : MapApiController
     public override async Task<IActionResult> CreateMapRevision(
         CreateMapRevisionRequestDto createMapRevisionRequestDto)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _mapService.CreateMapRevision(
             user,
             createMapRevisionRequestDto.Map,
@@ -44,8 +43,7 @@ public class MapController : MapApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetMapRevisionById(Guid revisionId)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _mapService.GetMapRevision(user, revisionId);
         return Ok();
     }
@@ -53,8 +51,7 @@ public class MapController : MapApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetMapRevisions()
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _mapService.GetAllMapRevisions(user);
         return Ok();
     }
@@ -62,8 +59,7 @@ public class MapController : MapApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetLatestMap()
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _mapService.GetLatestMap(user);
         return Ok();
     }
@@ -72,8 +68,7 @@ public class MapController : MapApiController
     public override async Task<IActionResult> UpdateLatestMap(
         UpdateLatestMapRequestDto updateLatestMapRequestDto)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
 
         await _mapService.UpdateLatestMap(
             user,

@@ -27,14 +27,13 @@ public class CurrentUserService : ICurrentUserService
     }
 
     /// <inheritdoc />
-    public Task UpdateCurrentUser(UserEntity user, PublicUserEntity newUser)
+    public async Task UpdateCurrentUser(UserEntity user, string? name, string? college, string? country, int? avatarId)
     {
-        throw new NotImplementedException();
-    }
-
-    /// <inheritdoc />
-    public Task UpdatePassword(UserEntity user, string oldPassword, string newPassword)
-    {
-        throw new NotImplementedException();
+        var currentUser = await _context.PublicUsers.FirstAsync(u => u.UserId == user.Id);
+        currentUser.Name = name ?? currentUser.Name;
+        currentUser.College = college ?? currentUser.College;
+        currentUser.Country = country ?? currentUser.Country;
+        currentUser.AvatarId = avatarId ?? currentUser.AvatarId;
+        await _context.SaveChangesAsync();
     }
 }

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using CodeCharacter.Core.Entities;
 
 namespace CodeCharacter.Core.Interfaces;
 
@@ -10,14 +10,16 @@ public interface INotificationService
     /// <summary>
     ///     Get all notifications for a user
     /// </summary>
+    /// <param name="user"></param>
     /// <returns></returns>
-    Task<IActionResult> GetAllNotifications();
+    Task<IEnumerable<NotificationEntity>> GetAllNotifications(UserEntity user);
 
     /// <summary>
     ///     Save notification read status
     /// </summary>
+    /// <param name="user"></param>
     /// <param name="notificationId"></param>
     /// <param name="readStatus"></param>
     /// <returns></returns>
-    Task<IActionResult> SaveNotificationReadStatus(Guid notificationId, bool readStatus);
+    Task SaveNotificationReadStatus(UserEntity user, Guid notificationId, bool readStatus);
 }
