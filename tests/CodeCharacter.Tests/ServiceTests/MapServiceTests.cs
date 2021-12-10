@@ -58,7 +58,8 @@ public class MapServiceTests : BaseServiceTests
         Guid? parentRevisionId = Guid.NewGuid();
         var mapService = new MapService(context);
         var exception =
-            Assert.ThrowsAsync<GenericException>(async () => await mapService.CreateMapRevision(_user, map, parentRevisionId));
+            Assert.ThrowsAsync<GenericException>(async () =>
+                await mapService.CreateMapRevision(_user, map, parentRevisionId));
 
         Assert.IsTrue(!context.MapRevisions.Any());
         Assert.That(exception, Is.Not.Null);
@@ -216,7 +217,7 @@ public class MapServiceTests : BaseServiceTests
         Assert.IsTrue(mapEntity.UserId == _user.Id);
 
         const string map2 = "0000\n0000\n0000\n1111";
-        
+
         var mapService = new MapService(context);
         await mapService.UpdateLatestMap(_user, map2);
 

@@ -22,28 +22,28 @@ namespace CodeCharacter.CoreLibrary.Models;
 public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDto>
 {
     /// <summary>
-    ///     Gets or Sets Username
-    /// </summary>
-    [DataMember(Name = "username", EmitDefaultValue = false)]
-    public string Username { get; set; }
-
-    /// <summary>
     ///     Gets or Sets Name
     /// </summary>
-    [DataMember(Name = "name", EmitDefaultValue = false)]
-    public string Name { get; set; }
+    [DataMember(Name = "name", EmitDefaultValue = true)]
+    public string? Name { get; set; }
 
     /// <summary>
     ///     Gets or Sets Country
     /// </summary>
-    [DataMember(Name = "country", EmitDefaultValue = false)]
-    public string Country { get; set; }
+    [DataMember(Name = "country", EmitDefaultValue = true)]
+    public string? Country { get; set; }
 
     /// <summary>
     ///     Gets or Sets College
     /// </summary>
-    [DataMember(Name = "college", EmitDefaultValue = false)]
-    public string College { get; set; }
+    [DataMember(Name = "college", EmitDefaultValue = true)]
+    public string? College { get; set; }
+
+    /// <summary>
+    ///     Gets or Sets AvatarId
+    /// </summary>
+    [DataMember(Name = "avatarId", EmitDefaultValue = true)]
+    public int? AvatarId { get; set; }
 
     /// <summary>
     ///     Returns true if UpdateCurrentUserProfileDto instances are equal
@@ -56,11 +56,6 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
         if (ReferenceEquals(this, other)) return true;
 
         return
-            (
-                Username == other.Username ||
-                Username != null &&
-                Username.Equals(other.Username)
-            ) &&
             (
                 Name == other.Name ||
                 Name != null &&
@@ -75,6 +70,11 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
                 College == other.College ||
                 College != null &&
                 College.Equals(other.College)
+            ) &&
+            (
+                AvatarId == other.AvatarId ||
+                AvatarId != null &&
+                AvatarId.Equals(other.AvatarId)
             );
     }
 
@@ -86,10 +86,10 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
     {
         var sb = new StringBuilder();
         sb.Append("class UpdateCurrentUserProfileDto {\n");
-        sb.Append("  Username: ").Append(Username).Append("\n");
         sb.Append("  Name: ").Append(Name).Append("\n");
         sb.Append("  Country: ").Append(Country).Append("\n");
         sb.Append("  College: ").Append(College).Append("\n");
+        sb.Append("  AvatarId: ").Append(AvatarId).Append("\n");
         sb.Append("}\n");
         return sb.ToString();
     }
@@ -112,7 +112,7 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UpdateCurrentUserProfileDto) obj);
+        return obj.GetType() == GetType() && Equals((UpdateCurrentUserProfileDto)obj);
     }
 
     /// <summary>
@@ -125,14 +125,14 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
         {
             var hashCode = 41;
             // Suitable nullity checks etc, of course :)
-            if (Username != null)
-                hashCode = hashCode * 59 + Username.GetHashCode();
             if (Name != null)
                 hashCode = hashCode * 59 + Name.GetHashCode();
             if (Country != null)
                 hashCode = hashCode * 59 + Country.GetHashCode();
             if (College != null)
                 hashCode = hashCode * 59 + College.GetHashCode();
+            if (AvatarId != null)
+                hashCode = hashCode * 59 + AvatarId.GetHashCode();
             return hashCode;
         }
     }

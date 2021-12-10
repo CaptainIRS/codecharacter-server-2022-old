@@ -89,7 +89,7 @@ public class UpdateLatestMapRequestDto : IEquatable<UpdateLatestMapRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UpdateLatestMapRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((UpdateLatestMapRequestDto)obj);
     }
 
     /// <summary>

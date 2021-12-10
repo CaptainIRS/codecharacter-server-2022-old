@@ -137,7 +137,7 @@ public class UserStatsDto : IEquatable<UserStatsDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UserStatsDto) obj);
+        return obj.GetType() == GetType() && Equals((UserStatsDto)obj);
     }
 
     /// <summary>

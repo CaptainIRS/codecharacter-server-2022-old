@@ -76,7 +76,7 @@ public class CreateCodeRevisionRequestDto : IEquatable<CreateCodeRevisionRequest
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((CreateCodeRevisionRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((CreateCodeRevisionRequestDto)obj);
     }
 
     /// <summary>

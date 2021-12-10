@@ -1,5 +1,4 @@
 using CodeCharacter.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Interfaces;
 
@@ -12,20 +11,22 @@ public interface ICurrentUserService
     ///     Get current user
     /// </summary>
     /// <returns></returns>
-    Task<IActionResult> GetCurrentUser();
+    Task<PublicUserEntity> GetCurrentUser(UserEntity user);
 
     /// <summary>
     ///     Update current user
     /// </summary>
+    /// <param name="user"></param>
     /// <param name="newUser"></param>
     /// <returns></returns>
-    Task<IActionResult> UpdateCurrentUser(PublicUserEntity newUser);
+    Task UpdateCurrentUser(UserEntity user, PublicUserEntity newUser);
 
     /// <summary>
     ///     Update user password
     /// </summary>
+    /// <param name="user"></param>
     /// <param name="oldPassword"></param>
     /// <param name="newPassword"></param>
     /// <returns></returns>
-    Task<IActionResult> UpdatePassword(string oldPassword, string newPassword);
+    Task UpdatePassword(UserEntity user, string oldPassword, string newPassword);
 }

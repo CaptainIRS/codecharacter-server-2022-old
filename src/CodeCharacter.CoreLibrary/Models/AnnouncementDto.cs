@@ -106,7 +106,7 @@ public class AnnouncementDto : IEquatable<AnnouncementDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((AnnouncementDto) obj);
+        return obj.GetType() == GetType() && Equals((AnnouncementDto)obj);
     }
 
     /// <summary>

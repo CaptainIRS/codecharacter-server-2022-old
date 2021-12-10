@@ -173,7 +173,7 @@ public class RegisterUserRequestDto : IEquatable<RegisterUserRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((RegisterUserRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((RegisterUserRequestDto)obj);
     }
 
     /// <summary>

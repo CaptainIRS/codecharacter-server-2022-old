@@ -193,7 +193,7 @@ public class GameDto : IEquatable<GameDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((GameDto) obj);
+        return obj.GetType() == GetType() && Equals((GameDto)obj);
     }
 
     /// <summary>

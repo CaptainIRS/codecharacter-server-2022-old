@@ -1245,18 +1245,22 @@ components:
       type: object
       description: Update current user profile request
       properties:
-        username:
-          type: string
-          example: test
         name:
           type: string
           example: Test
+          nullable: true
         country:
           type: string
           example: IN
+          nullable: true
         college:
           type: string
           example: Test
+          nullable: true
+        avatarId:
+          type: integer
+          example: 1
+          nullable: true
     RegisterUserRequest:
       title: RegisterUserRequest
       type: object

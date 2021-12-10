@@ -1,13 +1,12 @@
 namespace CodeCharacter.Core.Exceptions;
 
-
 /// <summary>
-/// Generic error with message
+///     Generic error with message
 /// </summary>
 public class GenericException : Exception
 {
     /// <inheritdoc />
-    public GenericException() : base()
+    public GenericException()
     {
     }
 

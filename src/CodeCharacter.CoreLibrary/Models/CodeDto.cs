@@ -91,7 +91,7 @@ public class CodeDto : IEquatable<CodeDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((CodeDto) obj);
+        return obj.GetType() == GetType() && Equals((CodeDto)obj);
     }
 
     /// <summary>

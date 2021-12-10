@@ -76,7 +76,7 @@ public class CreateMapRevisionRequestDto : IEquatable<CreateMapRevisionRequestDt
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((CreateMapRevisionRequestDto)obj);
     }
 
     /// <summary>

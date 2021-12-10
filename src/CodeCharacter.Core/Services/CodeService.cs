@@ -43,7 +43,8 @@ public class CodeService : ICodeService
     public async Task<CodeRevisionEntity> GetCodeRevision(UserEntity user, Guid revisionId)
     {
         var codeRevision = await _context.CodeRevisions.FindAsync(revisionId);
-        if (codeRevision == null || codeRevision.User.Id != user.Id) throw new GenericException("Code revision not found");
+        if (codeRevision == null || codeRevision.User.Id != user.Id)
+            throw new GenericException("Code revision not found");
         return codeRevision;
     }
 

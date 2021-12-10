@@ -32,20 +32,15 @@ public class CodeController : CodeApiController
     public override async Task<IActionResult> CreateCodeRevision(
         CreateCodeRevisionRequestDto createCodeRevisionRequestDto)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
-        await _codeService.CreateCodeRevision(
-            user,
-            createCodeRevisionRequestDto.Code,
-            null);
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
+        await _codeService.CreateCodeRevision(user, createCodeRevisionRequestDto.Code, null);
         return Ok();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisionById(Guid revisionId)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _codeService.GetCodeRevision(user, revisionId);
         return Ok();
     }
@@ -53,8 +48,7 @@ public class CodeController : CodeApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisions()
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _codeService.GetAllCodeRevisions(user);
         return Ok();
     }
@@ -62,8 +56,7 @@ public class CodeController : CodeApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetLatestCode()
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _codeService.GetLatestCode(user);
         return Ok();
     }
@@ -72,13 +65,8 @@ public class CodeController : CodeApiController
     public override async Task<IActionResult> UpdateLatestCode(
         UpdateLatestCodeRequestDto updateLatestCodeRequestDto)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null) return Unauthorized();
-
-        await _codeService.UpdateLatestCode(
-            user,
-            updateLatestCodeRequestDto.Code);
-
+        var user = await _userManager.GetUserAsync(HttpContext.User)!;
+        await _codeService.UpdateLatestCode(user, updateLatestCodeRequestDto.Code);
         return Ok();
     }
 }

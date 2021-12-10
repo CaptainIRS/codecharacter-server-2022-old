@@ -91,7 +91,7 @@ public class LeaderboardEntryDto : IEquatable<LeaderboardEntryDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((LeaderboardEntryDto) obj);
+        return obj.GetType() == GetType() && Equals((LeaderboardEntryDto)obj);
     }
 
     /// <summary>

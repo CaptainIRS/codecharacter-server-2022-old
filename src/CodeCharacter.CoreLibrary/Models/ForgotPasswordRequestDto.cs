@@ -77,7 +77,7 @@ public class ForgotPasswordRequestDto : IEquatable<ForgotPasswordRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((ForgotPasswordRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((ForgotPasswordRequestDto)obj);
     }
 
     /// <summary>
