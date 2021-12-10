@@ -118,7 +118,7 @@ public class AnnouncementControllerTest : BaseControllerTests
     {
         var client = GetClientForService<IAnnouncementService, FakeAnnouncementService>(true);
         var response = await client.PatchAsync("/announcements/1",
-            new StringContent(new AnnouncementDto { Message = "Test Message" }.ToJson(), Encoding.UTF8,
+            new StringContent(new CreateAnnouncementRequestDto { Message = "Test Message" }.ToJson(), Encoding.UTF8,
                 "application/json"));
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 using CodeCharacter.Core.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +32,18 @@ public class CustomWebApplicationFactory<TStartup>
                      typeof(DbContextOptions<CodeCharacterDbContext>))!;
 
             services.Remove(descriptor);
+
+            services.AddDbContext<CodeCharacterDbContext>(options =>
+            {
+                options.UseInMemoryDatabase("InMemoryDbForTesting");
+            });
+
+            var sp = services.BuildServiceProvider();
+
+            using var scope = sp.CreateScope();
+            var scopedServices = scope.ServiceProvider;
+            var db = scopedServices.GetRequiredService<CodeCharacterDbContext>();
+            db.Database.EnsureCreated();
         });
     }
 }
@@ -54,9 +69,23 @@ public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions
     }
 }
 
+internal class FakeUserFilter : IAsyncActionFilter
+{
+    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+    {
+        context.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
+        {
+            new(ClaimTypes.Name, "Test user"),
+            new(ClaimTypes.Email, "test@example.com")
+        }));
+
+        await next();
+    }
+}
+
 public class BaseControllerTests
 {
-    protected CustomWebApplicationFactory<Program> _factory;
+    private CustomWebApplicationFactory<Program> _factory = null!;
 
     [OneTimeSetUp]
     public void Setup()
@@ -74,14 +103,21 @@ public class BaseControllerTests
             {
                 services.AddScoped<TInterface, TService>();
 
-                if (needAuthentication)
-                    services.AddAuthentication(options =>
-                        {
-                            options.DefaultAuthenticateScheme = "Test";
-                            options.DefaultChallengeScheme = "Test";
-                        })
-                        .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
-                            "Test", options => { });
+                if (!needAuthentication) return;
+
+                services.AddAuthentication(options =>
+                    {
+                        options.DefaultAuthenticateScheme = "Test";
+                        options.DefaultChallengeScheme = "Test";
+                    })
+                    .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
+                        "Test", options => { });
+
+                services.AddControllers(options =>
+                {
+                    options.Filters.Add(new AllowAnonymousFilter());
+                    options.Filters.Add(new FakeUserFilter());
+                });
             });
         }).CreateClient(new WebApplicationFactoryClientOptions
         {

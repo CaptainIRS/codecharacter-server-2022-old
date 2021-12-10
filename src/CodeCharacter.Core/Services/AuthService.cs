@@ -13,7 +13,6 @@ public class AuthService : IAuthService
 {
     private readonly IConfiguration _config;
     private readonly CodeCharacterDbContext _dbContext;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly SignInManager<UserEntity> _signInManager;
     private readonly UserManager<UserEntity> _userManager;
 
@@ -22,16 +21,14 @@ public class AuthService : IAuthService
     /// </summary>
     /// <param name="config"></param>
     /// <param name="dbContext"></param>
-    /// <param name="httpContextAccessor"></param>
     /// <param name="userManager"></param>
     /// <param name="signInManager"></param>
     public AuthService(IConfiguration config, CodeCharacterDbContext dbContext,
-        IHttpContextAccessor httpContextAccessor, UserManager<UserEntity> userManager,
+        UserManager<UserEntity> userManager,
         SignInManager<UserEntity> signInManager)
     {
         _config = config;
         _dbContext = dbContext;
-        _httpContextAccessor = httpContextAccessor;
         _userManager = userManager;
         _signInManager = signInManager;
     }

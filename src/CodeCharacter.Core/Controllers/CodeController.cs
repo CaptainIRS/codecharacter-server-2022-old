@@ -1,5 +1,6 @@
 using AutoMapper;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
@@ -32,33 +33,52 @@ public class CodeController : CodeApiController
     public override async Task<IActionResult> CreateCodeRevision(
         CreateCodeRevisionRequestDto createCodeRevisionRequestDto)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        await _codeService.CreateCodeRevision(user, createCodeRevisionRequestDto.Code, null);
-        return Ok();
+        try
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            await _codeService.CreateCodeRevision(user, createCodeRevisionRequestDto.Code, null);
+            return Created("", null);
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return BadRequest(error);
+        }
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisionById(Guid revisionId)
     {
-        var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        await _codeService.GetCodeRevision(user, revisionId);
-        return Ok();
+        try
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User)!;
+            var codeRevisionEntity = await _codeService.GetCodeRevision(user, revisionId);
+            var codeRevisionDto = _mapper.Map<CodeRevisionDto>(codeRevisionEntity);
+            return Ok(codeRevisionDto);
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return NotFound(error);
+        }
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetCodeRevisions()
     {
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        await _codeService.GetAllCodeRevisions(user);
-        return Ok();
+        var codeRevisions = await _codeService.GetAllCodeRevisions(user);
+        var codeRevisionsDto = _mapper.Map<IEnumerable<CodeRevisionDto>>(codeRevisions);
+        return Ok(codeRevisionsDto);
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> GetLatestCode()
     {
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        await _codeService.GetLatestCode(user);
-        return Ok();
+        var codeEntity = await _codeService.GetLatestCode(user);
+        var codeDto = _mapper.Map<CodeDto>(codeEntity);
+        return Ok(codeDto);
     }
 
     /// <inheritdoc />
@@ -67,6 +87,6 @@ public class CodeController : CodeApiController
     {
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
         await _codeService.UpdateLatestCode(user, updateLatestCodeRequestDto.Code);
-        return Ok();
+        return NoContent();
     }
 }
