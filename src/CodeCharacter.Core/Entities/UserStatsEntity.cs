@@ -12,7 +12,7 @@ public class UserStatsEntity
     public UserStatsEntity(int userId)
     {
         UserId = userId;
-        CurrrentLevel = 1;
+        CurrentLevel = 1;
         Rating = 0;
         Wins = 0;
         Losses = 0;
@@ -21,7 +21,7 @@ public class UserStatsEntity
 
     [Key] [ForeignKey("User")] public int UserId { get; set; }
 
-    public int CurrrentLevel { get; set; }
+    public int CurrentLevel { get; set; }
     public decimal Rating { get; set; }
     public int Wins { get; set; }
     public int Losses { get; set; }

@@ -1,5 +1,7 @@
 using NodaTime;
 
+#pragma warning disable CS8618
+
 namespace CodeCharacter.Core.Entities;
 
 public class AnnouncementEntity

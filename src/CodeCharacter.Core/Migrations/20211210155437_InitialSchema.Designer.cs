@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CodeCharacter.Core.Migrations
 {
     [DbContext(typeof(CodeCharacterDbContext))]
-    [Migration("20211210154215_InitialSchema")]
+    [Migration("20211210155437_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -396,7 +396,7 @@ namespace CodeCharacter.Core.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
 
-                    b.Property<int>("CurrrentLevel")
+                    b.Property<int>("CurrentLevel")
                         .HasColumnType("integer");
 
                     b.Property<int>("Losses")

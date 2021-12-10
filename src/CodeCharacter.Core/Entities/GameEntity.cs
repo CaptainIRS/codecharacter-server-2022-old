@@ -1,5 +1,7 @@
 using CodeCharacter.CoreLibrary.Models;
 
+#pragma warning disable CS8618
+
 namespace CodeCharacter.Core.Entities;
 
 public class GameEntity

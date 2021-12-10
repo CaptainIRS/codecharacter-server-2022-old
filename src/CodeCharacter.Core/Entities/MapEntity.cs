@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NodaTime;
 
+#pragma warning disable CS8618
+
 namespace CodeCharacter.Core.Entities;
 
 public class MapEntity

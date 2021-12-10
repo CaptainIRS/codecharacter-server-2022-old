@@ -143,7 +143,7 @@ namespace CodeCharacter.Core.Migrations
                 {
                     UserId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CurrrentLevel = table.Column<int>(type: "integer", nullable: false),
+                    CurrentLevel = table.Column<int>(type: "integer", nullable: false),
                     Rating = table.Column<decimal>(type: "numeric", nullable: false),
                     Wins = table.Column<int>(type: "integer", nullable: false),
                     Losses = table.Column<int>(type: "integer", nullable: false),
