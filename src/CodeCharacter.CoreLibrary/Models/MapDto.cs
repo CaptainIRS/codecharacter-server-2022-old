@@ -91,7 +91,7 @@ public class MapDto : IEquatable<MapDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((MapDto)obj);
+        return obj.GetType() == GetType() && Equals((MapDto) obj);
     }
 
     /// <summary>

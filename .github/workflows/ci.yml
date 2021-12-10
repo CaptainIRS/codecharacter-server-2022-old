@@ -34,7 +34,9 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-      - name: Push docs
+      - name: Generate report
+        run: dotnet reportgenerator "-reports:**/coverage.opencover.xml" "-targetdir:docs/coverage" -reporttypes:HtmlInline_AzurePipelines_Dark "-title:CodeCharacter Coverage"
+      - name: Push coverage report
         run: |
           git config --local user.email "github-actions@github.com"
           git config --local user.name "github-actions"

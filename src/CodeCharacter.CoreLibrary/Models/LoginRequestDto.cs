@@ -94,7 +94,7 @@ public class LoginRequestDto : IEquatable<LoginRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((LoginRequestDto)obj);
+        return obj.GetType() == GetType() && Equals((LoginRequestDto) obj);
     }
 
     /// <summary>

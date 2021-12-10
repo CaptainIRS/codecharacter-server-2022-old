@@ -108,7 +108,7 @@ public class ResetPasswordRequestDto : IEquatable<ResetPasswordRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((ResetPasswordRequestDto)obj);
+        return obj.GetType() == GetType() && Equals((ResetPasswordRequestDto) obj);
     }
 
     /// <summary>

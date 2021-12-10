@@ -77,7 +77,7 @@ public class LoginResponseDto : IEquatable<LoginResponseDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((LoginResponseDto)obj);
+        return obj.GetType() == GetType() && Equals((LoginResponseDto) obj);
     }
 
     /// <summary>

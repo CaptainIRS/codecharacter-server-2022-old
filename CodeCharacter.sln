@@ -36,7 +36,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 	ProjectSection(SolutionItems) = preProject
 		docs\spec\CodeCharacter-API.yaml = docs\spec\CodeCharacter-API.yaml
 		docs\spec\generator-config.yml = docs\spec\generator-config.yml
-		docs\spec\README.md = docs\spec\README.md
+		docs\spec\index.html = docs\spec\index.html
+		docs\README.md = docs\README.md
 	EndProjectSection
 EndProject
 Global

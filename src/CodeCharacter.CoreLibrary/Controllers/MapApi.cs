@@ -66,7 +66,7 @@ public abstract class MapApiController : ControllerBase
     [Authorize]
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(MapRevisionDto))]
-    public abstract Task<IActionResult> GetMapRevisionById([FromRoute(Name = "revisionId")][Required] Guid revisionId);
+    public abstract Task<IActionResult> GetMapRevisionById([FromRoute(Name = "revisionId")] [Required] Guid revisionId);
 
     /// <summary>
     ///     Get map revisions
