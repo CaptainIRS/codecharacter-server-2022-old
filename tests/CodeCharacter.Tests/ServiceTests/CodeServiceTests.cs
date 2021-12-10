@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -56,7 +57,7 @@ public class CodeServiceTests : BaseServiceTests
         const string code = "public class TestClass1 { }";
         Guid? parentRevisionId = Guid.NewGuid();
         var codeService = new CodeService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () =>
+        var exception = Assert.ThrowsAsync<GenericException>(async () =>
             await codeService.CreateCodeRevision(_user, code, parentRevisionId));
 
         Assert.IsTrue(!context.CodeRevisions.Any());
@@ -107,7 +108,7 @@ public class CodeServiceTests : BaseServiceTests
 
         var codeService = new CodeService(context);
         var exception =
-            Assert.ThrowsAsync<Exception>(async () => await codeService.GetCodeRevision(_user, Guid.NewGuid()));
+            Assert.ThrowsAsync<GenericException>(async () => await codeService.GetCodeRevision(_user, Guid.NewGuid()));
 
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Code revision not found"));
@@ -130,7 +131,7 @@ public class CodeServiceTests : BaseServiceTests
         await context.SaveChangesAsync();
 
         var codeService = new CodeService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () =>
+        var exception = Assert.ThrowsAsync<GenericException>(async () =>
             await codeService.GetCodeRevision(_impostor, context.CodeRevisions.First().Id));
 
         Assert.That(exception, Is.Not.Null);

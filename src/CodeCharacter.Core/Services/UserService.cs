@@ -1,5 +1,6 @@
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,29 +36,26 @@ public class UserService : IUserService
         _signInManager = signInManager;
     }
 
-    public async Task<IActionResult> ActivateUser(int userId, string token)
+    public async Task ActivateUser(int userId, string token)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> GetRatingHistory(int userId)
+    public async Task<IEnumerable<RatingHistoryEntity>> GetRatingHistory(int userId)
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId);
-        if (user == null) return new NotFoundResult();
-
-        var ratingHistories = _dbContext.RatingHistories.Where(x => x.UserId == userId);
-        return new OkObjectResult(ratingHistories);
+        var ratingHistories = await _dbContext.RatingHistories.Where(x => x.UserId == userId).ToListAsync();
+        return ratingHistories;
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> Register(UserEntity user, PublicUserEntity publicUser, string password)
+    public async Task Register(UserEntity user, PublicUserEntity publicUser, string password)
     {
         var result = await _userManager.CreateAsync(user, password);
         if (!result.Succeeded)
         {
             var errors = result.Errors.Aggregate("", (current, error) => current + error.Description + " ");
-            return new BadRequestObjectResult(errors);
+            throw new GenericException(errors);
         }
 
         publicUser.UserId = user.Id;
@@ -65,6 +63,5 @@ public class UserService : IUserService
         _dbContext.UserStats.Add(new UserStatsEntity(user.Id));
         _dbContext.RatingHistories.Add(new RatingHistoryEntity(user.Id));
         await _dbContext.SaveChangesAsync();
-        return new OkResult();
     }
 }

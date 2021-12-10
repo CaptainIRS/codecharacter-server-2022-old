@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Services;
 using NodaTime;
 using NUnit.Framework;
@@ -69,7 +70,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () => await announcementService.GetAnnouncement(300));
+        var exception = Assert.ThrowsAsync<GenericException>(async () => await announcementService.GetAnnouncement(300));
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
     }
@@ -124,7 +125,7 @@ public class AnnouncementServiceTests : BaseServiceTests
 
         var announcementService = new AnnouncementService(context);
         var exception =
-            Assert.ThrowsAsync<Exception>(async () => await announcementService.UpdateAnnouncement(300, Message));
+            Assert.ThrowsAsync<GenericException>(async () => await announcementService.UpdateAnnouncement(300, Message));
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
     }
@@ -162,7 +163,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () => await announcementService.DeleteAnnouncement(300));
+        var exception = Assert.ThrowsAsync<GenericException>(async () => await announcementService.DeleteAnnouncement(300));
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
     }

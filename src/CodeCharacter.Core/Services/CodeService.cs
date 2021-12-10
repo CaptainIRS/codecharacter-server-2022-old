@@ -1,5 +1,6 @@
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,7 @@ public class CodeService : ICodeService
         if (parentRevision != null)
         {
             parentCodeRevision = await _context.CodeRevisions.FindAsync(parentRevision);
-            if (parentCodeRevision == null) throw new Exception("Parent revision not found");
+            if (parentCodeRevision == null) throw new GenericException("Parent revision not found");
         }
 
         await _context.CodeRevisions.AddAsync(new CodeRevisionEntity
@@ -42,7 +43,7 @@ public class CodeService : ICodeService
     public async Task<CodeRevisionEntity> GetCodeRevision(UserEntity user, Guid revisionId)
     {
         var codeRevision = await _context.CodeRevisions.FindAsync(revisionId);
-        if (codeRevision == null || codeRevision.User.Id != user.Id) throw new Exception("Code revision not found");
+        if (codeRevision == null || codeRevision.User.Id != user.Id) throw new GenericException("Code revision not found");
         return codeRevision;
     }
 

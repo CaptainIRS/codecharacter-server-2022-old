@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Services;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -57,7 +58,7 @@ public class MapServiceTests : BaseServiceTests
         Guid? parentRevisionId = Guid.NewGuid();
         var mapService = new MapService(context);
         var exception =
-            Assert.ThrowsAsync<Exception>(async () => await mapService.CreateMapRevision(_user, map, parentRevisionId));
+            Assert.ThrowsAsync<GenericException>(async () => await mapService.CreateMapRevision(_user, map, parentRevisionId));
 
         Assert.IsTrue(!context.MapRevisions.Any());
         Assert.That(exception, Is.Not.Null);
@@ -107,7 +108,7 @@ public class MapServiceTests : BaseServiceTests
 
         var mapService = new MapService(context);
         var exception =
-            Assert.ThrowsAsync<Exception>(async () => await mapService.GetMapRevision(_user, Guid.NewGuid()));
+            Assert.ThrowsAsync<GenericException>(async () => await mapService.GetMapRevision(_user, Guid.NewGuid()));
 
         Assert.That(exception, Is.Not.Null);
         Assert.IsTrue(exception?.Message.Contains("Map revision not found"));
@@ -130,7 +131,7 @@ public class MapServiceTests : BaseServiceTests
         await context.SaveChangesAsync();
 
         var mapService = new MapService(context);
-        var exception = Assert.ThrowsAsync<Exception>(async () =>
+        var exception = Assert.ThrowsAsync<GenericException>(async () =>
             await mapService.GetMapRevision(_impostor, context.MapRevisions.First().Id));
 
         Assert.That(exception, Is.Not.Null);
@@ -215,6 +216,7 @@ public class MapServiceTests : BaseServiceTests
         Assert.IsTrue(mapEntity.UserId == _user.Id);
 
         const string map2 = "0000\n0000\n0000\n1111";
+        
         var mapService = new MapService(context);
         await mapService.UpdateLatestMap(_user, map2);
 

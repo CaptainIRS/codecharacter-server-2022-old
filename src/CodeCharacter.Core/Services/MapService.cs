@@ -1,5 +1,6 @@
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +27,7 @@ public class MapService : IMapService
         if (parentRevision != null)
         {
             parentMapRevision = await _context.MapRevisions.FindAsync(parentRevision);
-            if (parentMapRevision == null) throw new Exception("Parent revision not found");
+            if (parentMapRevision == null) throw new GenericException("Parent revision not found");
         }
 
         await _context.MapRevisions.AddAsync(new MapRevisionEntity
@@ -42,7 +43,7 @@ public class MapService : IMapService
     public async Task<MapRevisionEntity> GetMapRevision(UserEntity user, Guid revisionId)
     {
         var mapRevision = await _context.MapRevisions.FindAsync(revisionId);
-        if (mapRevision == null || mapRevision.User.Id != user.Id) throw new Exception("Map revision not found");
+        if (mapRevision == null || mapRevision.User.Id != user.Id) throw new GenericException("Map revision not found");
         return mapRevision;
     }
 

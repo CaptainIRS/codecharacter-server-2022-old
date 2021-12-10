@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -40,12 +41,12 @@ public class AuthService : IAuthService
     {
         var identityUser = await _userManager.FindByEmailAsync(email);
 
-        if (identityUser == null) throw new Exception("Invalid email or password");
+        if (identityUser == null) throw new GenericException("Invalid email or password");
 
         var result =
             _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash,
                 password);
-        if (result == PasswordVerificationResult.Failed) throw new Exception("Invalid username or password");
+        if (result == PasswordVerificationResult.Failed) throw new GenericException("Invalid username or password");
         var claims = new List<Claim>
         {
             new(ClaimTypes.Email, identityUser.Email),
