@@ -27,4 +27,4 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore CodeCharacter.sln && dotnet tool restore
       - name: Run lint
-        run: dotnet regitlint --jb --exclude="**/*.xml;**/*.htm*;**CoreLibrary/**.*" --fail-on-diff --print-diff
+        run: dotnet regitlint --jb --exclude="**/*.xml;**/*.htm*;**CoreLibrary/**.*;**/*.json" --jb --verbosity=WARN --fail-on-diff --print-diff
