@@ -1,4 +1,5 @@
 using AutoMapper;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
@@ -28,14 +29,22 @@ public class AnnouncementController : AnnouncementApiController
         CreateAnnouncementRequestDto createAnnouncementRequestDto)
     {
         await _announcementService.CreateAnnouncement(createAnnouncementRequestDto.Message);
-        return Ok();
+        return Created("", null);
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> DeleteAnnouncementById(int announcementId)
     {
-        await _announcementService.DeleteAnnouncement(announcementId);
-        return Ok();
+        try
+        {
+            await _announcementService.DeleteAnnouncement(announcementId);
+            return Ok();
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return NotFound(error);
+        }
     }
 
     /// <inheritdoc />
@@ -49,16 +58,32 @@ public class AnnouncementController : AnnouncementApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetAnnouncementById(int announcementId)
     {
-        var announcement = await _announcementService.GetAnnouncement(announcementId);
-        var announcementDto = _mapper.Map<AnnouncementDto>(announcement);
-        return Ok(announcementDto);
+        try
+        {
+            var announcement = await _announcementService.GetAnnouncement(announcementId);
+            var announcementDto = _mapper.Map<AnnouncementDto>(announcement);
+            return Ok(announcementDto);
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return NotFound(error);
+        }
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> UpdateAnnouncementById(int announcementId,
         UpdateAnnouncementRequestDto updateAnnouncementRequestDto)
     {
-        await _announcementService.UpdateAnnouncement(announcementId, updateAnnouncementRequestDto.Message);
-        return Ok();
+        try
+        {
+            await _announcementService.UpdateAnnouncement(announcementId, updateAnnouncementRequestDto.Message);
+            return Ok();
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return NotFound(error);
+        }
     }
 }
