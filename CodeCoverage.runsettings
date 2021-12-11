@@ -19,11 +19,6 @@
                     <Format>opencover</Format>
                     <Exclude>[CodeCharacter.CoreLibrary]*,[CodeCharacter.Tests]*</Exclude>
                     <ExcludeByFile>**/Program.cs,**/Migrations/*.cs</ExcludeByFile>
-                    <SingleHit>false</SingleHit>
-                    <UseSourceLink>true</UseSourceLink>
-                    <IncludeTestAssembly>false</IncludeTestAssembly>
-                    <SkipAutoProps>true</SkipAutoProps>
-                    <DeterministicReport>false</DeterministicReport>
                 </Configuration>
             </DataCollector>
         </DataCollectors>
