@@ -18,6 +18,30 @@ public class MatchServiceTests : BaseServiceTests
 
     private async Task AddGamesAndMatches(CodeCharacterDbContext context)
     {
+        context.Users.Add(_user);
+        context.Users.Add(_otherUser);
+        await context.SaveChangesAsync();
+
+        await context.PublicUsers.AddAsync(new PublicUserEntity
+        {
+            UserId = _user.Id,
+            UserName = "User",
+            Name = "User",
+            College = "Test",
+            Country = "Test",
+            AvatarId = 1
+        });
+        await context.PublicUsers.AddAsync(new PublicUserEntity
+        {
+            UserId = _otherUser.Id,
+            UserName = "OtherUser",
+            Name = "Other User",
+            College = "Test",
+            Country = "Test",
+            AvatarId = 1
+        });
+        await context.SaveChangesAsync();
+
         var game1 = new GameEntity
         {
             Map = "0001",
@@ -68,11 +92,7 @@ public class MatchServiceTests : BaseServiceTests
             CreatedAt = Instant.FromUtc(2020, 1, 1, 0, 0, 0),
             MatchMode = MatchDto.MatchModeEnum.AUTO,
             MatchVerdict = MatchDto.MatchVerdictEnum.PLAYER2,
-            Games = new List<GameEntity>
-            {
-                game2,
-                game2
-            }
+            Games = new List<GameEntity> { game2 }
         };
         var match3 = new MatchEntity
         {
@@ -81,11 +101,7 @@ public class MatchServiceTests : BaseServiceTests
             CreatedAt = Instant.FromUtc(2020, 1, 1, 0, 0, 0),
             MatchMode = MatchDto.MatchModeEnum.AUTO,
             MatchVerdict = MatchDto.MatchVerdictEnum.PLAYER1,
-            Games = new List<GameEntity>
-            {
-                game3,
-                game3
-            }
+            Games = new List<GameEntity> { game3 }
         };
 
         await context.Matches.AddAsync(match1);
@@ -107,21 +123,21 @@ public class MatchServiceTests : BaseServiceTests
 
         var matchEntities = matches.ToList();
         Assert.AreEqual(3, matchEntities.Count);
-        Assert.True(matchEntities[0].Games[0].Points1 + matchEntities[0].Games[0].Points2 == 110);
-        Assert.True(matchEntities[1].Games[0].Points1 + matchEntities[1].Games[0].Points2 == 70);
-        Assert.True(matchEntities[2].Games[0].Points1 + matchEntities[2].Games[0].Points2 == 30);
+        Assert.True(matchEntities[0].Item3.Games[0].Points1 + matchEntities[0].Item3.Games[0].Points2 == 110);
+        Assert.True(matchEntities[1].Item3.Games[0].Points1 + matchEntities[1].Item3.Games[0].Points2 == 70);
+        Assert.True(matchEntities[2].Item3.Games[0].Points1 + matchEntities[2].Item3.Games[0].Points2 == 30);
 
-        Assert.True(matchEntities[0].Games[0].Map == "0003");
-        Assert.True(matchEntities[1].Games[0].Map == "0002");
-        Assert.True(matchEntities[2].Games[0].Map == "0001");
+        Assert.True(matchEntities[0].Item3.Games[0].Map == "0003");
+        Assert.True(matchEntities[1].Item3.Games[0].Map == "0002");
+        Assert.True(matchEntities[2].Item3.Games[0].Map == "0001");
 
-        Assert.True(matchEntities[0].Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER1);
-        Assert.True(matchEntities[1].Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER2);
-        Assert.True(matchEntities[2].Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER1);
+        Assert.True(matchEntities[0].Item3.Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER1);
+        Assert.True(matchEntities[1].Item3.Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER2);
+        Assert.True(matchEntities[2].Item3.Games[0].GameVerdict == GameDto.GameVerdictEnum.PLAYER1);
 
-        Assert.True(matchEntities[0].Games[0].Status == GameDto.StatusEnum.EXECUTED);
-        Assert.True(matchEntities[1].Games[0].Status == GameDto.StatusEnum.EXECUTED);
-        Assert.True(matchEntities[2].Games[0].Status == GameDto.StatusEnum.EXECUTED);
+        Assert.True(matchEntities[0].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
+        Assert.True(matchEntities[1].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
+        Assert.True(matchEntities[2].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
     }
 
     [Test]

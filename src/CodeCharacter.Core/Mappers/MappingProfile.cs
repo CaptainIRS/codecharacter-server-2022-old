@@ -44,5 +44,14 @@ public class MappingProfile : Profile
         CreateMap<(PublicUserEntity publicUserEntity, UserStatsEntity userStatsEntity), LeaderboardEntryDto>()
             .ForMember(x => x.User, opt => opt.MapFrom(s => s.publicUserEntity))
             .ForMember(x => x.Stats, opt => opt.MapFrom(s => s.userStatsEntity));
+        CreateMap<GameEntity, GameDto>();
+        CreateMap<(PublicUserEntity user1, PublicUserEntity user2, MatchEntity match), MatchDto>()
+            .ForMember(x => x.Id, opt => opt.MapFrom(s => s.match.Id))
+            .ForMember(x => x.Games, opt => opt.MapFrom(s => s.match.Games))
+            .ForMember(x => x.MatchMode, opt => opt.MapFrom(s => s.match.MatchMode))
+            .ForMember(x => x.MatchVerdict, opt => opt.MapFrom(s => s.match.MatchVerdict))
+            .ForMember(x => x.CreatedAt, opt => opt.MapFrom(y => y.match.CreatedAt.ToDateTimeUtc()))
+            .ForMember(x => x.User1, opt => opt.MapFrom(y => y.user1))
+            .ForMember(x => x.User2, opt => opt.MapFrom(y => y.user2));
     }
 }

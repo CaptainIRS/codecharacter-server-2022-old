@@ -20,18 +20,46 @@ public class MatchService : IMatchService
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<MatchEntity>> GetTopMatches()
+    public async Task<IEnumerable<(PublicUserEntity, PublicUserEntity, MatchEntity)>> GetTopMatches()
     {
-        return await _context.Matches
+        var matchObjects = await _context.Matches
             .OrderByDescending(m => m.Games.Sum(g => g.Points1 + g.Points2))
+            .Take(10)
+            .Join(
+                _context.PublicUsers,
+                match => match.User1.Id,
+                publicUser => publicUser.UserId,
+                (match, publicUser) => new { Match = match, User1 = publicUser }
+            )
+            .Join(
+                _context.PublicUsers,
+                combined => combined.Match.User2.Id,
+                publicUser => publicUser.UserId,
+                (combined, publicUser) => new { combined.Match, combined.User1, User2 = publicUser }
+            )
             .ToListAsync();
+        return matchObjects.Select(matchObject => (matchObject.User1, matchObject.User2, matchObject.Match));
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<MatchEntity>> GetUserMatches(UserEntity user)
+    public async Task<IEnumerable<(PublicUserEntity, PublicUserEntity, MatchEntity)>> GetUserMatches(UserEntity user)
     {
-        return await _context.Matches
+        var matchObjects = await _context.Matches
             .Where(m => m.User1.Id == user.Id || m.User2.Id == user.Id)
+            .OrderByDescending(m => m.CreatedAt)
+            .Join(
+                _context.PublicUsers,
+                match => match.User1.Id,
+                publicUser => publicUser.UserId,
+                (match, publicUser) => new { Match = match, User1 = publicUser }
+            )
+            .Join(
+                _context.PublicUsers,
+                combined => combined.Match.User2.Id,
+                publicUser => publicUser.UserId,
+                (combined, publicUser) => new { combined.Match, combined.User1, User2 = publicUser }
+            )
             .ToListAsync();
+        return matchObjects.Select(matchObject => (matchObject.User1, matchObject.User2, matchObject.Match));
     }
 }
