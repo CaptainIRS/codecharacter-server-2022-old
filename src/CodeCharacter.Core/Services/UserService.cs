@@ -40,8 +40,7 @@ public class UserService : IUserService
     /// <inheritdoc />
     public async Task<IEnumerable<RatingHistoryEntity>> GetRatingHistory(int userId)
     {
-        var ratingHistories = await _dbContext.RatingHistories.Where(x => x.UserId == userId).ToListAsync();
-        return ratingHistories;
+        return await _dbContext.RatingHistories.Where(x => x.UserId == userId).ToListAsync();
     }
 
     /// <inheritdoc />
@@ -50,7 +49,7 @@ public class UserService : IUserService
         var result = await _userManager.CreateAsync(user, password);
         if (!result.Succeeded)
         {
-            var errors = result.Errors.Aggregate("", (current, error) => current + error.Description + " ");
+            var errors = string.Join(", ", result.Errors.Select(x => x.Description));
             throw new GenericException(errors);
         }
 

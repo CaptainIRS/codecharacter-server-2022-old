@@ -21,7 +21,7 @@ public class RatingHistoryEntity
 
     public int Id { get; set; }
 
-    [ForeignKey("User")] public int UserId { get; }
+    [ForeignKey("User")] public int UserId { get; set; }
 
     public decimal Rating { get; set; }
     public decimal RatingDeviation { get; set; }

@@ -1,5 +1,6 @@
 using AutoMapper;
 using CodeCharacter.Core.Entities;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
@@ -28,19 +29,30 @@ public class UserController : UserApiController
     }
 
     /// <inheritdoc />
-    public override Task<IActionResult> GetRatingHistory(int userId)
+    public override async Task<IActionResult> GetRatingHistory(int userId)
     {
-        throw new NotImplementedException();
+        var ratingHistories = await _userService.GetRatingHistory(userId);
+        var ratingHistoryDtos = _mapper.Map<IEnumerable<RatingHistoryDto>>(ratingHistories);
+        return Ok(ratingHistoryDtos);
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> Register(RegisterUserRequestDto registerUserRequestDto)
     {
         if (registerUserRequestDto.Password != registerUserRequestDto.PasswordConfirmation)
-            return BadRequest("Passwords do not match");
+            return BadRequest(new GenericErrorDto { Message = "Passwords do not match" });
         var user = new UserEntity(registerUserRequestDto.Email);
         var publicUser = _mapper.Map<PublicUserEntity>(registerUserRequestDto);
-        await _userService.Register(user, publicUser, registerUserRequestDto.Password);
-        return Ok();
+        try
+        {
+            await _userService.Register(user, publicUser, registerUserRequestDto.Password);
+        }
+        catch (GenericException e)
+        {
+            var error = _mapper.Map<GenericErrorDto>(e);
+            return BadRequest(error);
+        }
+
+        return Created("", null);
     }
 }
