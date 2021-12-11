@@ -29,5 +29,15 @@ public class MappingProfile : Profile
                 opt => opt.MapFrom(y => y.ParentRevision == null ? Guid.Empty : y.ParentRevision.Id));
         CreateMap<MapEntity, MapDto>()
             .ForMember(x => x.LastSavedAt, opt => opt.MapFrom(y => y.LastSavedAt.ToDateTimeUtc()));
+        CreateMap<(UserEntity userEntity, PublicUserEntity publicUserEntity, UserStatsEntity userStatsEntity),
+                CurrentUserProfileDto>()
+            .ForMember(x => x.Id, opt => opt.MapFrom(s => s.userEntity.Id))
+            .ForMember(x => x.Username, opt => opt.MapFrom(s => s.userEntity.UserName))
+            .ForMember(x => x.Name, opt => opt.MapFrom(s => s.publicUserEntity.Name))
+            .ForMember(x => x.Email, opt => opt.MapFrom(s => s.userEntity.Email))
+            .ForMember(x => x.College, opt => opt.MapFrom(s => s.publicUserEntity.College))
+            .ForMember(x => x.Country, opt => opt.MapFrom(s => s.publicUserEntity.Country))
+            .ForMember(x => x.CurrrentLevel, opt => opt.MapFrom(s => s.userStatsEntity.CurrentLevel))
+            .ForMember(x => x.IsAdmin, opt => opt.MapFrom(s => false));
     }
 }

@@ -11,7 +11,7 @@ public interface ICurrentUserService
     ///     Get current user
     /// </summary>
     /// <returns></returns>
-    Task<PublicUserEntity> GetCurrentUser(UserEntity user);
+    Task<(PublicUserEntity, UserStatsEntity)> GetCurrentUser(UserEntity user);
 
     /// <summary>
     ///     Update current user

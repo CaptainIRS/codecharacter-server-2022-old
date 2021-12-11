@@ -33,8 +33,8 @@ public class CurrentUserController : CurrentUserApiController
     public override async Task<IActionResult> GetCurrentUser()
     {
         var user = await _userManager.GetUserAsync(HttpContext.User)!;
-        var currentUser = await _currentUserService.GetCurrentUser(user);
-        var currentUserDto = _mapper.Map<CurrentUserProfileDto>(currentUser);
+        var (currentPublicUser, currentUserStats) = await _currentUserService.GetCurrentUser(user);
+        var currentUserDto = _mapper.Map<CurrentUserProfileDto>((user, currentPublicUser, currentUserStats));
         return Ok(currentUserDto);
     }
 
@@ -50,21 +50,21 @@ public class CurrentUserController : CurrentUserApiController
             updateCurrentUserProfileDto.Country,
             updateCurrentUserProfileDto.AvatarId
         );
-        return Ok();
+        return NoContent();
     }
 
     /// <inheritdoc />
     public override async Task<IActionResult> UpdatePassword(UpdatePasswordRequestDto updatePasswordRequestDto)
     {
         if (updatePasswordRequestDto.Password != updatePasswordRequestDto.PasswordConfirmation)
-            return BadRequest("Passwords do not match");
-
-        var user = await _userManager.GetUserAsync(HttpContext.User)!;
+            return BadRequest(new GenericErrorDto { Message = "Passwords do not match" });
+        var user = await _userManager.GetUserAsync(HttpContext?.User)!;
         var result = await _userManager.ChangePasswordAsync(user, updatePasswordRequestDto.OldPassword,
             updatePasswordRequestDto.Password);
 
         if (!result.Succeeded)
-            return BadRequest(result.Errors.Select(e => e.Description));
-        return Ok();
+            return BadRequest(new GenericErrorDto
+                { Message = string.Join(", ", result.Errors.Select(e => e.Description)) });
+        return NoContent();
     }
 }

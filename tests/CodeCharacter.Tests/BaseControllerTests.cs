@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 using CodeCharacter.Core.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +56,7 @@ public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
-        var claims = new[] { new Claim(ClaimTypes.Name, "Test User") };
+        var claims = new List<Claim> { new(ClaimTypes.Email, TestConstants.Email) };
         var identity = new ClaimsIdentity(claims, "Test");
         var principal = new ClaimsPrincipal(identity);
         var ticket = new AuthenticationTicket(principal, "Test");
@@ -66,20 +64,6 @@ public class TestAuthHandler : AuthenticationHandler<AuthenticationSchemeOptions
         var result = AuthenticateResult.Success(ticket);
 
         return Task.FromResult(result);
-    }
-}
-
-internal class FakeUserFilter : IAsyncActionFilter
-{
-    public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-    {
-        context.HttpContext.User = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-        {
-            new(ClaimTypes.Name, "Test user"),
-            new(ClaimTypes.Email, "test@example.com")
-        }));
-
-        await next();
     }
 }
 
@@ -112,12 +96,6 @@ public class BaseControllerTests
                     })
                     .AddScheme<AuthenticationSchemeOptions, TestAuthHandler>(
                         "Test", options => { });
-
-                services.AddControllers(options =>
-                {
-                    options.Filters.Add(new AllowAnonymousFilter());
-                    options.Filters.Add(new FakeUserFilter());
-                });
             });
         }).CreateClient(new WebApplicationFactoryClientOptions
         {

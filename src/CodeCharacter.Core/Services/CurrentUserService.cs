@@ -20,10 +20,11 @@ public class CurrentUserService : ICurrentUserService
     }
 
     /// <inheritdoc />
-    public async Task<PublicUserEntity> GetCurrentUser(UserEntity user)
+    public async Task<(PublicUserEntity, UserStatsEntity)> GetCurrentUser(UserEntity user)
     {
-        var currentUser = await _context.PublicUsers.FirstAsync(x => x.UserId == user.Id);
-        return currentUser;
+        var currentPublicUser = await _context.PublicUsers.FirstAsync(x => x.UserId == user.Id);
+        var currentUserStats = await _context.UserStats.FirstAsync(x => x.UserId == user.Id);
+        return (currentPublicUser, currentUserStats);
     }
 
     /// <inheritdoc />

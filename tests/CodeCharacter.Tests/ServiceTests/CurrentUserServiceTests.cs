@@ -23,6 +23,15 @@ public class CurrentUserServiceTest : BaseServiceTests
         AvatarId = 1
     };
 
+    private UserStatsEntity _userStats = new()
+    {
+        Wins = 0,
+        Losses = 0,
+        Ties = 0,
+        Rating = 1000,
+        CurrentLevel = 1
+    };
+
     private async Task CreateUser(CodeCharacterDbContext context)
     {
         context.Users.Add(_user);
@@ -35,6 +44,11 @@ public class CurrentUserServiceTest : BaseServiceTests
         context.PublicUsers.Add(_publicUser);
         await context.SaveChangesAsync();
         _publicUser = context.PublicUsers.First(u => u.UserId == _user.Id);
+
+        _userStats.UserId = _user.Id;
+        context.UserStats.Add(_userStats);
+        await context.SaveChangesAsync();
+        _userStats = context.UserStats.First(u => u.UserId == _user.Id);
     }
 
     [Test]
@@ -45,13 +59,19 @@ public class CurrentUserServiceTest : BaseServiceTests
         await CreateUser(context);
 
         var currentUserService = new CurrentUserService(context);
-        var currentUser = await currentUserService.GetCurrentUser(_user);
+        var (currentPublicUser, currentStatsUser) = await currentUserService.GetCurrentUser(_user);
 
-        Assert.AreEqual(_publicUser.Name, currentUser.Name);
-        Assert.AreEqual(_publicUser.College, currentUser.College);
-        Assert.AreEqual(_publicUser.Country, currentUser.Country);
-        Assert.AreEqual(_publicUser.AvatarId, currentUser.AvatarId);
-        Assert.AreEqual(_publicUser.UserId, currentUser.UserId);
+        Assert.AreEqual(_publicUser.Name, currentPublicUser.Name);
+        Assert.AreEqual(_publicUser.College, currentPublicUser.College);
+        Assert.AreEqual(_publicUser.Country, currentPublicUser.Country);
+        Assert.AreEqual(_publicUser.AvatarId, currentPublicUser.AvatarId);
+        Assert.AreEqual(_publicUser.UserId, currentPublicUser.UserId);
+        Assert.AreEqual(_userStats.Wins, currentStatsUser.Wins);
+        Assert.AreEqual(_userStats.Losses, currentStatsUser.Losses);
+        Assert.AreEqual(_userStats.Ties, currentStatsUser.Ties);
+        Assert.AreEqual(_userStats.Rating, currentStatsUser.Rating);
+        Assert.AreEqual(_userStats.CurrentLevel, currentStatsUser.CurrentLevel);
+        Assert.AreEqual(_userStats.UserId, currentStatsUser.UserId);
     }
 
     [Test]
