@@ -38,7 +38,7 @@ public class GameServiceTest : BaseServiceTests
         await context.SaveChangesAsync();
 
         var gameService = new GameService(context);
-        var gameLogs = await gameService.GetGameLogByGameId(game.Id);
+        var gameLogs = await gameService.GetGameLogByGameId(gameLog.GameId);
 
         Assert.IsNotNull(gameLogs);
         Assert.AreEqual(gameLogs, gameLogString);

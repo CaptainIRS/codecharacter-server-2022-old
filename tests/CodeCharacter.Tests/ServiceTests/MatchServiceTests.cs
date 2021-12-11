@@ -138,6 +138,14 @@ public class MatchServiceTests : BaseServiceTests
         Assert.True(matchEntities[0].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
         Assert.True(matchEntities[1].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
         Assert.True(matchEntities[2].Item3.Games[0].Status == GameDto.StatusEnum.EXECUTED);
+
+        Assert.True(matchEntities[0].Item3.User1.Id == _otherUser.Id);
+        Assert.True(matchEntities[1].Item3.User1.Id == _otherUser.Id);
+        Assert.True(matchEntities[2].Item3.User1.Id == _user.Id);
+
+        Assert.True(matchEntities[0].Item3.User2.Id == _otherUser.Id);
+        Assert.True(matchEntities[1].Item3.User2.Id == _user.Id);
+        Assert.True(matchEntities[2].Item3.User2.Id == _otherUser.Id);
     }
 
     [Test]

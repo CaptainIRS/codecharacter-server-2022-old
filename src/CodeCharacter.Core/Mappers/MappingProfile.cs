@@ -53,5 +53,7 @@ public class MappingProfile : Profile
             .ForMember(x => x.CreatedAt, opt => opt.MapFrom(y => y.match.CreatedAt.ToDateTimeUtc()))
             .ForMember(x => x.User1, opt => opt.MapFrom(y => y.user1))
             .ForMember(x => x.User2, opt => opt.MapFrom(y => y.user2));
+        CreateMap<NotificationEntity, NotificationDto>()
+            .ForMember(x => x.CreatedAt, opt => opt.MapFrom(y => y.CreatedAt.ToDateTimeUtc()));
     }
 }
