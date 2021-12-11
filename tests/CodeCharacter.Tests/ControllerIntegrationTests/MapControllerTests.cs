@@ -28,7 +28,7 @@ public class FakeMapService : IMapService
             Id = Guid.NewGuid(),
             Map = "print('hello, world')",
             ParentRevision = null,
-            User = new UserEntity("test", "test@test.com")
+            User = new UserEntity("test@test.com")
         }
     };
 

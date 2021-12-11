@@ -38,7 +38,7 @@ public class UserController : UserApiController
     {
         if (registerUserRequestDto.Password != registerUserRequestDto.PasswordConfirmation)
             return BadRequest("Passwords do not match");
-        var user = new UserEntity(registerUserRequestDto.Username, registerUserRequestDto.Email);
+        var user = new UserEntity(registerUserRequestDto.Email);
         var publicUser = _mapper.Map<PublicUserEntity>(registerUserRequestDto);
         await _userService.Register(user, publicUser, registerUserRequestDto.Password);
         return Ok();

@@ -51,6 +51,5 @@ public abstract class NotificationApiController : ControllerBase
     [Consumes("application/json")]
     [ValidateModelState]
     public abstract Task<IActionResult> SaveNotificationReadStatus(
-        [FromRoute(Name = "notificationId")] [Required]
-        Guid notificationId, [FromBody] bool body);
+        [FromRoute(Name = "notificationId")] [Required] Guid notificationId, [FromBody] bool body);
 }

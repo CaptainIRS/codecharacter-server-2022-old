@@ -112,7 +112,7 @@ public class UpdateCurrentUserProfileDto : IEquatable<UpdateCurrentUserProfileDt
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UpdateCurrentUserProfileDto) obj);
+        return obj.GetType() == GetType() && Equals((UpdateCurrentUserProfileDto)obj);
     }
 
     /// <summary>

@@ -14,16 +14,16 @@ namespace CodeCharacter.Tests.ServiceTests;
 [TestFixture]
 public class MapServiceTests : BaseServiceTests
 {
-    private UserEntity _user = new("user", "user@test.com");
-    private UserEntity _impostor = new("impostor", "impostor@test.com");
+    private UserEntity _user = new("user@test.com");
+    private UserEntity _impostor = new("impostor@test.com");
 
     private async Task CreateUser(CodeCharacterDbContext context)
     {
         context.Users.Add(_user);
         context.Users.Add(_impostor);
         await context.SaveChangesAsync();
-        _user = context.Users.First(u => u.UserName == "user");
-        _impostor = context.Users.First(u => u.UserName == "impostor");
+        _user = context.Users.First(u => u.Email == "user@test.com");
+        _impostor = context.Users.First(u => u.Email == "impostor@test.com");
     }
 
     [Test]

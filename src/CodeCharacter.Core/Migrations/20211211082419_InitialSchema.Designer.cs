@@ -13,7 +13,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CodeCharacter.Core.Migrations
 {
     [DbContext(typeof(CodeCharacterDbContext))]
-    [Migration("20211210155437_InitialSchema")]
+    [Migration("20211211082419_InitialSchema")]
     partial class InitialSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,7 +265,14 @@ namespace CodeCharacter.Core.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("UserName")
+                        .IsUnique();
 
                     b.ToTable("PublicUsers", (string)null);
                 });

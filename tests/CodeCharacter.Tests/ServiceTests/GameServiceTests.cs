@@ -38,7 +38,7 @@ public class GameServiceTest : BaseServiceTests
         await context.SaveChangesAsync();
 
         var gameService = new GameService(context);
-        var gameLogs = await gameService.GetGameLogsByGameId(game.Id);
+        var gameLogs = await gameService.GetGameLogByGameId(game.Id);
 
         Assert.IsNotNull(gameLogs);
         Assert.AreEqual(gameLogs, gameLogString);
@@ -53,7 +53,7 @@ public class GameServiceTest : BaseServiceTests
         var gameService = new GameService(context);
 
         var exception =
-            Assert.ThrowsAsync<GenericException>(async () => await gameService.GetGameLogsByGameId(Guid.NewGuid()));
+            Assert.ThrowsAsync<GenericException>(async () => await gameService.GetGameLogByGameId(Guid.NewGuid()));
         Assert.That(exception, Is.Not.Null);
         Assert.AreEqual(exception?.Message, "Game not found");
     }
@@ -77,7 +77,7 @@ public class GameServiceTest : BaseServiceTests
 
         var gameService = new GameService(context);
         var exception =
-            Assert.ThrowsAsync<GenericException>(async () => await gameService.GetGameLogsByGameId(game.Id));
+            Assert.ThrowsAsync<GenericException>(async () => await gameService.GetGameLogByGameId(game.Id));
 
         Assert.That(exception, Is.Not.Null);
         Assert.AreEqual(exception?.Message, "Game log not found");

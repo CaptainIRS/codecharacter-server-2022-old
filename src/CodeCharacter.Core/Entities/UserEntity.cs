@@ -4,7 +4,7 @@ namespace CodeCharacter.Core.Entities;
 
 public class UserEntity : IdentityUser<int>
 {
-    public UserEntity(string userName, string email) : base(userName)
+    public UserEntity(string email) : base(email)
     {
         Email = email;
         EmailConfirmed = false;

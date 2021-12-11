@@ -28,7 +28,7 @@ public class FakeCodeService : ICodeService
             Id = Guid.NewGuid(),
             Code = "print('hello, world')",
             ParentRevision = null,
-            User = new UserEntity("test", "test@test.com")
+            User = new UserEntity("test@test.com")
         }
     };
 

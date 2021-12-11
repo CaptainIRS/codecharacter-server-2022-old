@@ -21,7 +21,7 @@ public class GameController : GameApiController
     /// <inheritdoc />
     public override async Task<IActionResult> GetGameLogsByGameId(Guid gameId)
     {
-        var gameLogs = await _gameService.GetGameLogsByGameId(gameId);
+        var gameLogs = await _gameService.GetGameLogByGameId(gameId);
         return Ok(gameLogs);
     }
 }

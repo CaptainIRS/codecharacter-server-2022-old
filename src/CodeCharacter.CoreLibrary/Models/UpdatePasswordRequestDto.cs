@@ -110,7 +110,7 @@ public class UpdatePasswordRequestDto : IEquatable<UpdatePasswordRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UpdatePasswordRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((UpdatePasswordRequestDto)obj);
     }
 
     /// <summary>

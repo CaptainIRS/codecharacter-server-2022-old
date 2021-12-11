@@ -93,7 +93,11 @@ public class CodeCharacterDbContext : IdentityDbContext<UserEntity, RoleEntity, 
         builder.Entity<IdentityRoleClaim<int>>(entity => entity.ToTable("RoleClaims"));
 
 
-        builder.Entity<PublicUserEntity>(entity => entity.ToTable("PublicUsers"));
+        builder.Entity<PublicUserEntity>(entity =>
+        {
+            entity.ToTable("PublicUsers");
+            entity.HasIndex(e => e.UserName).IsUnique();
+        });
         builder.Entity<UserStatsEntity>(entity => entity.ToTable("UserStats"));
         builder.Entity<RatingHistoryEntity>(entity => entity.ToTable("RatingHistories"));
         builder.Entity<AnnouncementEntity>(entity => entity.ToTable("Announcements"));

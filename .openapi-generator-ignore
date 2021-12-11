@@ -1,5 +1,6 @@
 CodeCharacter.CoreLibrary.sln
 src/CodeCharacter.CoreLibrary/CodeCharacter.CoreLibrary.csproj
+src/CodeCharacter.CoreLibrary/CodeCharacter.CoreLibrary.nuspec
 README.md
 build.bat
 build.sh

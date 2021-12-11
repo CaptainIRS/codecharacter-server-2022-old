@@ -23,11 +23,11 @@ namespace CodeCharacter.CoreLibrary.Models;
 public class UserStatsDto : IEquatable<UserStatsDto>
 {
     /// <summary>
-    ///     Gets or Sets CurrrentLevel
+    ///     Gets or Sets CurrentLevel
     /// </summary>
     [Required]
-    [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
-    public int CurrrentLevel { get; set; }
+    [DataMember(Name = "currentLevel", EmitDefaultValue = false)]
+    public int CurrentLevel { get; set; }
 
     /// <summary>
     ///     Gets or Sets Rating
@@ -58,13 +58,6 @@ public class UserStatsDto : IEquatable<UserStatsDto>
     public int Ties { get; set; }
 
     /// <summary>
-    ///     Gets or Sets Rank
-    /// </summary>
-    [Required]
-    [DataMember(Name = "rank", EmitDefaultValue = false)]
-    public int Rank { get; set; }
-
-    /// <summary>
     ///     Returns true if UserStatsDto instances are equal
     /// </summary>
     /// <param name="other">Instance of UserStatsDto to be compared</param>
@@ -76,8 +69,8 @@ public class UserStatsDto : IEquatable<UserStatsDto>
 
         return
             (
-                CurrrentLevel == other.CurrrentLevel ||
-                CurrrentLevel.Equals(other.CurrrentLevel)
+                CurrentLevel == other.CurrentLevel ||
+                CurrentLevel.Equals(other.CurrentLevel)
             ) &&
             (
                 Rating == other.Rating ||
@@ -94,10 +87,6 @@ public class UserStatsDto : IEquatable<UserStatsDto>
             (
                 Ties == other.Ties ||
                 Ties.Equals(other.Ties)
-            ) &&
-            (
-                Rank == other.Rank ||
-                Rank.Equals(other.Rank)
             );
     }
 
@@ -109,12 +98,11 @@ public class UserStatsDto : IEquatable<UserStatsDto>
     {
         var sb = new StringBuilder();
         sb.Append("class UserStatsDto {\n");
-        sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
+        sb.Append("  CurrentLevel: ").Append(CurrentLevel).Append("\n");
         sb.Append("  Rating: ").Append(Rating).Append("\n");
         sb.Append("  Wins: ").Append(Wins).Append("\n");
         sb.Append("  Losses: ").Append(Losses).Append("\n");
         sb.Append("  Ties: ").Append(Ties).Append("\n");
-        sb.Append("  Rank: ").Append(Rank).Append("\n");
         sb.Append("}\n");
         return sb.ToString();
     }
@@ -137,7 +125,7 @@ public class UserStatsDto : IEquatable<UserStatsDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UserStatsDto) obj);
+        return obj.GetType() == GetType() && Equals((UserStatsDto)obj);
     }
 
     /// <summary>
@@ -151,7 +139,7 @@ public class UserStatsDto : IEquatable<UserStatsDto>
             var hashCode = 41;
             // Suitable nullity checks etc, of course :)
 
-            hashCode = hashCode * 59 + CurrrentLevel.GetHashCode();
+            hashCode = hashCode * 59 + CurrentLevel.GetHashCode();
 
             hashCode = hashCode * 59 + Rating.GetHashCode();
 
@@ -160,8 +148,6 @@ public class UserStatsDto : IEquatable<UserStatsDto>
             hashCode = hashCode * 59 + Losses.GetHashCode();
 
             hashCode = hashCode * 59 + Ties.GetHashCode();
-
-            hashCode = hashCode * 59 + Rank.GetHashCode();
             return hashCode;
         }
     }

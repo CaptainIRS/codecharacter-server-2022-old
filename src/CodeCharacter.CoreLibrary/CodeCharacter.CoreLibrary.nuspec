@@ -8,10 +8,6 @@
         <authors>CodeCharacter Authors</authors>
         <owners>CodeCharacter Authors</owners>
         <licenseUrl>http://localhost</licenseUrl>
-        <!--
-        <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-        <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
-        -->
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Core API library for CodeCharacter</description>
         <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>

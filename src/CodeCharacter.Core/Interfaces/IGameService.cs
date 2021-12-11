@@ -10,5 +10,5 @@ public interface IGameService
     /// </summary>
     /// <param name="gameId"></param>
     /// <returns></returns>
-    Task<string> GetGameLogsByGameId(Guid gameId);
+    Task<string> GetGameLogByGameId(Guid gameId);
 }

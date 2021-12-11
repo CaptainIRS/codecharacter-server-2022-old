@@ -2,8 +2,17 @@
 
 ### Code Generation Process
 
-From root
-run ```openapi-generator-cli generate -g aspnetcore -i spec/CodeCharacter-API.yaml -c spec/generator-config.yml -o . --api-name-suffix=Api --model-name-suffix=Dto```
+From solution root run
+
+```sh
+$ openapi-generator-cli generate \
+    -g aspnetcore \
+    -i docs/spec/CodeCharacter-API.yaml \
+    -c docs/spec/generator-config.yml \
+    -o . \
+    --api-name-suffix=Api \
+    --model-name-suffix=Dto
+```
 
 ### API Docs:
 

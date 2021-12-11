@@ -66,11 +66,11 @@ public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
     public string College { get; set; }
 
     /// <summary>
-    ///     Gets or Sets CurrrentLevel
+    ///     Gets or Sets CurrentLevel
     /// </summary>
     [Required]
-    [DataMember(Name = "currrentLevel", EmitDefaultValue = false)]
-    public int CurrrentLevel { get; set; }
+    [DataMember(Name = "currentLevel", EmitDefaultValue = false)]
+    public int CurrentLevel { get; set; }
 
     /// <summary>
     ///     Gets or Sets IsAdmin
@@ -120,8 +120,8 @@ public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
                 College.Equals(other.College)
             ) &&
             (
-                CurrrentLevel == other.CurrrentLevel ||
-                CurrrentLevel.Equals(other.CurrrentLevel)
+                CurrentLevel == other.CurrentLevel ||
+                CurrentLevel.Equals(other.CurrentLevel)
             ) &&
             (
                 IsAdmin == other.IsAdmin ||
@@ -143,7 +143,7 @@ public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
         sb.Append("  Email: ").Append(Email).Append("\n");
         sb.Append("  Country: ").Append(Country).Append("\n");
         sb.Append("  College: ").Append(College).Append("\n");
-        sb.Append("  CurrrentLevel: ").Append(CurrrentLevel).Append("\n");
+        sb.Append("  CurrentLevel: ").Append(CurrentLevel).Append("\n");
         sb.Append("  IsAdmin: ").Append(IsAdmin).Append("\n");
         sb.Append("}\n");
         return sb.ToString();
@@ -167,7 +167,7 @@ public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((CurrentUserProfileDto) obj);
+        return obj.GetType() == GetType() && Equals((CurrentUserProfileDto)obj);
     }
 
     /// <summary>
@@ -193,7 +193,7 @@ public class CurrentUserProfileDto : IEquatable<CurrentUserProfileDto>
             if (College != null)
                 hashCode = hashCode * 59 + College.GetHashCode();
 
-            hashCode = hashCode * 59 + CurrrentLevel.GetHashCode();
+            hashCode = hashCode * 59 + CurrentLevel.GetHashCode();
 
             hashCode = hashCode * 59 + IsAdmin.GetHashCode();
             return hashCode;

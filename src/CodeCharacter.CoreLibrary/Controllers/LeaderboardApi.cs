@@ -35,6 +35,6 @@ public abstract class LeaderboardApiController : ControllerBase
     [Authorize]
     [ValidateModelState]
     [ProducesResponseType(statusCode: 200, type: typeof(List<LeaderboardEntryDto>))]
-    public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] string? page,
-        [FromQuery(Name = "size")] string? size);
+    public abstract Task<IActionResult> GetLeaderboard([FromQuery(Name = "page")] int? page,
+        [FromQuery(Name = "size")] int? size);
 }

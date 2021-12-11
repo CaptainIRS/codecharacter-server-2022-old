@@ -229,12 +229,11 @@ paths:
                         college: NIT Trichy
                         avatarId: 0
                       stats:
-                        currrentLevel: 0
+                        currentLevel: 0
                         rating: 0
                         wins: 0
                         losses: 0
                         ties: 0
-                        rank: 0
         '401':
           description: Unauthorized
       operationId: getLeaderboard
@@ -242,12 +241,12 @@ paths:
         - leaderboard
       parameters:
         - schema:
-            type: string
+            type: integer
           in: query
           name: page
           description: Index of the page
         - schema:
-            type: string
+            type: integer
           in: query
           name: size
           description: Size of the page
@@ -339,7 +338,7 @@ paths:
                     email: user@example.com
                     country: IN
                     college: NITT
-                    currrentLevel: 3
+                    currentLevel: 3
                     isAdmin: false
         '401':
           description: Unauthorized
@@ -991,7 +990,7 @@ components:
       type: object
       description: User stats model
       properties:
-        currrentLevel:
+        currentLevel:
           type: integer
           example: 1
         rating:
@@ -1007,16 +1006,12 @@ components:
         ties:
           type: integer
           example: 1
-        rank:
-          type: integer
-          example: 1
       required:
-        - currrentLevel
+        - currentLevel
         - rating
         - wins
         - losses
         - ties
-        - rank
     Code:
       title: Code
       type: object
@@ -1225,7 +1220,7 @@ components:
         college:
           type: string
           example: Test
-        currrentLevel:
+        currentLevel:
           type: integer
           example: 1
         isAdmin:
@@ -1238,7 +1233,7 @@ components:
         - email
         - country
         - college
-        - currrentLevel
+        - currentLevel
         - isAdmin
     UpdateCurrentUserProfile:
       title: UpdateCurrentUserProfile

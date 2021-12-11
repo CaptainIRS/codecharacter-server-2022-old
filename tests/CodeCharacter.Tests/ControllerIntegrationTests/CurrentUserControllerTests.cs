@@ -36,7 +36,7 @@ public class FakeCurrentUserService : ICurrentUserService
         CurrentLevel = 1
     };
 
-    private UserEntity _user = new("user", "user@test.com");
+    private UserEntity _user = new("user@test.com");
 
     public Task<(PublicUserEntity, UserStatsEntity)> GetCurrentUser(UserEntity user)
     {
@@ -81,7 +81,7 @@ public class CurrentUserControllerTests : BaseControllerTests
     {
         // TODO: Investigate ways to make this an end-to-end integration test
 
-        Mock<UserEntity> user = new(TestConstants.UserName, TestConstants.Email);
+        Mock<UserEntity> user = new(TestConstants.Email);
         Mock<IUserStore<UserEntity>> userStore = new();
         Mock<UserManager<UserEntity>> userManager = new(userStore.Object, null, null, null, null, null, null, null,
             null);
@@ -107,7 +107,7 @@ public class CurrentUserControllerTests : BaseControllerTests
     {
         // TODO: Investigate ways to make this an end-to-end integration test
 
-        Mock<UserEntity> user = new(TestConstants.UserName, TestConstants.Email);
+        Mock<UserEntity> user = new(TestConstants.Email);
         Mock<IUserStore<UserEntity>> userStore = new();
         Mock<UserManager<UserEntity>> userManager = new(userStore.Object, null, null, null, null, null, null, null,
             null);
@@ -141,7 +141,7 @@ public class CurrentUserControllerTests : BaseControllerTests
     {
         // TODO: Investigate ways to make this an end-to-end integration test
 
-        Mock<UserEntity> user = new(TestConstants.UserName, TestConstants.Email);
+        Mock<UserEntity> user = new(TestConstants.Email);
         Mock<IUserStore<UserEntity>> userStore = new();
         Mock<UserManager<UserEntity>> userManager = new(userStore.Object, null, null, null, null, null, null, null,
             null);

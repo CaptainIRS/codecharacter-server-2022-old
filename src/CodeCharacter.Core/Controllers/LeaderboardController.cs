@@ -1,5 +1,7 @@
+using AutoMapper;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
+using CodeCharacter.CoreLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Controllers;
@@ -8,19 +10,24 @@ namespace CodeCharacter.Core.Controllers;
 public class LeaderboardController : LeaderboardApiController
 {
     private readonly ILeaderboardService _leaderboardService;
+    private readonly IMapper _mapper;
 
     /// <summary>
     ///     Constructor
     /// </summary>
     /// <param name="leaderboardService"></param>
-    public LeaderboardController(ILeaderboardService leaderboardService)
+    /// <param name="mapper"></param>
+    public LeaderboardController(ILeaderboardService leaderboardService, IMapper mapper)
     {
         _leaderboardService = leaderboardService;
+        _mapper = mapper;
     }
 
     /// <inheritdoc />
-    public override async Task<IActionResult> GetLeaderboard(string? page, string? size)
+    public override async Task<IActionResult> GetLeaderboard(int? page, int? size)
     {
-        return await _leaderboardService.GetLeaderboard();
+        var userStats = await _leaderboardService.GetLeaderboard(page, size);
+        var leaderboard = _mapper.Map<IEnumerable<LeaderboardEntryDto>>(userStats);
+        return Ok(leaderboard);
     }
 }

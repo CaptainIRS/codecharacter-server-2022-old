@@ -141,7 +141,7 @@ public class PublicUserDto : IEquatable<PublicUserDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((PublicUserDto) obj);
+        return obj.GetType() == GetType() && Equals((PublicUserDto)obj);
     }
 
     /// <summary>

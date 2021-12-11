@@ -14,13 +14,13 @@ namespace CodeCharacter.Tests.ServiceTests;
 [TestFixture]
 public class NotificationServiceTest : BaseServiceTests
 {
-    private UserEntity _user = new("user", "user@test.com");
+    private UserEntity _user = new("user@test.com");
 
     private async Task CreateUser(CodeCharacterDbContext context)
     {
         context.Users.Add(_user);
         await context.SaveChangesAsync();
-        _user = context.Users.First(u => u.UserName == "user");
+        _user = context.Users.First(u => u.Email == "user@test.com");
     }
 
     [Test]

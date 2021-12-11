@@ -7,6 +7,7 @@ namespace CodeCharacter.Core.Entities;
 
 public class PublicUserEntity
 {
+    public string UserName { get; set; }
     public int AvatarId { get; set; }
     public string College { get; set; }
     public string Country { get; set; }

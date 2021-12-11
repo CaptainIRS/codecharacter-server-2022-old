@@ -75,7 +75,7 @@ public class UpdateAnnouncementRequestDto : IEquatable<UpdateAnnouncementRequest
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((UpdateAnnouncementRequestDto) obj);
+        return obj.GetType() == GetType() && Equals((UpdateAnnouncementRequestDto)obj);
     }
 
     /// <summary>

@@ -13,8 +13,8 @@ namespace CodeCharacter.Tests.ServiceTests;
 [TestFixture]
 public class MatchServiceTests : BaseServiceTests
 {
-    private readonly UserEntity _user = new("user", "user@test.com");
-    private readonly UserEntity _otherUser = new("otherUser", "otherUser@test.com");
+    private readonly UserEntity _user = new("user@test.com");
+    private readonly UserEntity _otherUser = new("otherUser@test.com");
 
     private async Task AddGamesAndMatches(CodeCharacterDbContext context)
     {

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+using CodeCharacter.Core.Entities;
 
 namespace CodeCharacter.Core.Interfaces;
 
@@ -10,6 +10,8 @@ public interface ILeaderboardService
     /// <summary>
     ///     Get leaderboard
     /// </summary>
+    /// <param name="page"></param>
+    /// <param name="size"></param>
     /// <returns></returns>
-    Task<IActionResult> GetLeaderboard();
+    Task<IEnumerable<(PublicUserEntity, UserStatsEntity)>> GetLeaderboard(int? page, int? size);
 }

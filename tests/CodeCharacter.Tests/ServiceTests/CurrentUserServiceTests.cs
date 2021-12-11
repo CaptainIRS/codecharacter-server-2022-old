@@ -12,7 +12,7 @@ namespace CodeCharacter.Tests.ServiceTests;
 [TestFixture]
 public class CurrentUserServiceTest : BaseServiceTests
 {
-    private UserEntity _user = new("user", "user@test.com");
+    private UserEntity _user = new("user@test.com");
     private const string OldPassword = "OldPassword";
 
     private PublicUserEntity _publicUser = new()
@@ -38,9 +38,10 @@ public class CurrentUserServiceTest : BaseServiceTests
         await context.SaveChangesAsync();
         _user.PasswordHash = new PasswordHasher<UserEntity>().HashPassword(_user, OldPassword);
         await context.SaveChangesAsync();
-        _user = context.Users.First(u => u.UserName == "user");
+        _user = context.Users.First(u => u.Email == "user@test.com");
 
         _publicUser.UserId = _user.Id;
+        _publicUser.UserName = $"Test{_user.Id}";
         context.PublicUsers.Add(_publicUser);
         await context.SaveChangesAsync();
         _publicUser = context.PublicUsers.First(u => u.UserId == _user.Id);

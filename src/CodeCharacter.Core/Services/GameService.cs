@@ -19,7 +19,7 @@ public class GameService : IGameService
     }
 
     /// <inheritdoc />
-    public async Task<string> GetGameLogsByGameId(Guid gameId)
+    public async Task<string> GetGameLogByGameId(Guid gameId)
     {
         var game = await _context.Games.FindAsync(gameId);
         if (game == null) throw new GenericException("Game not found");
