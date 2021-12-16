@@ -6,10 +6,10 @@ namespace CodeCharacter.Core.Entities;
 
 public class NotificationEntity
 {
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-    public Instant CreatedAt { get; set; }
+    public Guid Id { get; init; }
+    public string Title { get; init; }
+    public string Content { get; init; }
+    public Instant CreatedAt { get; init; }
     public bool Read { get; set; }
-    public UserEntity User { get; set; }
+    public UserEntity User { get; init; }
 }

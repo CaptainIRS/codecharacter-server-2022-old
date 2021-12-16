@@ -6,8 +6,8 @@ namespace CodeCharacter.Core.Entities;
 
 public class CodeRevisionEntity
 {
-    public UserEntity User { get; set; }
-    [Key] public Guid Id { get; set; }
-    public string Code { get; set; }
-    public CodeRevisionEntity? ParentRevision { get; set; }
+    public UserEntity User { get; init; }
+    [Key] public Guid Id { get; init; }
+    public string Code { get; init; }
+    public CodeRevisionEntity? ParentRevision { get; init; }
 }

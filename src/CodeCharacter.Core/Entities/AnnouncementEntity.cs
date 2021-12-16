@@ -6,7 +6,7 @@ namespace CodeCharacter.Core.Entities;
 
 public class AnnouncementEntity
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
     public string Message { get; set; }
     public Instant Timestamp { get; set; }
 }

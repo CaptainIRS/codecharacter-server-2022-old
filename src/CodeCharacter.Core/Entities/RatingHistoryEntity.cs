@@ -19,11 +19,11 @@ public class RatingHistoryEntity
         ValidFrom = Instant.FromDateTimeUtc(DateTime.UtcNow);
     }
 
-    public int Id { get; set; }
+    public int Id { get; init; }
 
-    [ForeignKey("User")] public int UserId { get; set; }
+    [ForeignKey("User")] public int UserId { get; init; }
 
-    public decimal Rating { get; set; }
-    public decimal RatingDeviation { get; set; }
-    public Instant ValidFrom { get; set; }
+    public decimal Rating { get; init; }
+    public decimal RatingDeviation { get; init; }
+    public Instant ValidFrom { get; init; }
 }

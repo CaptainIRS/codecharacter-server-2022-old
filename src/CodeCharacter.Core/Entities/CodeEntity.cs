@@ -8,7 +8,7 @@ namespace CodeCharacter.Core.Entities;
 
 public class CodeEntity
 {
-    [Key] [ForeignKey("User")] public int UserId { get; set; }
+    [Key] [ForeignKey("User")] public int UserId { get; init; }
     public string Code { get; set; }
     public Instant LastSavedAt { get; set; }
 }

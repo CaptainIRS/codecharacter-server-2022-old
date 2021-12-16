@@ -7,11 +7,11 @@ namespace CodeCharacter.Core.Entities;
 
 public class MatchEntity
 {
-    public Guid Id { get; set; }
-    public List<GameEntity> Games { get; set; }
-    public MatchDto.MatchModeEnum MatchMode { get; set; }
-    public MatchDto.MatchVerdictEnum MatchVerdict { get; set; }
-    public Instant CreatedAt { get; set; }
-    public UserEntity User1 { get; set; }
-    public UserEntity User2 { get; set; }
+    public Guid Id { get; init; }
+    public List<GameEntity> Games { get; init; }
+    public MatchDto.MatchModeEnum MatchMode { get; init; }
+    public MatchDto.MatchVerdictEnum MatchVerdict { get; init; }
+    public Instant CreatedAt { get; init; }
+    public UserEntity User1 { get; init; }
+    public UserEntity User2 { get; init; }
 }

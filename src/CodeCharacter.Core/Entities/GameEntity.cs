@@ -6,7 +6,7 @@ namespace CodeCharacter.Core.Entities;
 
 public class GameEntity
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
     public string Map { get; init; }
     public int Points1 { get; init; }
     public int Points2 { get; init; }

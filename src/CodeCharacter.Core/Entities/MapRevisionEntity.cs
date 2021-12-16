@@ -6,8 +6,8 @@ namespace CodeCharacter.Core.Entities;
 
 public class MapRevisionEntity
 {
-    public UserEntity User { get; set; }
-    [Key] public Guid Id { get; set; }
-    public string Map { get; set; }
-    public MapRevisionEntity? ParentRevision { get; set; }
+    public UserEntity User { get; init; }
+    [Key] public Guid Id { get; init; }
+    public string Map { get; init; }
+    public MapRevisionEntity? ParentRevision { get; init; }
 }

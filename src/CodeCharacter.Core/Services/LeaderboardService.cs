@@ -36,6 +36,7 @@ public class LeaderboardService : ILeaderboardService
             return leaderboard
                 .Skip((page.Value - 1) * size.Value)
                 .Take(size.Value);
+
         return leaderboard;
     }
 }
