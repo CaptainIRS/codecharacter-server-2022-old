@@ -35,7 +35,7 @@ public class CodeServiceTests : BaseServiceTests
 
         Assert.IsTrue(!context.CodeRevisions.Any());
 
-        const string code = "public class TestClass0 { }";
+        const string code = "public class TestClass { }";
         Guid? parentRevisionId = null;
 
         var codeService = new CodeService(context);
@@ -44,6 +44,32 @@ public class CodeServiceTests : BaseServiceTests
         Assert.IsTrue(context.CodeRevisions.Any());
         Assert.IsTrue(context.CodeRevisions.First().Code == code);
         Assert.IsTrue(context.CodeRevisions.First().ParentRevision == null);
+    }
+
+    [Test]
+    public async Task CreateCodeRevision_WithValidParentRevision_ShouldCreateCodeRevision()
+    {
+        await using var context = new CodeCharacterDbContext(DbContextOptions);
+        await context.Database.EnsureCreatedAsync();
+        await CreateUser(context);
+
+        Assert.IsTrue(!context.CodeRevisions.Any());
+
+        const string codePrevious = "public class TestClassPrev { }";
+        await context.CodeRevisions.AddAsync(new CodeRevisionEntity { Code = codePrevious, User = _user });
+        ;
+        await context.SaveChangesAsync();
+
+        var insertedCodeRevision = context.CodeRevisions.First();
+        var parentRevisionId = insertedCodeRevision.Id;
+
+        const string codeNext = "public class TestClassNext { }";
+
+        var codeService = new CodeService(context);
+        await codeService.CreateCodeRevision(_user, codeNext, parentRevisionId);
+
+        Assert.IsTrue(context.CodeRevisions.Count() == 2);
+        Assert.IsTrue(context.CodeRevisions.First(x => x.Code == codeNext).ParentRevision?.Id == parentRevisionId);
     }
 
     [Test]

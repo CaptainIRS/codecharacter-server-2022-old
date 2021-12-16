@@ -24,7 +24,6 @@ public class UserServiceTests : BaseServiceTests
     private UserService CreateUserServiceInstance(CodeCharacterDbContext context)
     {
         var config = new Mock<IConfiguration>();
-        Mock<UserEntity> user = new(TestConstants.Email);
         Mock<IUserStore<UserEntity>> userStore = new();
         _userManager = new Mock<UserManager<UserEntity>>(userStore.Object, null, null, null, null, null, null, null,
             null);

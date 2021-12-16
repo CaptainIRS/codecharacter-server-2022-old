@@ -13,13 +13,13 @@ servers:
   - url: 'http://localhost:8080'
     description: Local Development Server
 paths:
-  /auth/token:
+  /auth/login:
     post:
       summary: Login
       operationId: login
       tags:
         - auth
-      description: Login with email and password and get bearer token for authentication
+      description: Login with email and password and get the cookie
       parameters: [ ]
       security: [ ]
       requestBody:
@@ -33,14 +33,11 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
+          headers:
+            Set-Cookie:
               schema:
-                $ref: '#/components/schemas/LoginResponse'
-              examples:
-                Example:
-                  value:
-                    token: example-token
+                type: string
+                example: CodeCharacter-Session=abcde12345; Path=/; HttpOnly
         '401':
           description: Unauthorized
         '422':
@@ -848,17 +845,6 @@ components:
       required:
         - email
         - password
-    LoginResponse:
-      title: LoginResponse
-      type: object
-      description: Login response with user token
-      properties:
-        token:
-          type: string
-          description: Bearer token
-          example: test-token
-      required:
-        - token
     ResetPasswordRequest:
       title: ResetPasswordRequest
       type: object
@@ -1415,28 +1401,7 @@ components:
         Example:
           message: Error XYZ
   securitySchemes:
-    oauth2-google:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth'
-          tokenUrl: 'https://oauth2.googleapis.com/token'
-          scopes:
-            'https://www.googleapis.com/auth/userinfo.email': User email
-            'https://www.googleapis.com/auth/userinfo.profile': User profile
-          refreshUrl: 'https://oauth2.googleapis.com/token'
-      description: ''
-    oauth2-github:
-      type: oauth2
-      flows:
-        authorizationCode:
-          authorizationUrl: 'https://github.com/login/oauth/authorize'
-          tokenUrl: 'https://github.com/login/oauth/access_token'
-          scopes:
-            'read:user': User profile
-            'user:email': User email
-          refreshUrl: 'https://github.com/login/oauth/access_token'
-    http-bearer:
+    cookie:
       type: http
       scheme: bearer
   parameters:
@@ -1488,13 +1453,8 @@ components:
   responses: { }
   examples: { }
 security:
-  - oauth2-google:
-      - 'https://www.googleapis.com/auth/userinfo.email'
-      - 'https://www.googleapis.com/auth/userinfo.profile'
-  - oauth2-github:
-      - 'read:user'
-      - 'user:email'
-  - http-bearer: [ ]
+  - cookie: [ ]
+
 tags:
   - name: announcement
     description: Announcement API

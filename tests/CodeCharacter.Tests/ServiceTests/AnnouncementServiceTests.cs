@@ -13,7 +13,7 @@ namespace CodeCharacter.Tests.ServiceTests;
 public class AnnouncementServiceTests : BaseServiceTests
 {
     private const string Message = "TestAnnouncement";
-    private readonly Instant Timestamp = Instant.FromUtc(2020, 1, 1, 0, 0);
+    private readonly Instant _timestamp = Instant.FromUtc(2020, 1, 1, 0, 0);
 
     [Test]
     public async Task GetAnnouncements_ShouldReturnAnnouncements()
@@ -24,15 +24,15 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
         var announcements = await announcementService.GetAllAnnouncements();
 
-        Assert.IsNotNull(announcements);
-        Assert.IsTrue(announcements.Count == 1);
+        Assert.That(announcements, Is.Not.Null);
+        Assert.That(announcements.Count, Is.EqualTo(1));
     }
 
     [Test]
@@ -44,15 +44,15 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
         var announcement = await announcementService.GetAnnouncement(1);
-        Assert.IsTrue(announcement.Id == 1);
-        Assert.IsTrue(announcement.Message == Message);
-        Assert.IsTrue(announcement.Timestamp == Timestamp);
+        Assert.That(announcement.Id, Is.EqualTo(1));
+        Assert.That(announcement.Message, Is.EqualTo(Message));
+        Assert.That(announcement.Timestamp, Is.EqualTo(_timestamp));
     }
 
     [Test]
@@ -64,7 +64,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
@@ -72,7 +72,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         var exception =
             Assert.ThrowsAsync<GenericException>(async () => await announcementService.GetAnnouncement(300));
         Assert.That(exception, Is.Not.Null);
-        Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
+        Assert.That(exception?.Message, Is.EqualTo("Announcement not found"));
     }
 
     [Test]
@@ -81,13 +81,13 @@ public class AnnouncementServiceTests : BaseServiceTests
         await using var context = new CodeCharacterDbContext(DbContextOptions);
 
         await context.Database.EnsureCreatedAsync();
-        Assert.IsTrue(!context.Announcements.Any());
+        Assert.That(context.Announcements.Any(), Is.False);
 
         var announcementService = new AnnouncementService(context);
         await announcementService.CreateAnnouncement(Message);
 
-        Assert.IsTrue(context.Announcements.Any());
-        Assert.IsTrue(context.Announcements.First().Message == Message);
+        Assert.That(context.Announcements.Any(), Is.True);
+        Assert.That(context.Announcements.First().Message, Is.EqualTo(Message));
     }
 
     [Test]
@@ -99,15 +99,15 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
         await announcementService.UpdateAnnouncement(1, Message);
 
-        Assert.IsTrue(context.Announcements.Any());
-        Assert.IsTrue(context.Announcements.First().Message == Message);
+        Assert.That(context.Announcements.Any(), Is.True);
+        Assert.That(context.Announcements.First().Message, Is.EqualTo(Message));
     }
 
     [Test]
@@ -119,7 +119,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
@@ -128,7 +128,7 @@ public class AnnouncementServiceTests : BaseServiceTests
             Assert.ThrowsAsync<GenericException>(async () =>
                 await announcementService.UpdateAnnouncement(300, Message));
         Assert.That(exception, Is.Not.Null);
-        Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
+        Assert.That(exception?.Message, Is.EqualTo("Announcement not found"));
     }
 
     [Test]
@@ -140,14 +140,14 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
         var announcementService = new AnnouncementService(context);
         await announcementService.DeleteAnnouncement(1);
 
-        Assert.IsTrue(!context.Announcements.Any());
+        Assert.That(context.Announcements.Any(), Is.False);
     }
 
     [Test]
@@ -159,7 +159,7 @@ public class AnnouncementServiceTests : BaseServiceTests
         context.Announcements.Add(new AnnouncementEntity
         {
             Message = Message,
-            Timestamp = Timestamp
+            Timestamp = _timestamp
         });
         await context.SaveChangesAsync();
 
@@ -167,6 +167,6 @@ public class AnnouncementServiceTests : BaseServiceTests
         var exception =
             Assert.ThrowsAsync<GenericException>(async () => await announcementService.DeleteAnnouncement(300));
         Assert.That(exception, Is.Not.Null);
-        Assert.IsTrue(exception?.Message.Contains("Announcement not found"));
+        Assert.That(exception?.Message, Is.EqualTo("Announcement not found"));
     }
 }

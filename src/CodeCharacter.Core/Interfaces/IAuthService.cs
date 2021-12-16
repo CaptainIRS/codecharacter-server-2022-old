@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-
 namespace CodeCharacter.Core.Interfaces;
 
 /// <summary>
@@ -12,15 +10,13 @@ public interface IAuthService
     /// </summary>
     /// <param name="email">Email of the user</param>
     /// <param name="password">Password of the user</param>
-    /// <returns>Task</returns>
-    Task<IActionResult> Login(string email, string password);
+    Task Login(string email, string password);
 
     /// <summary>
     ///     Forgot Password
     /// </summary>
     /// <param name="email">Email of the user</param>
-    /// <returns>Task</returns>
-    Task<IActionResult> ForgotPassword(string email);
+    Task ForgotPassword(string email);
 
     /// <summary>
     ///     Reset Password
@@ -28,6 +24,5 @@ public interface IAuthService
     /// <param name="email">Email of the user</param>
     /// <param name="password">Password of the user</param>
     /// <param name="token">Token received from email</param>
-    /// <returns></returns>
-    Task<IActionResult> ResetPassword(string email, string password, string token);
+    Task ResetPassword(string email, string password, string token);
 }

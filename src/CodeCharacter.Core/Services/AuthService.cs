@@ -1,10 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CodeCharacter.Core.Services;
 
@@ -34,7 +34,7 @@ public class AuthService : IAuthService
     }
 
     /// <inheritdoc />
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task Login(string email, string password)
     {
         var identityUser = await _userManager.FindByEmailAsync(email);
 
@@ -43,24 +43,25 @@ public class AuthService : IAuthService
         var result =
             _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash,
                 password);
-        if (result == PasswordVerificationResult.Failed) throw new GenericException("Invalid username or password");
+        if (result == PasswordVerificationResult.Failed) throw new GenericException("Invalid email or password");
         var claims = new List<Claim>
         {
             new(ClaimTypes.Email, identityUser.Email),
             new(ClaimTypes.Name, identityUser.UserName)
         };
         await _signInManager.SignInWithClaimsAsync(identityUser, true, claims);
-        return new OkResult();
     }
 
     /// <inheritdoc />
-    public Task<IActionResult> ForgotPassword(string email)
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
+    public Task ForgotPassword(string email)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public Task<IActionResult> ResetPassword(string email, string password, string token)
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
+    public Task ResetPassword(string email, string password, string token)
     {
         throw new NotImplementedException();
     }

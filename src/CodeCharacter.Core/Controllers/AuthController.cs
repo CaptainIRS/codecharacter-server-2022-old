@@ -1,4 +1,6 @@
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
+using CodeCharacter.Core.Exceptions;
 using CodeCharacter.Core.Interfaces;
 using CodeCharacter.CoreLibrary.Controllers;
 using CodeCharacter.CoreLibrary.Models;
@@ -20,6 +22,7 @@ public class AuthController : AuthApiController
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
     public override Task<IActionResult> ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequestDto)
     {
         throw new NotImplementedException();
@@ -30,15 +33,17 @@ public class AuthController : AuthApiController
     {
         try
         {
-            return await _authService.Login(loginRequestDto.Email, loginRequestDto.Password);
+            await _authService.Login(loginRequestDto.Email, loginRequestDto.Password);
+            return Ok();
         }
-        catch (Exception e)
+        catch (GenericException e)
         {
             return Unauthorized(_mapper.Map<GenericErrorDto>(e));
         }
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
     public override Task<IActionResult> ResetPassword(ResetPasswordRequestDto resetPasswordRequestDto)
     {
         throw new NotImplementedException();

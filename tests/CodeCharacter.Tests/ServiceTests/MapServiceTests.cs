@@ -47,6 +47,32 @@ public class MapServiceTests : BaseServiceTests
     }
 
     [Test]
+    public async Task CreateMapRevision_WithValidParentRevision_ShouldCreateMapRevision()
+    {
+        await using var context = new CodeCharacterDbContext(DbContextOptions);
+        await context.Database.EnsureCreatedAsync();
+        await CreateUser(context);
+
+        Assert.IsTrue(!context.MapRevisions.Any());
+
+        const string mapPrevious = "0000\n0000\n0000\n0000";
+        await context.MapRevisions.AddAsync(new MapRevisionEntity { Map = mapPrevious, User = _user });
+        ;
+        await context.SaveChangesAsync();
+
+        var insertedMapRevision = context.MapRevisions.First();
+        var parentRevisionId = insertedMapRevision.Id;
+
+        const string mapNext = "0000\n0000\n0000\n0001";
+
+        var mapService = new MapService(context);
+        await mapService.CreateMapRevision(_user, mapNext, parentRevisionId);
+
+        Assert.IsTrue(context.MapRevisions.Count() == 2);
+        Assert.IsTrue(context.MapRevisions.First(x => x.Map == mapNext).ParentRevision?.Id == parentRevisionId);
+    }
+
+    [Test]
     public async Task CreateMapRevision_WithInvalidParentRevision_ShouldThrowException()
     {
         await using var context = new CodeCharacterDbContext(DbContextOptions);

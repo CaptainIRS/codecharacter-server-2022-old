@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using CodeCharacter.Core.Data;
 using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
@@ -32,6 +33,8 @@ public class UserService : IUserService
         _signInManager = signInManager;
     }
 
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
     public Task ActivateUser(int userId, string token)
     {
         throw new NotImplementedException();

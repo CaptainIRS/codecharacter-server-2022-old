@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using AutoMapper;
 using CodeCharacter.Core.Entities;
 using CodeCharacter.Core.Exceptions;
@@ -22,6 +23,7 @@ public class UserController : UserApiController
     }
 
     /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
     public override Task<IActionResult> ActivateUser(int userId,
         ActivateUserRequestDto activateUserRequestDto)
     {
