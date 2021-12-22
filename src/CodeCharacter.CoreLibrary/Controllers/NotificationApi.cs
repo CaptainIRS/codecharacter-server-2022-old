@@ -44,12 +44,13 @@ public abstract class NotificationApiController : ControllerBase
     /// <param name="body"></param>
     /// <response code="204">No Content</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPut]
     [Route("/user/notifications/{notificationId}/read")]
     [Authorize]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> SaveNotificationReadStatus(
         [FromRoute(Name = "notificationId")] [Required] Guid notificationId, [FromBody] bool body);
 }

@@ -31,12 +31,13 @@ public abstract class MapApiController : ControllerBase
     /// <param name="createMapRevisionRequestDto"></param>
     /// <response code="204">No Content</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/user/map/revisions")]
     [Authorize]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> CreateMapRevision(
         [FromBody] CreateMapRevisionRequestDto createMapRevisionRequestDto);
 
@@ -88,11 +89,12 @@ public abstract class MapApiController : ControllerBase
     /// <param name="updateLatestMapRequestDto"></param>
     /// <response code="204">No Content</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/user/map/latest")]
     [Authorize]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> UpdateLatestMap([FromBody] UpdateLatestMapRequestDto updateLatestMapRequestDto);
 }

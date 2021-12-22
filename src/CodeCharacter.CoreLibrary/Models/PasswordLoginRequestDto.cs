@@ -17,10 +17,10 @@ using Newtonsoft.Json;
 namespace CodeCharacter.CoreLibrary.Models;
 
 /// <summary>
-///     Login request
+///     Password Login request
 /// </summary>
 [DataContract]
-public class LoginRequestDto : IEquatable<LoginRequestDto>
+public class PasswordLoginRequestDto : IEquatable<PasswordLoginRequestDto>
 {
     /// <summary>
     ///     Gets or Sets Email
@@ -40,11 +40,11 @@ public class LoginRequestDto : IEquatable<LoginRequestDto>
     public string Password { get; set; }
 
     /// <summary>
-    ///     Returns true if LoginRequestDto instances are equal
+    ///     Returns true if PasswordLoginRequestDto instances are equal
     /// </summary>
-    /// <param name="other">Instance of LoginRequestDto to be compared</param>
+    /// <param name="other">Instance of PasswordLoginRequestDto to be compared</param>
     /// <returns>Boolean</returns>
-    public bool Equals(LoginRequestDto other)
+    public bool Equals(PasswordLoginRequestDto other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
@@ -69,7 +69,7 @@ public class LoginRequestDto : IEquatable<LoginRequestDto>
     public override string ToString()
     {
         var sb = new StringBuilder();
-        sb.Append("class LoginRequestDto {\n");
+        sb.Append("class PasswordLoginRequestDto {\n");
         sb.Append("  Email: ").Append(Email).Append("\n");
         sb.Append("  Password: ").Append(Password).Append("\n");
         sb.Append("}\n");
@@ -94,7 +94,7 @@ public class LoginRequestDto : IEquatable<LoginRequestDto>
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == GetType() && Equals((LoginRequestDto)obj);
+        return obj.GetType() == GetType() && Equals((PasswordLoginRequestDto)obj);
     }
 
     /// <summary>
@@ -119,12 +119,12 @@ public class LoginRequestDto : IEquatable<LoginRequestDto>
 
 #pragma warning disable 1591
 
-    public static bool operator ==(LoginRequestDto left, LoginRequestDto right)
+    public static bool operator ==(PasswordLoginRequestDto left, PasswordLoginRequestDto right)
     {
         return Equals(left, right);
     }
 
-    public static bool operator !=(LoginRequestDto left, LoginRequestDto right)
+    public static bool operator !=(PasswordLoginRequestDto left, PasswordLoginRequestDto right)
     {
         return !Equals(left, right);
     }

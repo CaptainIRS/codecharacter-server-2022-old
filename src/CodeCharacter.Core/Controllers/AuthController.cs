@@ -23,17 +23,31 @@ public class AuthController : AuthApiController
 
     /// <inheritdoc />
     [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
+    public override async Task<IActionResult> ExternalLogin(ExternalLoginRequestDto externalLoginRequestDto)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
+    public override async Task<IActionResult> ExternalLoginCallback()
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <inheritdoc />
+    [ExcludeFromCodeCoverage(Justification = "Remove once implemented")]
     public override Task<IActionResult> ForgotPassword(ForgotPasswordRequestDto forgotPasswordRequestDto)
     {
         throw new NotImplementedException();
     }
 
     /// <inheritdoc />
-    public override async Task<IActionResult> Login(LoginRequestDto loginRequestDto)
+    public override async Task<IActionResult> PasswordLogin(PasswordLoginRequestDto passwordLoginRequestDto)
     {
         try
         {
-            await _authService.Login(loginRequestDto.Email, loginRequestDto.Password);
+            await _authService.Login(passwordLoginRequestDto.Email, passwordLoginRequestDto.Password);
             return Ok();
         }
         catch (GenericException e)

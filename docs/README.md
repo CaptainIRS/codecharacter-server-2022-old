@@ -14,6 +14,14 @@ $ openapi-generator-cli generate \
     --model-name-suffix=Dto
 ```
 
+Format the whole solution by running
+
+```sh
+$ dotnet jb cleanupcode \
+    --exclude="**/*.xml;**/*.htm*;**/*.json" \
+    CodeCharacter.sln
+```
+
 ### API Docs:
 
 * [Specification](spec/index.html)

@@ -32,11 +32,12 @@ public abstract class UserApiController : ControllerBase
     /// <response code="200">OK</response>
     /// <response code="401">Unauthorized</response>
     /// <response code="404">Not Found</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/users/{userId}/activate")]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> ActivateUser([FromRoute(Name = "userId")] [Required] int userId,
         [FromBody] ActivateUserRequestDto activateUserRequestDto);
 
@@ -62,10 +63,11 @@ public abstract class UserApiController : ControllerBase
     /// <remarks>Register user</remarks>
     /// <param name="registerUserRequestDto"></param>
     /// <response code="201">Created</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/users")]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> Register([FromBody] RegisterUserRequestDto registerUserRequestDto);
 }

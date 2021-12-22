@@ -31,12 +31,13 @@ public abstract class CodeApiController : ControllerBase
     /// <param name="createCodeRevisionRequestDto"></param>
     /// <response code="204">No Content</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/user/code/revisions")]
     [Authorize]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> CreateCodeRevision(
         [FromBody] CreateCodeRevisionRequestDto createCodeRevisionRequestDto);
 
@@ -89,12 +90,13 @@ public abstract class CodeApiController : ControllerBase
     /// <param name="updateLatestCodeRequestDto"></param>
     /// <response code="204">No Content</response>
     /// <response code="401">Unauthorized</response>
-    /// <response code="422">Unprocessable Entity</response>
+    /// <response code="400">Bad Request</response>
     [HttpPost]
     [Route("/user/code/latest")]
     [Authorize]
     [Consumes("application/json")]
     [ValidateModelState]
+    [ProducesResponseType(statusCode: 400, type: typeof(GenericErrorDto))]
     public abstract Task<IActionResult> UpdateLatestCode(
         [FromBody] UpdateLatestCodeRequestDto updateLatestCodeRequestDto);
 }

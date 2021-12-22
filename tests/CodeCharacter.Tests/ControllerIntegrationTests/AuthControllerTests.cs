@@ -36,8 +36,8 @@ public class AuthControllerTests : BaseControllerTests
     {
         var client = GetClientForService<IAuthService, FakeAuthService>();
 
-        var response = await client.PostAsJsonAsync("/auth/login",
-            new LoginRequestDto { Email = TestConstants.Email, Password = "Passw0rd!" });
+        var response = await client.PostAsJsonAsync("/auth/login/password",
+            new PasswordLoginRequestDto { Email = TestConstants.Email, Password = "Passw0rd!" });
 
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
     }
@@ -47,8 +47,8 @@ public class AuthControllerTests : BaseControllerTests
     {
         var client = GetClientForService<IAuthService, FakeAuthService>();
 
-        var response = await client.PostAsJsonAsync("/auth/login",
-            new LoginRequestDto { Email = TestConstants.Email, Password = "Passw0rd!invalid" });
+        var response = await client.PostAsJsonAsync("/auth/login/password",
+            new PasswordLoginRequestDto { Email = TestConstants.Email, Password = "Passw0rd!invalid" });
 
         Assert.AreEqual(HttpStatusCode.Unauthorized, response.StatusCode);
     }
