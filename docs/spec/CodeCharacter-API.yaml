@@ -1,0 +1,1682 @@
+openapi: 3.0.0
+info:
+  title: CodeCharacter API
+  version: 2022.0.1
+  contact:
+    name: CodeCharacter Authors
+    url: 'https://delta.nitt.edu'
+    email: delta@nitt.edu
+  license:
+    name: MIT
+  description: Specification of the CodeCharacter API
+servers:
+  - url: 'http://localhost:8080'
+    description: Local Development Server
+paths:
+  /auth/login/password:
+    post:
+      summary: Password Login
+      operationId: passwordLogin
+      tags:
+        - auth
+      description: Login with email and password and get bearer token for authentication
+      parameters: []
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordLoginRequest'
+            examples: {}
+        description: ''
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordLoginResponse'
+              examples:
+                Example:
+                  value:
+                    token: example-token
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+    parameters: []
+  /auth/login/external:
+    post:
+      summary: External Login
+      operationId: externalLogin
+      tags:
+        - auth
+      description: Redirect to challenge for the given external login provider
+      parameters: []
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalLoginRequest'
+            examples:
+              Example:
+                value:
+                  provider: GOOGLE
+        description: ''
+      responses:
+        '302':
+          description: Found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+    parameters: []
+  /auth/login/external/callback:
+    post:
+      summary: External Login Callback
+      operationId: externalLoginCallback
+      tags:
+        - auth
+      description: Callback after external login to redirect to the frontend with token information in cookie.
+      parameters: []
+      security: []
+      responses:
+        '302':
+          description: Found
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+              description: Cookie which contains the activation status of the user and token if already activated
+        '401':
+          description: Unauthorized
+    parameters: []
+  /auth/reset-password:
+    parameters: []
+    post:
+      summary: Reset password
+      operationId: resetPassword
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - auth
+      security: []
+      description: Reset password using the token from password reset email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetPasswordRequest'
+  /auth/forgot-password:
+    post:
+      summary: Forgot password
+      operationId: forgotPassword
+      responses:
+        '202':
+          description: Accepted
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - auth
+      security: []
+      description: Request password reset email to be sent when user forgot their password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgotPasswordRequest'
+            examples:
+              Example:
+                value:
+                  email: user@example.com
+  /announcements:
+    get:
+      summary: Get all announcements
+      tags:
+        - announcement
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Announcement'
+              examples:
+                Example:
+                  value:
+                    - id: 0
+                      timestamp: '2019-08-24T14:15:22Z'
+                      message: Sample Announcement
+        '401':
+          description: Unauthorized
+      operationId: getAllAnnouncements
+      description: Get all announcements
+    post:
+      summary: Create announcement
+      operationId: createAnnouncement
+      responses:
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      tags:
+        - announcement
+      description: Create announcement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAnnouncementRequest'
+            examples:
+              Example:
+                value:
+                  message: Sample Announcement
+  '/announcements/{announcementId}':
+    parameters:
+      - $ref: '#/components/parameters/announcementId'
+    get:
+      summary: Get announcement by ID
+      tags:
+        - announcement
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Announcement'
+              examples:
+                Example:
+                  value:
+                    id: 0
+                    timestamp: '2019-08-24T14:15:22Z'
+                    message: Sample Announcement
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      operationId: getAnnouncementById
+      description: Get announcement by ID
+    patch:
+      summary: Update announcement by ID
+      operationId: updateAnnouncementById
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      tags:
+        - announcement
+      description: Update announcement by ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAnnouncementRequest'
+            examples:
+              Example:
+                value:
+                  message: Updated Announcement
+    delete:
+      summary: Delete announcement by ID
+      operationId: deleteAnnouncementById
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      tags:
+        - announcement
+      description: Delete announcement by ID
+  /leaderboard:
+    get:
+      summary: Get leaderboard
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LeaderboardEntry'
+              examples:
+                Example:
+                  value:
+                    - user:
+                        userId: 1
+                        username: testUser
+                        name: Test User
+                        country: IN
+                        college: NIT Trichy
+                        avatarId: 0
+                      stats:
+                        currentLevel: 0
+                        rating: 0
+                        wins: 0
+                        losses: 0
+                        ties: 0
+        '401':
+          description: Unauthorized
+      operationId: getLeaderboard
+      tags:
+        - leaderboard
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: Index of the page
+        - schema:
+            type: integer
+          in: query
+          name: size
+          description: Size of the page
+      description: Get leaderboard
+    parameters: []
+  /top-matches:
+    get:
+      summary: Get top matches
+      tags:
+        - match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+              examples:
+                Example:
+                  value:
+                    - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      games:
+                        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          mapId: 0
+                          points1: 0
+                          points2: 0
+                          status: IDLE
+                          gameVerdict: PLAYER1
+                      matchMode: SELF
+                      matchVerdict: PLAYER1
+                      createdAt: '2019-08-24T14:15:22Z'
+                      user1:
+                        userId: 1
+                        username: testUser
+                        name: Test User
+                        country: IN
+                        college: NIT Trichy
+                        avatarId: 0
+                      user2:
+                        userId: 1
+                        username: testUser
+                        name: Test User
+                        country: IN
+                        college: NIT Trichy
+                        avatarId: 0
+        '401':
+          description: Unauthorized
+      operationId: getTopMatches
+      description: Get top matches
+    parameters: []
+  '/games/{gameId}/logs':
+    parameters:
+      - $ref: '#/components/parameters/gameId'
+    get:
+      summary: Get game logs by game ID
+      tags:
+        - game
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameLog'
+              examples:
+                Example:
+                  value: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+      operationId: getGameLogsByGameId
+      description: Get game logs by game ID
+  /user:
+    parameters: []
+    get:
+      summary: Get current user profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentUserProfile'
+              examples:
+                Example:
+                  value:
+                    id: 5
+                    username: testUser
+                    name: Test User
+                    email: user@example.com
+                    country: IN
+                    college: NITT
+                    currentLevel: 3
+                    isAdmin: false
+        '401':
+          description: Unauthorized
+      operationId: getCurrentUser
+      description: Get current user profile
+      tags:
+        - current-user
+    patch:
+      summary: Update current user
+      operationId: updateCurrentUser
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      description: Update current user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCurrentUserProfile'
+            examples:
+              Example:
+                value:
+                  name: Test User Mofified
+                  country: IN
+                  college: NIT Trichy
+      tags:
+        - current-user
+  /user/password:
+    parameters: []
+    post:
+      summary: Update password
+      operationId: updatePassword
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - current-user
+      description: Update password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+            examples:
+              Example:
+                value:
+                  oldPassword: Pa$$w0rd
+                  password: Pa$$w0rd1
+                  passwordConfirmation: Pa$$w0rd1
+  /user/code/latest:
+    get:
+      summary: Get latest code
+      tags:
+        - code
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Code'
+              examples:
+                Example:
+                  value:
+                    code: '#include<iostream.h>'
+                    lastSavedAt: '2019-08-24T14:15:22Z'
+        '401':
+          description: Unauthorized
+      operationId: getLatestCode
+      description: Get latest code
+    post:
+      summary: Update latest code
+      operationId: updateLatestCode
+      description: Update latest code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLatestCodeRequest'
+            examples:
+              Example:
+                value:
+                  code: '#include<iostream.h>'
+                  lock: false
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - code
+    parameters: []
+  /user/code/revisions:
+    get:
+      summary: Get code revisions
+      tags:
+        - code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CodeRevision'
+              examples:
+                Example:
+                  value:
+                    - id: 123e4567-e89b-12d3-a456-426614174000
+                      code: '#include<iostream.h>'
+                      parentRevision: null
+        '401':
+          description: Unauthorized
+      operationId: getCodeRevisions
+      description: Get list of all code revision IDs
+    post:
+      summary: Create code revision
+      operationId: createCodeRevision
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      description: Create code revision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCodeRevisionRequest'
+            examples:
+              Example:
+                value:
+                  code: '#include<iostream>'
+      tags:
+        - code
+    parameters: []
+  '/user/code/revisions/{revisionId}':
+    parameters:
+      - $ref: '#/components/parameters/revisionId'
+    get:
+      summary: Get code revision by ID
+      tags:
+        - code
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodeRevision'
+              examples:
+                Example:
+                  value:
+                    id: 123e4567-e89b-12d3-a456-426614174000
+                    code: '#include<iostream>'
+                    parentRevision: null
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      operationId: getCodeRevisionById
+      description: Get code revision by ID
+  /user/map/latest:
+    get:
+      summary: Get latest map
+      tags:
+        - map
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Map'
+              examples:
+                Example:
+                  value:
+                    map: 0000\n0010\n0100\n1000\n
+                    lastSavedAt: '2019-08-24T14:15:22Z'
+        '401':
+          description: Unauthorized
+      operationId: getLatestMap
+      description: Get latest map
+    post:
+      summary: Update latest map
+      operationId: updateLatestMap
+      description: Update latest map
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateLatestMapRequest'
+            examples:
+              Example:
+                value:
+                  map: 0000\n0010\n0100\n1000\n
+                  lock: false
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - map
+    parameters: []
+  /user/map/revisions:
+    get:
+      summary: Get map revisions
+      tags:
+        - map
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MapRevision'
+              examples:
+                Example:
+                  value:
+                    - id: 123e4567-e89b-12d3-a456-426614174000
+                      map: 0000\n0010\n0100\n1000\n
+                      parentRevision: null
+        '401':
+          description: Unauthorized
+      operationId: getMapRevisions
+      description: Get list of all map revision IDs
+    post:
+      summary: Create map revision
+      operationId: createMapRevision
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      description: Create map revision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMapRevisionRequest'
+            examples:
+              Example:
+                value:
+                  map: 0000\n0010\n0100\n1000\n
+      tags:
+        - map
+    parameters: []
+  '/user/map/revisions/{revisionId}':
+    parameters:
+      - $ref: '#/components/parameters/revisionId'
+    get:
+      summary: Get map revision by ID
+      tags:
+        - map
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MapRevision'
+              examples:
+                Example:
+                  value:
+                    id: 123e4567-e89b-12d3-a456-426614174000
+                    map: 0000\n0010\n0100\n1000\n
+                    parentRevision: null
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      operationId: getMapRevisionById
+      description: Get map revision by ID
+  /user/matches:
+    get:
+      summary: Get user matches
+      tags:
+        - match
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+              examples:
+                Example:
+                  value:
+                    - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                      games:
+                        - id: 497f6eca-6276-4993-bfeb-53cbbbba6f08
+                          mapId: 0
+                          points1: 0
+                          points2: 0
+                          status: IDLE
+                          gameVerdict: PLAYER1
+                      matchMode: SELF
+                      matchVerdict: PLAYER1
+                      createdAt: '2019-08-24T14:15:22Z'
+                      user1:
+                        userId: 1
+                        username: testUser
+                        name: Test User
+                        country: IN
+                        college: NIT Trichy
+                        avatarId: 0
+                      user2:
+                        userId: 1
+                        username: testUser
+                        name: Test User
+                        country: IN
+                        college: NIT Trichy
+                        avatarId: 0
+        '401':
+          description: Unauthorized
+      operationId: getUserMatches
+      description: Get matches played by authenticated user
+    parameters: []
+  /user/notifications:
+    get:
+      summary: Get all notifications
+      tags:
+        - notification
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notification'
+              examples:
+                Example:
+                  value:
+                    - id: 123e4567-e89b-12d3-a456-426614174000
+                      title: Sample Notification
+                      content: Sample Notification
+                      createdAt: '2019-08-24T14:15:22Z'
+                      read: true
+                    - id: 123e4567-e89b-12d3-a456-426614174005
+                      title: Sample Notification 2
+                      content: Sample Notification
+                      createdAt: '2019-08-25T14:15:22Z'
+                      read: false
+      operationId: getAllNotifications
+      description: Get all notifications
+    parameters: []
+  '/user/notifications/{notificationId}/read':
+    parameters:
+      - $ref: '#/components/parameters/notificationId'
+    put:
+      summary: Save notification read status
+      operationId: saveNotificationReadStatus
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - notification
+      description: Save notification read status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: boolean
+            examples:
+              Example:
+                value: true
+  /users:
+    post:
+      summary: Register user
+      operationId: register
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - user
+      description: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+            examples:
+              Example:
+                value:
+                  username: testUser
+                  name: Test User
+                  email: user@example.com
+                  password: Pa$$w0rd
+                  passwordConfirmation: Pa$$w0rd
+                  country: IN
+                  college: NITT
+                  avatarId: 0
+        description: ''
+      security: []
+  '/users/{userId}/activate':
+    parameters:
+      - $ref: '#/components/parameters/userId'
+    post:
+      summary: Activate user
+      operationId: activateUser
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericError'
+              examples:
+                Example:
+                  value:
+                    message: Some specific error message
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateUserRequest'
+            examples:
+              Example:
+                value:
+                  token: example-token
+        description: ''
+      description: Activate user by using the token sent via email
+      security: []
+  '/users/{userId}/ratingHistory':
+    parameters:
+      - $ref: '#/components/parameters/userId'
+    get:
+      summary: Get user rating history
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RatingHistory'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      operationId: getRatingHistory
+      description: Get user rating history
+components:
+  schemas:
+    PasswordLoginRequest:
+      title: PasswordLoginRequest
+      type: object
+      description: Password Login request
+      properties:
+        email:
+          type: string
+          format: email
+          pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}'
+          example: test@test.com
+        password:
+          type: string
+          format: password
+          minLength: 8
+          maxLength: 32
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+      required:
+        - email
+        - password
+    ExternalLoginRequest:
+      title: ExternalLoginRequest
+      type: object
+      description: External Login request
+      properties:
+        provider:
+          type: string
+          enum:
+            - GOOGLE
+            - GITHUB
+      required:
+        - provider
+    PasswordLoginResponse:
+      title: LoginResponse
+      type: object
+      description: Login response with user token
+      properties:
+        token:
+          type: string
+          description: Bearer token
+          example: test-token
+      required:
+        - token
+    ResetPasswordRequest:
+      title: ResetPasswordRequest
+      type: object
+      description: Reset password request
+      properties:
+        token:
+          type: string
+          example: test-token
+        password:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+        passwordConfirmation:
+          type: string
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          format: password
+          minLength: 8
+          maxLength: 32
+      required:
+        - token
+        - password
+        - passwordConfirmation
+    ForgotPasswordRequest:
+      title: ForgotPasswordRequest
+      type: object
+      description: Forgot password request
+      properties:
+        email:
+          type: string
+          format: email
+          pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}'
+          example: test@test.com
+      required:
+        - email
+    Announcement:
+      title: Announcement
+      type: object
+      description: Announcement model
+      properties:
+        id:
+          type: integer
+          description: ID of the announcement
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the announcement
+        message:
+          type: string
+          description: Announcement message
+          example: Test announcement
+      required:
+        - id
+        - timestamp
+        - message
+    CreateAnnouncementRequest:
+      title: CreateAnnouncementRequest
+      type: object
+      description: Create announcement request
+      properties:
+        message:
+          type: string
+          description: Announcement message
+          example: Test announcement
+      required:
+        - message
+    UpdateAnnouncementRequest:
+      title: UpdateAnnouncementRequest
+      type: object
+      description: Update announcement request
+      properties:
+        message:
+          type: string
+          description: Announcement message
+          example: Updated test announcement
+    RatingHistory:
+      description: Rating history model
+      type: object
+      title: RatingHistory
+      properties:
+        rating:
+          type: number
+          example: 1000
+        ratingDeviation:
+          type: number
+          example: 5
+        validFrom:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+      required:
+        - rating
+        - ratingDeviation
+        - validFrom
+    PublicUser:
+      title: PublicUser
+      type: object
+      description: Public user model
+      properties:
+        userId:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: test
+        name:
+          type: string
+          example: Test User
+        country:
+          type: string
+          example: IN
+        college:
+          type: string
+          example: Test
+        avatarId:
+          type: integer
+          example: 1
+      required:
+        - userId
+        - username
+        - name
+        - country
+        - college
+        - avatarId
+    UserStats:
+      title: UserStats
+      type: object
+      description: User stats model
+      properties:
+        currentLevel:
+          type: integer
+          example: 1
+        rating:
+          type: number
+          example: 1000
+        wins:
+          type: integer
+          default: 0
+          example: 1
+        losses:
+          type: integer
+          example: 1
+        ties:
+          type: integer
+          example: 1
+      required:
+        - currentLevel
+        - rating
+        - wins
+        - losses
+        - ties
+    Code:
+      title: Code
+      type: object
+      description: Code model
+      properties:
+        code:
+          type: string
+          example: '#include <iostream>'
+        lastSavedAt:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+      required:
+        - code
+        - lastSavedAt
+    UpdateLatestCodeRequest:
+      title: UpdateLatestCodeRequest
+      type: object
+      description: Update latest code request
+      properties:
+        code:
+          type: string
+          example: '#include <iostream>'
+        lock:
+          type: boolean
+          default: false
+      required:
+        - code
+    CodeRevision:
+      title: CodeRevision
+      type: object
+      description: Code revision model
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        code:
+          type: string
+          example: '#include <iostream>'
+        parentRevision:
+          type: string
+          format: uuid
+          example: null
+          nullable: true
+      required:
+        - id
+        - code
+        - parentRevision
+    CreateCodeRevisionRequest:
+      title: CreateCodeRevisionRequest
+      type: object
+      description: Create code revision request
+      properties:
+        code:
+          type: string
+          example: '#include <iostream>'
+      required:
+        - code
+    Map:
+      title: Map
+      type: object
+      description: Map model
+      properties:
+        map:
+          type: string
+          example: 0000\n0010\n0100\n1000\n
+        lastSavedAt:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+      required:
+        - map
+        - lastSavedAt
+    UpdateLatestMapRequest:
+      title: UpdateLatestMapRequest
+      type: object
+      description: Update latest map request
+      properties:
+        map:
+          type: string
+          example: 0000\n0010\n0100\n1000\n
+        lock:
+          type: boolean
+          default: false
+      required:
+        - map
+    MapRevision:
+      title: MapRevision
+      type: object
+      description: Map revision model
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        map:
+          type: string
+          example: 0000\n0010\n0100\n1000\n
+        parentRevision:
+          type: string
+          format: uuid
+          example: null
+          nullable: true
+      required:
+        - id
+        - map
+        - parentRevision
+    CreateMapRevisionRequest:
+      title: CreateMapRevisionRequest
+      type: object
+      description: Create map revision request
+      properties:
+        map:
+          type: string
+          example: 0000\n0010\n0100\n1000\n
+      required:
+        - map
+    ActivateUserRequest:
+      title: ActivateUserRequest
+      type: object
+      description: Activate user request
+      properties:
+        token:
+          type: string
+          example: example-token
+      required:
+        - token
+    UpdatePasswordRequest:
+      title: UpdatePasswordRequest
+      type: object
+      properties:
+        oldPassword:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+        password:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+        passwordConfirmation:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+      required:
+        - oldPassword
+        - password
+        - passwordConfirmation
+      description: Update password request
+    Notification:
+      title: Notification
+      type: object
+      description: Notification model
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        title:
+          type: string
+          example: Test notification
+        content:
+          type: string
+          example: Test
+        createdAt:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        read:
+          type: boolean
+          default: false
+      required:
+        - id
+        - title
+        - content
+        - createdAt
+        - read
+    CurrentUserProfile:
+      title: CurrentUserProfile
+      type: object
+      description: Current user profile model
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: test
+        name:
+          type: string
+          example: Test
+        email:
+          type: string
+          format: email
+          pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}'
+          example: test@test.com
+        country:
+          type: string
+          example: IN
+        college:
+          type: string
+          example: Test
+        currentLevel:
+          type: integer
+          example: 1
+        isAdmin:
+          type: boolean
+          default: false
+      required:
+        - id
+        - username
+        - name
+        - email
+        - country
+        - college
+        - currentLevel
+        - isAdmin
+    UpdateCurrentUserProfile:
+      title: UpdateCurrentUserProfile
+      type: object
+      description: Update current user profile request
+      properties:
+        name:
+          type: string
+          example: Test
+          nullable: true
+        country:
+          type: string
+          example: IN
+          nullable: true
+        college:
+          type: string
+          example: Test
+          nullable: true
+        avatarId:
+          type: integer
+          example: 1
+          nullable: true
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      type: object
+      description: Register user request
+      properties:
+        username:
+          type: string
+          example: test
+        name:
+          type: string
+          example: Test
+        email:
+          type: string
+          format: email
+          pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}'
+          example: test@test.com
+        password:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+        passwordConfirmation:
+          type: string
+          format: password
+          pattern: '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$'
+          minLength: 8
+          maxLength: 32
+        country:
+          type: string
+          example: IN
+        college:
+          type: string
+          example: Test
+        avatarId:
+          type: integer
+          example: 1
+      required:
+        - username
+        - name
+        - email
+        - password
+        - passwordConfirmation
+        - country
+        - college
+        - avatarId
+    Match:
+      description: Match model
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        games:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Game'
+        matchMode:
+          type: string
+          enum:
+            - SELF
+            - AI
+            - PREV_COMMIT
+            - MANUAL
+            - AUTO
+          example: SELF
+        matchVerdict:
+          type: string
+          minLength: 1
+          enum:
+            - PLAYER1
+            - PLAYER2
+            - TIE
+          example: TIE
+        createdAt:
+          type: string
+          format: date-time
+          example: '2021-01-01T00:00:00Z'
+        user1:
+          $ref: '#/components/schemas/PublicUser'
+        user2:
+          $ref: '#/components/schemas/PublicUser'
+      required:
+        - id
+        - games
+        - matchMode
+        - matchVerdict
+        - createdAt
+        - user1
+        - user2
+    Game:
+      title: Game
+      type: object
+      description: Game model
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 123e4567-e89b-12d3-a456-426614174000
+        map:
+          type: string
+          example: 0000\n0010\n0100\n1000\n
+        points1:
+          type: integer
+          example: 100
+        points2:
+          type: integer
+          example: 90
+        status:
+          type: string
+          enum:
+            - IDLE
+            - EXECUTING
+            - EXECUTED
+            - EXECUTE_ERROR
+          example: IDLE
+        gameVerdict:
+          type: string
+          enum:
+            - PLAYER1
+            - PLAYER2
+            - TIE
+          example: PLAYER1
+      required:
+        - id
+        - mapId
+        - points1
+        - points2
+        - status
+        - gameVerdict
+    GameLog:
+      type: string
+      description: Game log model
+      example: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+    LeaderboardEntry:
+      title: LeaderboardEntry
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/PublicUser'
+        stats:
+          $ref: '#/components/schemas/UserStats'
+      required:
+        - user
+        - stats
+      description: Leaderboard entry model
+    GenericError:
+      title: GenericError
+      type: object
+      properties:
+        message:
+          type: string
+      description: Model for Generic Error
+      x-examples:
+        Example:
+          message: Error XYZ
+  securitySchemes:
+    oauth2-google:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth'
+          tokenUrl: 'https://oauth2.googleapis.com/token'
+          scopes:
+            'https://www.googleapis.com/auth/userinfo.email': User email
+            'https://www.googleapis.com/auth/userinfo.profile': User profile
+          refreshUrl: 'https://oauth2.googleapis.com/token'
+      description: ''
+    oauth2-github:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: 'https://github.com/login/oauth/authorize'
+          tokenUrl: 'https://github.com/login/oauth/access_token'
+          scopes:
+            'read:user': User profile
+            'user:email': User email
+          refreshUrl: 'https://github.com/login/oauth/access_token'
+    http-bearer:
+      type: http
+      scheme: bearer
+  parameters:
+    announcementId:
+      name: announcementId
+      in: path
+      schema:
+        type: integer
+        minimum: 0
+        example: 4
+      description: ID of the announcement
+      required: true
+    notificationId:
+      name: notificationId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+        minimum: 0
+      description: ID of the notification
+    userId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
+      description: ID of the user
+    revisionId:
+      name: revisionId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      description: ID of the code revision
+    gameId:
+      name: gameId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: 123e4567-e89b-12d3-a456-426614174000
+      description: UUID of the game
+  responses: {}
+  examples: {}
+security:
+  - http-bearer: []
+tags:
+  - name: announcement
+    description: Announcement API
+  - name: auth
+    description: Auth API
+  - name: code
+    description: Code API
+  - name: map
+    description: Map API
+  - name: game
+    description: Game API
+  - name: leaderboard
+    description: Leaderboard API
+  - name: match
+    description: Match API
+  - name: notification
+    description: Notification API
+  - name: user
+    description: User API
+  - name: current-user
+    description: Current User API
